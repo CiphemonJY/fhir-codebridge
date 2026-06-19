@@ -162,13 +162,25 @@ class MappingTarget(BaseModel):
     method: str
 
 
+class Provenance(BaseModel):
+    """Mapping provenance — trust metadata for audit compliance."""
+    source_authority: Optional[str] = None
+    verified_date: Optional[str] = None
+    mapping_method: Optional[str] = None
+    confidence_level: str = "unverified"
+    effective_confidence: Optional[float] = None
+
+
 class LookupResponse(BaseModel):
     found: bool
     source: Optional[dict] = None
-    targets: list[MappingTarget] = []
+    targets: list = []
     action: str
     effective_confidence: float
     requires_human_review: bool
+    confidence: float = 0.0
+    method: Optional[str] = None
+    provenance: Optional[Provenance] = None
 
 
 class FhirTranslateRequest(BaseModel):
@@ -223,13 +235,47 @@ def normalize_system(s: str) -> str:
 
 @app.get("/health")
 async def health():
+    """Service health check with deep data verification."""
+    systems_loaded = dict(rag.systems)
+    versions = rag.terminology_versions
+    critical_systems = ["ICD-10-CM", "RXNORM", "CDT"]
+    missing = [s for s in critical_systems if s not in systems_loaded or systems_loaded[s] == 0]
     return {
-        "status": "ok",
+        "status": "ok" if not missing else "degraded",
         "service": "fhir-codebridge FHIR Terminology Service",
-        "version": "0.2.0",
+        "version": "0.3.1",
         "terms_loaded": len(rag.by_code),
         "umls_enabled": rag.umls_loaded,
         "auth_enabled": AUTH_ENABLED,
+        "systems_loaded": systems_loaded,
+        "missing_critical_systems": missing,
+        "terminology_versions": versions,
+        "data_integrity": "verified" if len(rag.by_code) > 100000 else "limited",
+    }
+
+
+@app.get("/terminology/version")
+async def terminology_version(role: str = Depends(get_api_key)):
+    """Return terminology set versions for audit compliance.
+    
+    Hospitals use this to prove which code set versions were in use
+    on a given date — required for CMS audits and Joint Commission compliance.
+    """
+    from datetime import date as _date
+    versions = rag.terminology_versions
+    return {
+        "snapshot_date": _date.today().isoformat(),
+        "service_version": "0.3.1",
+        "terminology_sets": versions,
+        "total_terms": len(rag.by_code),
+        "umls_loaded": rag.umls_loaded,
+        "notes": [
+            "ICD-10-CM updates October 1 annually (CMS)",
+            "RxNorm updates monthly (NLM)",
+            "CDT updates annually (ADA, usually Q4)",
+            "LOINC updates semi-annually (Regenstrief)",
+            "SNOMED-CT updates biannually (NLM US Edition)",
+        ],
     }
 
 
