@@ -41,6 +41,16 @@ curl -X POST http://localhost:8000/lookup \
 
 That's it. The service is running on port 8000.
 
+## Web UI
+
+Once deployed, open **http://localhost:8000** in your browser. No terminal needed.
+
+- **Dashboard** — See service status and terminology coverage at a glance
+- **Single Lookup** — Search one code and map it to another system (like Google for medical codes)
+- **Bulk Upload** — Drag a CSV file with codes, get a results CSV back. Perfect for Excel users.
+
+The web UI works in any modern browser (Chrome, Firefox, Safari). No install required — it's served by the same API server.
+
 ## Why Use This
 
 | Feature | fhir-codebridge | 3M 360 Encompass | HAPI FHIR | Apache cTAKES |

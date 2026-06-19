@@ -245,3 +245,67 @@ class TestAuditLog:
         latest = data["entries"][-1]
         assert latest["action"] == "lookup"
         assert latest["detail"]["code"] == "E11.9"
+
+
+class TestWebUI:
+    """Web UI endpoint tests."""
+
+    def test_root_returns_html(self, open_client):
+        """Root URL should serve the web UI HTML page."""
+        resp = open_client.get("/")
+        assert resp.status_code == 200
+        assert "text/html" in resp.headers.get("content-type", "")
+        # Should contain key UI elements
+        body = resp.text
+        assert "fhir-codebridge" in body
+        assert "Dashboard" in body
+        assert "Single Lookup" in body
+        assert "Bulk Upload" in body
+
+    def test_root_has_lookup_form(self, open_client):
+        """Web UI should have a lookup form with code input."""
+        resp = open_client.get("/")
+        body = resp.text
+        assert "lookup-code" in body  # ID of the code input field
+        assert "Map It" in body       # Button text
+
+    def test_root_has_bulk_upload(self, open_client):
+        """Web UI should have a bulk upload drop zone."""
+        resp = open_client.get("/")
+        body = resp.text
+        assert "drop-zone" in body
+        assert "csv" in body.lower()
+
+
+class TestBulk:
+    """Bulk CSV processing tests."""
+
+    def test_bulk_csv_processing(self, open_client):
+        """Upload a small CSV and get results back."""
+        import io
+        csv_content = "code\nE11.9\nI10\nJ45.901\n"
+        
+        resp = open_client.post(
+            "/bulk",
+            files={"file": ("test.csv", io.BytesIO(csv_content.encode()), "text/csv")},
+            data={"source_system": "ICD-10-CM", "target_system": "SNOMED-CT"},
+        )
+        assert resp.status_code == 200
+        assert "text/csv" in resp.headers.get("content-type", "")
+        body = resp.text
+        assert "original_code" in body
+        assert "E11.9" in body
+        # Should have summary line
+        assert "Summary" in body
+
+    def test_bulk_missing_code_column(self, open_client):
+        """CSV without a recognizable code column should return 400."""
+        import io
+        csv_content = "name,age\nJohn,30\nJane,25\n"
+        
+        resp = open_client.post(
+            "/bulk",
+            files={"file": ("test.csv", io.BytesIO(csv_content.encode()), "text/csv")},
+            data={"source_system": "ICD-10-CM", "target_system": "SNOMED-CT"},
+        )
+        assert resp.status_code == 400
