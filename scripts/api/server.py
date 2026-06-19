@@ -999,3 +999,280 @@ if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("CODEBRIDGE_PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
+
+# --- Pre-submission validation endpoint ---
+
+class ValidateRequest(BaseModel):
+    """Pre-submission validation request."""
+    codes: list  # List of {code, system} objects
+    target_system: Optional[str] = None
+    check_date: Optional[str] = None  # ISO date for validity checking
+
+
+class CodeValidation(BaseModel):
+    code: str
+    system: str
+    status: str  # pass, fail, warning
+    issues: list = []
+    mapped_code: Optional[str] = None
+    mapped_system: Optional[str] = None
+    confidence: float = 0.0
+
+
+@app.post("/validate")
+async def validate_codes(req: ValidateRequest, request: Request, role: str = Depends(get_api_key)):
+    """
+    Pre-submission code validation. Checks codes before claim submission.
+    
+    Returns per-code status:
+    - pass: code exists and maps confidently to target system
+    - warning: code exists but mapping is fuzzy or low confidence
+    - fail: code not found in terminology set
+    """
+    results = []
+    for item in req.codes:
+        code = item.get("code", "")
+        system = item.get("system", "")
+        if not code or not system:
+            results.append({
+                "code": code, "system": system, "status": "fail",
+                "issues": ["Missing code or system"],
+                "mapped_code": None, "mapped_system": None, "confidence": 0.0
+            })
+            continue
+        
+        sys_normalized = normalize_system(system)
+        # Check if code exists
+        entry = rag.lookup_code(sys_normalized, code)
+        if not entry:
+            # Try without dot normalization
+            entry = rag.lookup_code(sys_normalized, code.replace(".", ""))
+        
+        if not entry:
+            results.append({
+                "code": code, "system": system, "status": "fail",
+                "issues": [f"Code {code} not found in {sys_normalized}"],
+                "mapped_code": None, "mapped_system": None, "confidence": 0.0
+            })
+            continue
+        
+        # Code exists — check mapping if target specified
+        mapped = rag.map_with_confidence(
+            code=code, system=sys_normalized, target_system=req.target_system
+        )
+        
+        issues = []
+        status = "pass"
+        confidence = mapped.get("effective_confidence", 0.0)
+        
+        if req.target_system and not mapped.get("targets"):
+            issues.append(f"No mapping found to {req.target_system}")
+            status = "warning"
+        elif req.target_system and mapped.get("targets"):
+            best = mapped["targets"][0]
+            if best.get("confidence", 0) < 0.8:
+                issues.append(f"Low confidence mapping to {req.target_system}: {best.get('confidence', 0):.2f}")
+                status = "warning"
+        
+        if mapped.get("requires_human_review"):
+            issues.append("Human review required")
+            if status == "pass":
+                status = "warning"
+        
+        results.append({
+            "code": code, "system": system, "status": status,
+            "issues": issues,
+            "mapped_code": mapped["targets"][0]["code"] if mapped.get("targets") else None,
+            "mapped_system": mapped["targets"][0]["system"] if mapped.get("targets") else None,
+            "confidence": confidence
+        })
+    
+    # Audit log
+    audit_log(request, "validate", {
+        "codes_count": len(req.codes),
+        "target_system": req.target_system,
+        "pass_count": sum(1 for r in results if r["status"] == "pass"),
+        "warning_count": sum(1 for r in results if r["status"] == "warning"),
+        "fail_count": sum(1 for r in results if r["status"] == "fail"),
+    })
+    
+    return {
+        "total": len(results),
+        "pass": sum(1 for r in results if r["status"] == "pass"),
+        "warning": sum(1 for r in results if r["status"] == "warning"),
+        "fail": sum(1 for r in results if r["status"] == "fail"),
+        "results": results,
+    }
+
+
+# --- Denial pattern analytics endpoint ---
+
+@app.get("/analytics/denials")
+async def denial_analytics(
+    request: Request,
+    role: str = Depends(get_api_key),
+    limit: int = 1000,
+):
+    """
+    Aggregate audit log data to show denial patterns.
+    Shows top rejected codes, top mismatched mappings, confidence distribution.
+    """
+    audit_path = Path(os.environ.get("CODEBRIDGE_AUDIT_LOG", "data/audit.log"))
+    if not audit_path.exists():
+        return {
+            "total_lookups": 0,
+            "message": "No audit log data available yet.",
+        }
+    
+    from collections import Counter
+    
+    actions = Counter()
+    rejected_codes = Counter()
+    fuzzy_matches = Counter()
+    confidence_buckets = {"verified": 0, "crosswalk_derived": 0, "fuzzy": 0, "unverified": 0}
+    total = 0
+    
+    with open(audit_path) as f:
+        for line in f:
+            try:
+                entry = json.loads(line.strip())
+                total += 1
+                action = entry.get("action", "unknown")
+                actions[action] += 1
+                if action == "reject":
+                    rejected_codes[entry.get("code", "unknown")] += 1
+                if action == "review":
+                    fuzzy_matches[entry.get("code", "unknown")] += 1
+                conf = entry.get("confidence", 0)
+                if conf >= 0.95:
+                    confidence_buckets["verified"] += 1
+                elif conf >= 0.8:
+                    confidence_buckets["crosswalk_derived"] += 1
+                elif conf >= 0.6:
+                    confidence_buckets["fuzzy"] += 1
+                else:
+                    confidence_buckets["unverified"] += 1
+            except (json.JSONDecodeError, KeyError):
+                continue
+    
+    return {
+        "total_lookups": total,
+        "action_distribution": dict(actions),
+        "top_rejected_codes": rejected_codes.most_common(10),
+        "top_review_codes": fuzzy_matches.most_common(10),
+        "confidence_distribution": confidence_buckets,
+    }
+
+
+# --- Streaming bulk CSV endpoint ---
+# Replaces the in-memory /bulk endpoint with streaming for large files
+
+from fastapi.responses import StreamingResponse
+import csv
+import io as _io
+
+
+@app.post("/bulk/stream")
+async def bulk_stream(
+    request: Request,
+    file: UploadFile = File(...),
+    source_system: str = Form(...),
+    target_system: Optional[str] = Form(None),
+    role: str = Depends(get_api_key),
+):
+    """
+    Streaming bulk CSV processing for large files (200K+ rows).
+    Returns results as a streaming CSV download.
+    """
+    content = await file.read()
+    text = content.decode("utf-8-sig")  # Handle BOM
+    
+    reader = csv.DictReader(_io.StringIO(text))
+    if not reader.fieldnames:
+        return JSONResponse(status_code=400, content={"detail": "Empty or invalid CSV"})
+    
+    # Auto-detect code column
+    code_col = None
+    for candidate in ("code", "codes", "diagnosis_code", "dx_code", "icd10", "icd-10"):
+        for field in reader.fieldnames:
+            if field.lower().strip() == candidate:
+                code_col = field
+                break
+        if code_col:
+            break
+    
+    if not code_col:
+        return JSONResponse(
+            status_code=400,
+            content={"detail": f"No code column found. Expected one of: code, codes, diagnosis_code, dx_code. Found: {reader.fieldnames}"}
+        )
+    
+    sys_normalized = normalize_system(source_system)
+    target_norm = normalize_system(target_system) if target_system else None
+    
+    def generate():
+        # Summary header
+        matched = 0
+        not_found = 0
+        errors = 0
+        total = 0
+        
+        output = _io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["original_code", "original_description", "mapped_code", "mapped_description",
+                         "mapped_system", "confidence", "confidence_label", "action"])
+        
+        for row in reader:
+            try:
+                code = row.get(code_col, "").strip()
+                if not code:
+                    continue
+                total += 1
+                result = rag.map_with_confidence(
+                    code=code, system=sys_normalized, target_system=target_norm
+                )
+                
+                if result.get("found"):
+                    matched += 1
+                    src = result.get("source", {})
+                    if result.get("targets"):
+                        t = result["targets"][0]
+                        writer.writerow([
+                            code,
+                            src.get("display", ""),
+                            t.get("code", ""),
+                            t.get("display", ""),
+                            t.get("system", ""),
+                            f"{t.get('confidence', 0):.4f}",
+                            _confidence_label(t.get("confidence", 0)),
+                            result.get("action", "review")
+                        ])
+                    else:
+                        writer.writerow([
+                            code, src.get("display", ""), "", "", "", "0.0000",
+                            "no_target", result.get("action", "review")
+                        ])
+                else:
+                    not_found += 1
+                    writer.writerow([code, "", "", "", "", "0.0000", "not_found", "reject"])
+            except Exception as e:
+                errors += 1
+                writer.writerow([row.get(code_col, ""), "", "", "", "", "0.0000", "error", "reject"])
+        
+        # Write summary at the top (prepend)
+        summary = f"# Summary: {matched} matched, {not_found} not found, {errors} errors out of {total} total\n"
+        yield summary
+        output.seek(0)
+        yield output.getvalue()
+    
+    audit_log(request, "bulk_stream", {
+        "filename": file.filename,
+        "source_system": source_system,
+        "target_system": target_system,
+    })
+    
+    return StreamingResponse(
+        generate(),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=results.csv"}
+    )
