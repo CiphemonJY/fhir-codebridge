@@ -10,7 +10,7 @@ services:
     # Mount secrets as files, app reads them via _read_secret()
     environment:
       - CODEBRIDGE_UMLS_API_KEY_FILE=/run/secrets/umls_api_key.txt
-      - CODEBRIDGE_API_KEYS_FILE=/run/secrets/lisa_api_keys.txt
+      - CODEBRIDGE_API_KEYS_FILE=/run/secrets/codebridge_api_keys.txt
       - CODEBRIDGE_PORT=8000
       - CODEBRIDGE_AUDIT_LOG=/app/data/audit.log
     restart: unless-stopped

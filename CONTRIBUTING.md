@@ -107,31 +107,59 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 ```
 fhir-codebridge/
+├── codebridge/                  # Client SDK (pip-installable)
+│   └── __init__.py
+├── config/
+│   └── payer_rules/             # YAML payer rule definitions
+│       ├── medicare.yml
+│       ├── medicaid_texas.yml
+│       └── README.md
+├── data/
+│   ├── terminology_parsed/      # JSON terminology files (loaded at startup)
+│   └── terminology_raw/        # UMLS MRCONSO.RRF (hospital-provided)
+├── docs/
+│   ├── screenshots/            # Web UI screenshots
+│   └── training/               # Training materials (quickstart, glossary, admin)
+├── examples/
+│   ├── curl_examples.sh
+│   ├── client_example.py
+│   ├── postman_collection.json
+│   └── nginx/nginx.conf
 ├── scripts/
 │   ├── api/
-│   │   └── server.py          # FastAPI server with 5 endpoints
-│   └── rag/
-│       └── rag_lookup.py      # RAG lookup engine
-├── data/
-│   ├── terminology_parsed/    # JSON terminology files (loaded at startup)
-│   └── terminology_raw/        # UMLS MRCONSO.RRF (hospital-provided)
-├── examples/
-│   ├── curl_examples.sh        # curl API examples
-│   ├── client_example.py       # Python client
-│   ├── postman_collection.json # Postman collection
-│   └── nginx/
-│       └── nginx.conf          # TLS reverse proxy config
+│   │   ├── server.py           # FastAPI server (16 endpoints, web UI)
+│   │   ├── logging_config.py  # Structured JSON logging
+│   │   └── payer_rules.py     # Payer rule engine
+│   ├── rag/
+│   │   ├── rag_lookup.py      # RAG lookup engine (100% on known terms)
+│   │   └── umls_api.py         # UMLS UTS API client
+│   ├── build_terminology_data.py
+│   ├── calibration_test_100.py
+│   ├── download_cms_icd10.py
+│   ├── download_rxnorm.py
+│   └── test_go_nogo.py
+├── tests/
+│   ├── test_api.py             # 50 API integration tests
+│   └── test_client.py          # Client SDK tests
+├── .github/workflows/
+│   ├── ci.yml                  # CI: pytest + Docker build
+│   └── update-terminology.yml  # Monthly terminology auto-update
 ├── Dockerfile
 ├── docker-compose.yml
+├── pyproject.toml
+├── requirements.txt
 ├── .env.example
+├── quickstart.sh               # pip install quickstart
+├── docker-quickstart.sh        # Docker quickstart
 ├── README.md
 ├── INSTALL.md
 ├── BENCHMARK.md
 ├── COMMERCIAL.md
-├── SNOMED_LICENSE.md
 ├── CONTRIBUTING.md
-├── LICENSE
-└── requirements.txt
+├── SECURITY.md
+├── CHANGELOG.md
+├── SNOMED_LICENSE.md
+└── LICENSE
 ```
 
 Thank you for helping make terminology mapping accessible to every hospital! 🏥

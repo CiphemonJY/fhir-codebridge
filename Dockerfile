@@ -6,9 +6,17 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
+# Copy application code, config, and client SDK
 COPY scripts/ scripts/
 COPY data/ data/
+COPY config/ config/
+COPY codebridge/ codebridge/
+COPY pyproject.toml .
+
+# Create non-root user for security
+RUN useradd -m -s /bin/bash codebridge && \
+    chown -R codebridge:codebridge /app
+USER codebridge
 
 # Expose API port
 EXPOSE 8000

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Go/No-Go Gate Tests for fhir-codebridge v0.1.0.
+Go/No-Go Gate Tests for fhir-codebridge v0.4.1.
 
 Tests the 10 release criteria from the council PM review.
 Run: python3 scripts/test_go_nogo.py
@@ -284,7 +284,7 @@ def gate_10_license():
 
 def main():
     print("=" * 60)
-    print("fhir-codebridge v0.1.0 Go/No-Go Gate Tests")
+    print("fhir-codebridge v0.4.1 Go/No-Go Gate Tests")
     print(f"Run at: {datetime.now().isoformat()}")
     print("=" * 60)
     
