@@ -1,0 +1,21 @@
+# Texas Medicaid Claim Editing Rules
+# Based on common Texas Medicaid denial patterns.
+payer: Texas Medicaid
+rules:
+  # Emergency department visits require urgency indicator
+  - code_system: CDT
+    code: "D0140"
+    checks:
+      - type: frequency_limit
+        max_per_period: 1
+        period_days: 180
+        message: "Emergency oral evaluation limited to 1x per 6 months (TX Medicaid)"
+  
+  # Well-child visits by age
+  - code_system: ICD-10-CM
+    code_pattern: "Z00*"
+    checks:
+      - type: age_restriction
+        min: 0
+        max: 21
+        message: "Well-child codes (Z00) are for patients under 21 (TX Medicaid)"
