@@ -599,7 +599,7 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top:
 <body>
 <header>
   <div class="container">
-    <h1>🏥 fhir-codebridge</h1>
+    <h1>fhir-codebridge</h1>
     <p>FHIR Terminology Mapper — map clinical codes across ICD-10, SNOMED, LOINC, RxNorm & CDT</p>
     <nav>
       <button id="nav-dashboard" class="active" onclick="showTab('dashboard')">Dashboard</button>
@@ -701,7 +701,7 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top:
       </div>
     </div>
     <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-      <p>📄 <strong>Click to select a CSV file</strong> or drag and drop here</p>
+      <p><strong>Click to select a CSV file</strong> or drag and drop here</p>
       <p style="font-size:0.8rem">File should have a column with codes (e.g., "code", "diagnosis_code", "dx_code")</p>
       <input type="file" id="file-input" accept=".csv" style="display:none" onchange="handleFile(this.files[0])">
     </div>
@@ -737,7 +737,7 @@ async function loadDashboard() {
     const grid = document.getElementById('status-content');
     grid.classList.remove('hidden');
     document.getElementById('stat-grid').innerHTML = `
-      <div class="stat-box"><div class="num" style="color:${h.status==='ok'?'var(--green)':'var(--red)'}">${h.status === 'ok' ? '✅ Running' : '❌ Down'}</div><div class="label">Service Status</div></div>
+      <div class="stat-box"><div class="num" style="color:${h.status==='ok'?'var(--green)':'var(--red)'}">${h.status === 'ok' ? 'Running' : 'Down'}</div><div class="label">Service Status</div></div>
       <div class="stat-box"><div class="num">${(h.terms_loaded||0).toLocaleString()}</div><div class="label">Terms Loaded</div></div>
       <div class="stat-box"><div class="num" style="color:${h.umls_enabled?'var(--green)':'var(--yellow)'}">${h.umls_enabled ? 'Yes' : 'No'}</div><div class="label">UMLS Full Load</div></div>
       <div class="stat-box"><div class="num">v${h.version}</div><div class="label">Version</div></div>
@@ -779,7 +779,7 @@ async function doLookup() {
     const r = await fetch(API + '/lookup', {method:'POST', headers:headers(), body:JSON.stringify(body)});
     const data = await r.json();
     if(!r.ok) { resultDiv.innerHTML = `<div class="error-msg">${data.detail || 'Lookup failed'}</div>`; return; }
-    if(!data.found) { resultDiv.innerHTML = `<div class="result-card"><p>❌ Code <strong>${code}</strong> not found.</p></div>`; return; }
+    if(!data.found) { resultDiv.innerHTML = `<div class="result-card"><p>Code <strong>${code}</strong> not found.</p></div>`; return; }
     let html = '<div class="result-card">';
     if(data.source) {
       html += `<p><strong>Source:</strong> ${data.source.code} — ${data.source.display} <span style="color:var(--muted)">(${data.source.system})</span></p>`;
@@ -816,7 +816,7 @@ dropZone.addEventListener('drop', e => {
 
 function handleFile(file) {
   document.getElementById('file-info').classList.remove('hidden');
-  document.getElementById('file-info').innerHTML = `<p>📎 Selected: <strong>${file.name}</strong> (${(file.size/1024).toFixed(1)} KB)</p>`;
+  document.getElementById('file-info').innerHTML = `<p>Selected: <strong>${file.name}</strong> (${(file.size/1024).toFixed(1)} KB)</p>`;
   document.getElementById('bulk-result').innerHTML = '';
 }
 
@@ -849,7 +849,7 @@ async function doBulk() {
     const a = document.createElement('a');
     a.href = url; a.download = `codebridge_results.csv`; a.click();
     URL.revokeObjectURL(url);
-    result.innerHTML = '<div class="success-msg">✅ Done! Your results file has been downloaded. Open it in Excel.</div>';
+    result.innerHTML = '<div class="success-msg">Done! Your results file has been downloaded. Open it in Excel.</div>';
   } catch(e) {
     result.innerHTML = `<div class="error-msg">Error: ${e.message}</div>`;
   } finally {
