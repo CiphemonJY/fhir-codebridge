@@ -411,3 +411,46 @@ class TestTerminologyVersion:
         # With shipped data, ICD-10-CM should be loaded
         assert "ICD-10-CM" in data["systems_loaded"]
         assert data["data_integrity"] in ("verified", "limited")
+
+
+class TestRateLimit:
+    """Rate limiting tests."""
+
+    def test_rate_limit_health_exempt(self, open_client):
+        """Health endpoint should not be rate limited."""
+        for _ in range(5):
+            resp = open_client.get("/health")
+            assert resp.status_code == 200
+
+    def test_rate_limit_metrics_exempt(self, open_client):
+        """Metrics endpoint should not be rate limited."""
+        for _ in range(5):
+            resp = open_client.get("/metrics")
+            assert resp.status_code == 200
+
+
+class TestTrainingDocs:
+    """Verify training materials exist and are readable."""
+
+    def test_quickstart_guide_exists(self):
+        import os
+        path = os.path.join(os.path.dirname(__file__), "..", "docs", "training", "quickstart-guide.md")
+        assert os.path.exists(path), "Quickstart guide not found"
+
+    def test_glossary_exists(self):
+        import os
+        path = os.path.join(os.path.dirname(__file__), "..", "docs", "training", "glossary.md")
+        assert os.path.exists(path), "Glossary not found"
+
+    def test_admin_guide_exists(self):
+        import os
+        path = os.path.join(os.path.dirname(__file__), "..", "docs", "training", "admin-guide.md")
+        assert os.path.exists(path), "Admin guide not found"
+
+    def test_quickstart_has_lookup_example(self):
+        import os
+        path = os.path.join(os.path.dirname(__file__), "..", "docs", "training", "quickstart-guide.md")
+        with open(path) as f:
+            content = f.read()
+        assert "E11.9" in content, "Quickstart should reference a real code example"
+        assert "Map It" in content or "lookup" in content.lower()

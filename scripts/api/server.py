@@ -23,6 +23,9 @@ Run:
 """
 
 import os
+import time
+import collections
+from scripts.api.logging_config import logger, setup_logging
 import sys
 import json
 import time
@@ -72,8 +75,8 @@ if API_KEYS_ENV:
 AUTH_EXPLICITLY_DISABLED = os.environ.get("CODEBRIDGE_AUTH_DISABLED", "").strip() in ("1", "true", "yes")
 AUTH_ENABLED = bool(API_KEYS) or not AUTH_EXPLICITLY_DISABLED
 if AUTH_EXPLICITLY_DISABLED and not API_KEYS:
-    print("WARNING: CODEBRIDGE_AUTH_DISABLED=1 — API is running in open mode (no authentication). "
-          "Do NOT use in production.")
+    logger.warning("API running in open mode (no authentication). Do NOT use in production.",
+                   extra={"event": "auth_disabled_warning"})
 API_KEY_HEADER = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 # Audit log path
@@ -86,6 +89,40 @@ app = FastAPI(
     description="Open source on-prem terminology mapper. Bring your UMLS API key for full coverage.",
     version="0.2.0",
 )
+
+# --- Rate Limiting (in-memory token bucket) ---
+RATE_LIMIT_ENABLED = os.environ.get("CODEBRIDGE_RATE_LIMIT", "1") == "1"
+RATE_LIMIT_REQUESTS = int(os.environ.get("CODEBRIDGE_RATE_LIMIT_REQUESTS", "100"))
+RATE_LIMIT_WINDOW = int(os.environ.get("CODEBRIDGE_RATE_LIMIT_WINDOW", "60"))  # seconds
+
+rate_buckets = collections.defaultdict(lambda: collections.deque())
+
+
+@app.middleware("http")
+async def rate_limit(request: Request, call_next):
+    """Simple per-client rate limiter. Returns 429 when exceeded."""
+    if not RATE_LIMIT_ENABLED:
+        return await call_next(request)
+    # Use API key as identifier if present, else IP
+    client_id = request.headers.get("X-API-Key") or request.client.host if request.client else "unknown"
+    # Skip rate limiting for health and metrics endpoints
+    path = request.url.path
+    if path in ("/health", "/metrics", "/"):
+        return await call_next(request)
+    now = time.time()
+    bucket = rate_buckets[client_id]
+    # Prune old entries
+    while bucket and bucket[0] < now - RATE_LIMIT_WINDOW:
+        bucket.popleft()
+    if len(bucket) >= RATE_LIMIT_REQUESTS:
+        return JSONResponse(
+            status_code=429,
+            content={"detail": f"Rate limit exceeded: {RATE_LIMIT_REQUESTS} requests per {RATE_LIMIT_WINDOW}s. Retry after {int(RATE_LIMIT_WINDOW - (now - bucket[0]))}s."}
+        )
+    bucket.append(now)
+    response = await call_next(request)
+    return response
+
 
 # CORS: configurable via env var, defaults to restrictive (no wildcard + credentials)
 CORS_ORIGINS = os.environ.get("CODEBRIDGE_CORS_ORIGINS", "").strip()
@@ -119,7 +156,7 @@ def audit_log(request: Request, action: str, detail: dict):
     except Exception as e:
         # Log to stderr — audit failures should be visible, not silent
         import sys as _sys
-        print(f"AUDIT LOG ERROR: {e}", file=_sys.stderr)
+        logger.error("Audit log write failed", extra={"event": "audit_error", "error": str(e)})
 
 
 # --- Auth + RBAC ---
