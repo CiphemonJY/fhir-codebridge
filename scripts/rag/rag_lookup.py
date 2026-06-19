@@ -81,7 +81,7 @@ class RAGLookup:
                 if file_count > 0:
                     self._record_version(path.name, entries, file_count, file_source)
             except (json.JSONDecodeError, KeyError) as e:
-                print(f"Warning: Could not load {path.name}: {e}")
+                import sys; print(f"Warning: Could not load {path.name}: {e}", file=sys.stderr)
         
         # Load crosswalk mappings
         cw_path = self.data_dir / "crosswalk_v3.json"
@@ -151,9 +151,9 @@ class RAGLookup:
                 from rag.umls_api import UMLSClient
                 self.umls_api = UMLSClient(api_key=key)
                 self.umls_loaded = True
-                print("UMLS API enabled.")
+                import sys; print("UMLS API enabled.", file=sys.stderr)
             except Exception as e:
-                print(f"UMLS API init failed: {e}")
+                import sys; print(f"UMLS API init failed: {e}", file=sys.stderr)
     
     def _try_load_umls(self):
         """If hospital dropped MRCONSO.RRF into data/terminology_raw/umls/, load it."""
@@ -204,7 +204,7 @@ class RAGLookup:
         
         if count > 0:
             self.umls_loaded = True
-            print(f"UMLS loaded: +{count} terms from MRCONSO.RRF")
+            import sys; print(f"UMLS loaded: +{count} terms from MRCONSO.RRF", file=sys.stderr)
     
     def _normalize_code(self, system, code):
         """Normalize ICD-10-CM codes to handle dot/no-dot variants."""
