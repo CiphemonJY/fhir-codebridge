@@ -835,6 +835,17 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top:
   </div>
 </div>
 
+<!-- ANALYTICS -->
+<div id="tab-analytics" class="hidden">
+  <div class="card">
+    <h2>Denial Pattern Analytics</h2>
+    <p style="color:var(--muted);margin-bottom:1rem">Aggregated from audit log data. Helps identify coding patterns that lead to denials.</p>
+    <div id="analytics-content" style="margin-top:20px;">
+      <p style="color:#666;">Loading analytics data...</p>
+    </div>
+  </div>
+</div>
+
 <!-- BULK UPLOAD -->
 <div id="tab-bulk" class="hidden">
   <div class="card">
@@ -884,7 +895,7 @@ const apiKey = new URLSearchParams(window.location.search).get('key') || '';
 function headers() { const h = {'Content-Type':'application/json'}; if(apiKey) h['X-API-Key']=apiKey; return h; }
 
 function showTab(tab) {
-  ['dashboard','lookup','bulk'].forEach(t => {
+  ['dashboard','lookup','bulk','analytics'].forEach(t => {
     document.getElementById('tab-'+t).classList.toggle('hidden', t !== tab);
     document.getElementById('nav-'+t).classList.toggle('active', t === tab);
   });
@@ -898,32 +909,32 @@ async function loadAnalytics() {
     const data = await resp.json();
     const el = document.getElementById("analytics-content");
     if (!data.total_lookups) {
-      el.innerHTML = "<p style=\"color:#666;\">No audit data available yet. Make some lookups first.</p>";
+      el.innerHTML = '<p style="color:#666;">No audit data available yet. Make some lookups first.</p>';
       return;
     }
-    let html = "<table class=\"coverage-table\"><tr><th>Metric</th><th>Value</th></tr>";
-    html += "<tr><td>Total Lookups</td><td>" + data.total_lookups + "</td></tr>";
+    let html = '<table class="coverage-table"><tr><th>Metric</th><th>Value</th></tr>';
+    html += '<tr><td>Total Lookups</td><td>' + data.total_lookups + '</td></tr>';
     if (data.action_distribution) {
       for (const [action, count] of Object.entries(data.action_distribution)) {
-        html += "<tr><td>" + action + "</td><td>" + count + "</td></tr>";
+        html += '<tr><td>' + action + '</td><td>' + count + '</td></tr>';
       }
     }
     if (data.confidence_distribution) {
-      html += "<tr><td colspan=\"2\"><strong>Confidence Distribution</strong></td></tr>";
+      html += '<tr><td colspan="2"><strong>Confidence Distribution</strong></td></tr>';
       for (const [level, count] of Object.entries(data.confidence_distribution)) {
-        html += "<tr><td>" + level + "</td><td>" + count + "</td></tr>";
+        html += '<tr><td>' + level + '</td><td>' + count + '</td></tr>';
       }
     }
     if (data.top_rejected_codes && data.top_rejected_codes.length > 0) {
-      html += "<tr><td colspan=\"2\"><strong>Top Rejected Codes</strong></td></tr>";
+      html += '<tr><td colspan="2"><strong>Top Rejected Codes</strong></td></tr>';
       for (const [code, count] of data.top_rejected_codes) {
-        html += "<tr><td>" + code + "</td><td>" + count + "</td></tr>";
+        html += '<tr><td>' + code + '</td><td>' + count + '</td></tr>';
       }
     }
-    html += "</table>";
+    html += '</table>';
     el.innerHTML = html;
   } catch(e) {
-    document.getElementById("analytics-content").innerHTML = "<p style=\"color:#c00;\">Error loading analytics: " + e.message + "</p>";
+    document.getElementById("analytics-content").innerHTML = '<p style="color:#c00;">Error loading analytics: ' + e.message + '</p>';
   }
 }
 
