@@ -15,9 +15,10 @@ Just a dict and some string matching. Ponytail approved.
 import json
 import os
 import re
+from datetime import date
 from difflib import SequenceMatcher
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, List, Any
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
 DATA_DIR = _SCRIPT_DIR.parent.parent / "data" / "terminology_parsed"
@@ -36,6 +37,7 @@ class RAGLookup:
         self.umls_loaded = False
         self.umls_api = None
         self._prefix_index = {}  # first-3-chars → list of display strings
+        self.terminology_versions = {}  # system → {version, loaded_date, source, entry_count}
         self._load()
         self._init_umls_api()
     
@@ -58,12 +60,16 @@ class RAGLookup:
                     entries = json.load(f)
                 if not isinstance(entries, list):
                     continue
+                file_count = 0
+                file_source = None
                 for entry in entries:
                     if 'code' not in entry or 'system' not in entry or 'display' not in entry:
                         continue
                     key = f"{entry['system']}|{entry['code']}"
                     if key in self.by_code:
                         continue  # Dedup
+                    if 'source' in entry and not file_source:
+                        file_source = entry['source']
                     self.by_code[key] = entry
                     display_lower = entry['display'].lower()
                     if display_lower not in self.by_display:
@@ -71,6 +77,9 @@ class RAGLookup:
                     self.by_display[display_lower].append(entry)
                     sys_name = entry['system']
                     self.systems[sys_name] = self.systems.get(sys_name, 0) + 1
+                    file_count += 1
+                if file_count > 0:
+                    self._record_version(path.name, entries, file_count, file_source)
             except (json.JSONDecodeError, KeyError) as e:
                 print(f"Warning: Could not load {path.name}: {e}")
         
@@ -91,6 +100,15 @@ class RAGLookup:
                     'same_system': m['same_system']
                 })
         
+            # Record crosswalk version
+            self.terminology_versions['crosswalk_v3'] = {
+                'source_file': 'crosswalk_v3.json',
+                'source_authority': 'Internal verified crosswalk',
+                'version': 'v3',
+                'loaded_date': date.today().isoformat(),
+                'entry_count': len(mappings),
+            }
+        
         # Build prefix index for fast fuzzy lookup (first 3 chars → display strings)
         for display in self.by_display:
             prefix = display[:3] if len(display) >= 3 else display
@@ -101,6 +119,24 @@ class RAGLookup:
         # Try to load UMLS if hospital provided it
         self._try_load_umls()
     
+    def _record_version(self, filename, entries, count, file_source):
+        """Record terminology version metadata for a loaded data file."""
+        sys_name = entries[0].get('system', 'unknown') if entries else 'unknown'
+        source_str = file_source or filename
+        version = 'unknown'
+        for yr in ('2027', '2026', '2025', '2024'):
+            if yr in source_str:
+                version = yr
+                break
+        self.terminology_versions[filename] = {
+            'source_file': filename,
+            'source_authority': file_source or 'Unknown',
+            'system': sys_name,
+            'version': version,
+            'loaded_date': date.today().isoformat(),
+            'entry_count': count,
+        }
+
     def _init_umls_api(self):
         """If CODEBRIDGE_UMLS_API_KEY is set, enable UMLS UTS API for live lookups."""
         # Read from env or Docker secret file
@@ -504,6 +540,12 @@ class RAGLookup:
             'confidence': 0.0,
             'method': None
         }
+        provenance = {
+            'source_authority': None,
+            'verified_date': None,
+            'mapping_method': None,
+            'confidence_level': 'unverified',
+        }
         
         # Step 1: Exact lookup
         if code and system:
@@ -513,6 +555,10 @@ class RAGLookup:
                 result['found'] = True
                 result['confidence'] = 1.0
                 result['method'] = 'exact_code_lookup'
+                provenance['source_authority'] = entry.get('source', 'Loaded terminology data')
+                provenance['verified_date'] = date.today().isoformat()
+                provenance['mapping_method'] = 'exact_code_lookup'
+                provenance['confidence_level'] = 'verified'
         
         # Step 2: Crosswalk
         if code and system:
@@ -528,6 +574,9 @@ class RAGLookup:
                         'confidence': r['similarity'],
                         'method': 'verified_crosswalk'
                     })
+                provenance['mapping_method'] = 'verified_crosswalk'
+                provenance['confidence_level'] = 'verified' if result['confidence'] >= 0.95 else 'crosswalk_derived'
+                provenance['source_authority'] = 'Internal verified crosswalk v3'
         
         # Step 3: Fuzzy display match (fallback for unknowns)
         if display and not result['found']:
@@ -537,6 +586,9 @@ class RAGLookup:
                 result['source'] = matches[0][1]
                 result['confidence'] = matches[0][0]
                 result['method'] = 'fuzzy_display_match'
+                provenance['mapping_method'] = 'fuzzy_display_match'
+                provenance['confidence_level'] = 'fuzzy'
+                provenance['source_authority'] = matches[0][1].get('source', 'Loaded terminology data')
         
         # Step 4: If we found source but no crosswalk targets, try display match in target system
         if result['source'] and target_system and not result['targets']:
@@ -550,6 +602,8 @@ class RAGLookup:
                     'confidence': score,
                     'method': 'fuzzy_cross_match'
                 })
+                provenance['mapping_method'] = 'fuzzy_cross_match'
+                provenance['confidence_level'] = 'fuzzy'
         
         # Step 5: UMLS API fallback — if local data didn't find cross-system mappings
         if self.umls_api and code and system and not result['targets'] and target_system:
@@ -564,9 +618,13 @@ class RAGLookup:
                             result['source'] = {'code': m['code'], 'system': m['system'], 'display': m['display']}
                             result['confidence'] = 1.0
                             result['method'] = 'umls_api_lookup'
+                            provenance['source_authority'] = 'UMLS Metathesaurus (NLM)'
+                            provenance['mapping_method'] = 'umls_api_lookup'
+                            provenance['confidence_level'] = 'verified'
             except Exception:
                 pass  # UMLS API is best-effort, local data takes priority
         
+        result['provenance'] = provenance
         return result
     
     def stats(self):
@@ -576,6 +634,7 @@ class RAGLookup:
             'by_system': dict(self.systems),
             'crosswalk_mappings': sum(len(v) for v in self.crosswalk.values()),
             'umls_loaded': self.umls_loaded,
+            'terminology_versions': self.terminology_versions,
             'data_sources': {
                 'shipped': 'CDT (397), LOINC core (23), RxNorm (500), db_523 ontology (523), crosswalk (1,898)',
                 'hospital_provided': 'UMLS MRCONSO.RRF — adds 600K+ terms when loaded',
@@ -675,6 +734,7 @@ class RAGLookup:
         result['action'] = action
         result['effective_confidence'] = effective_conf
         result['requires_human_review'] = action != 'auto_accept'
+        result['provenance']['effective_confidence'] = effective_conf
         
         return result
 

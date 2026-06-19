@@ -47,7 +47,7 @@ class TestHealth:
         data = resp.json()
         assert data["status"] == "ok"
         assert data["service"] == "fhir-codebridge FHIR Terminology Service"
-        assert data["version"] == "0.2.0"
+        assert data["version"] == "0.3.1"
         assert "terms_loaded" in data
         assert "auth_enabled" in data
 
@@ -336,3 +336,78 @@ class TestMetrics:
         # Already using open_client which has auth disabled
         resp = open_client.get("/metrics")
         assert resp.status_code == 200
+
+class TestProvenance:
+    """Mapping provenance tests — Tier 0 trust layer."""
+
+    def test_lookup_returns_provenance(self, open_client):
+        """Every lookup result should include provenance metadata."""
+        resp = open_client.post("/lookup", json={"code": "E11.9", "system": "ICD-10-CM"})
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "provenance" in data
+        prov = data["provenance"]
+        assert "source_authority" in prov
+        assert "mapping_method" in prov
+        assert "confidence_level" in prov
+        assert prov["confidence_level"] in ("verified", "crosswalk_derived", "fuzzy", "unverified")
+
+    def test_exact_lookup_provenance_verified(self, open_client):
+        """Exact code lookups should have 'verified' confidence level."""
+        resp = open_client.post("/lookup", json={"code": "E11.9", "system": "ICD-10-CM"})
+        data = resp.json()
+        assert data["found"] is True
+        assert data["provenance"]["confidence_level"] == "verified"
+        assert data["provenance"]["mapping_method"] == "exact_code_lookup"
+
+    def test_fuzzy_lookup_provenance_fuzzy(self, open_client):
+        """Fuzzy display matches should have 'fuzzy' confidence level."""
+        resp = open_client.post("/lookup", json={"display": "metformin", "system": "RXNORM"})
+        data = resp.json()
+        if data["found"]:
+            assert data["provenance"]["confidence_level"] == "fuzzy"
+            assert data["provenance"]["mapping_method"] == "fuzzy_display_match"
+
+
+class TestTerminologyVersion:
+    """Terminology version pinning tests — audit compliance."""
+
+    def test_terminology_version_endpoint(self, open_client):
+        """GET /terminology/version should return version metadata."""
+        resp = open_client.get("/terminology/version")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "snapshot_date" in data
+        assert "service_version" in data
+        assert "terminology_sets" in data
+        assert "total_terms" in data
+        assert "notes" in data
+        assert isinstance(data["notes"], list)
+        assert len(data["notes"]) > 0
+
+    def test_terminology_version_has_icd10(self, open_client):
+        """Version data should include ICD-10-CM file info."""
+        resp = open_client.get("/terminology/version")
+        data = resp.json()
+        sets = data["terminology_sets"]
+        # Should have at least one file with ICD-10-CM
+        found_icd10 = False
+        for filename, info in sets.items():
+            if "ICD-10-CM" in str(info.get("system", "")) or "icd10" in filename.lower():
+                found_icd10 = True
+                assert "entry_count" in info
+                assert "loaded_date" in info
+                break
+        assert found_icd10, "No ICD-10-CM terminology set found in version data"
+
+    def test_health_includes_systems_loaded(self, open_client):
+        """Deep health check should include per-system data status."""
+        resp = open_client.get("/health")
+        data = resp.json()
+        assert "systems_loaded" in data
+        assert "missing_critical_systems" in data
+        assert "terminology_versions" in data
+        assert "data_integrity" in data
+        # With shipped data, ICD-10-CM should be loaded
+        assert "ICD-10-CM" in data["systems_loaded"]
+        assert data["data_integrity"] in ("verified", "limited")
