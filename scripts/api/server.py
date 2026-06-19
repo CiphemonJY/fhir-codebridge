@@ -40,7 +40,7 @@ from rag.rag_lookup import RAGLookup
 
 
 # --- Docker secrets support ---
-# ponytail: read secret from file if _FILE env var is set, else from env var directly
+# Read secret from file if _FILE env var is set, else from env var directly
 
 def _read_secret(name: str) -> str:
     """Read a secret from env var or Docker secret file."""

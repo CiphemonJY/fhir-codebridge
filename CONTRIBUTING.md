@@ -47,7 +47,7 @@ pip install -r requirements.txt
 uvicorn scripts.api.server:app --reload --port 8000
 
 # Run tests
-python3 scripts/build_benchmark.py
+python3 scripts/calibration_test_100.py
 ```
 
 ## Code Style
