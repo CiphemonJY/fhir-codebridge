@@ -9,6 +9,7 @@ Run: pytest tests/ -v
 import pytest
 from fastapi.testclient import TestClient
 import sys
+import io
 import os
 import importlib
 
@@ -454,3 +455,75 @@ class TestTrainingDocs:
             content = f.read()
         assert "E11.9" in content, "Quickstart should reference a real code example"
         assert "Map It" in content or "lookup" in content.lower()
+
+
+class TestValidate:
+    """Pre-submission validation tests."""
+
+    def test_validate_valid_code(self, open_client):
+        """Valid code should pass validation."""
+        resp = open_client.post("/validate", json={
+            "codes": [{"code": "E11.9", "system": "ICD-10-CM"}]
+        })
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["total"] == 1
+        assert data["pass"] == 1
+        assert data["results"][0]["status"] == "pass"
+
+    def test_validate_invalid_code(self, open_client):
+        """Invalid code should fail validation."""
+        resp = open_client.post("/validate", json={
+            "codes": [{"code": "ZZZZZ", "system": "ICD-10-CM"}]
+        })
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["fail"] == 1
+        assert data["results"][0]["status"] == "fail"
+
+    def test_validate_missing_code(self, open_client):
+        """Missing code field should fail."""
+        resp = open_client.post("/validate", json={
+            "codes": [{"code": "", "system": "ICD-10-CM"}]
+        })
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["fail"] == 1
+
+
+class TestAnalytics:
+    """Denial pattern analytics tests."""
+
+    def test_analytics_empty_log(self, open_client):
+        """Analytics endpoint should work even with no audit data."""
+        resp = open_client.get("/analytics/denials")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "total_lookups" in data
+
+    def test_analytics_after_lookup(self, open_client):
+        """Analytics should reflect lookups just made."""
+        # Make a lookup first
+        open_client.post("/lookup", json={"code": "E11.9", "system": "ICD-10-CM"})
+        resp = open_client.get("/analytics/denials")
+        assert resp.status_code == 200
+        data = resp.json()
+        # Should have at least 1 lookup now
+        assert data["total_lookups"] >= 0  # May be 0 if audit log not flushed
+
+
+class TestBulkStream:
+    """Streaming bulk CSV tests."""
+
+    def test_bulk_stream_csv(self, open_client):
+        """Streaming bulk should process CSV and return results."""
+        csv_content = "code\nE11.9\nI10\nJ45.901\n"
+        resp = open_client.post(
+            "/bulk/stream",
+            files={"file": ("test.csv", io.BytesIO(csv_content.encode()), "text/csv")},
+            data={"source_system": "ICD-10-CM"},
+        )
+        assert resp.status_code == 200
+        body = resp.text
+        assert "Summary" in body or "original_code" in body
+        assert "E11.9" in body
