@@ -34,7 +34,7 @@ READ_KEY=$(openssl rand -hex 32)
 # For Docker secrets (more secure, recommended for production):
 mkdir -p secrets
 echo "your-umls-api-key" > secrets/umls_api_key.txt
-echo "${ADMIN_KEY}:admin,${READ_KEY}:read" > secrets/lisa_api_keys.txt
+echo "${ADMIN_KEY}:admin,${READ_KEY}:read" > secrets/codebridge_api_keys.txt
 chmod 600 secrets/*.txt
 ```
 
@@ -55,7 +55,7 @@ You should see:
 {
     "status": "ok",
     "service": "fhir-codebridge FHIR Terminology Service",
-    "version": "0.2.0",
+    "version": "0.4.1",
     "terms_loaded": 123080,
     "umls_enabled": false,
     "auth_enabled": true

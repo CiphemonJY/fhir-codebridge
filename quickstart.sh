@@ -29,7 +29,7 @@ PORT="${CODEBRIDGE_PORT:-8000}"
 echo ""
 echo "  ╔═══════════════════════════════════════════════╗"
 echo "  ║  fhir-codebridge Quick Start Installer        ║"
-echo "  ║  FHIR Terminology Mapping Service v0.2.0      ║"
+echo "  ║  FHIR Terminology Mapping Service v0.4.1      ║"
 echo "  ╚═══════════════════════════════════════════════╝"
 echo ""
 

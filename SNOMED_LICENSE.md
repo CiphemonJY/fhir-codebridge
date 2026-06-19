@@ -5,19 +5,22 @@ is included, what requires a license, and how to comply.
 
 ## What's Included (No License Required)
 
-fhir-codebridge ships with a **SNOMED CT problem-list subset** — a
-curated list of commonly used clinical concepts for problem lists and
-diagnostic coding. This subset is derived from publicly available
-reference data published by the National Library of Medicine (NLM).
+fhir-codebridge ships with **no standalone SNOMED CT concepts**. The
+pre-loaded data includes:
+- 74,879 ICD-10-CM codes from CMS (public domain)
+- 47,780 RxNorm entries from NLM (public domain)
+- 397 CDT codes from project sources
+- 23 LOINC core terms from project sources
+- 1,898 crosswalk mappings (including 1,073 entries with SNOMED-CT as target system)
 
-The pre-loaded subset contains approximately 6,000 concepts covering:
-- Common diagnoses (diabetes, hypertension, heart failure, etc.)
-- Common clinical findings (fever, pain, dyspnea, etc.)
-- Common procedures and interventions
-- Social determinants of health (Z-codes mapping)
+The crosswalk mappings reference SNOMED CT concept IDs as target codes,
+but the full SNOMED CT concept definitions (descriptions, hierarchies,
+relationships) are NOT included. To look up SNOMED CT concepts by code,
+you need a UMLS license (see below).
 
-**This subset is freely redistributable.** No SNOMED license is required
-to use fhir-codebridge with the pre-loaded subset.
+**No SNOMED license is required** to use fhir-codebridge with the shipped
+data. The ICD-10-CM, RxNorm, CDT, and LOINC data is public domain or
+freely redistributable.
 
 ## What Requires a UMLS License
 
@@ -47,9 +50,10 @@ countries have different licensing arrangements:
   for your country's licensing terms.
 
 fhir-codebridge does not redistribute full SNOMED CT. It provides:
-1. A limited problem-list subset (freely redistributable)
-2. An API integration that fetches SNOMED CT on-demand from UMLS
+1. An API integration that fetches SNOMED CT on-demand from UMLS
    (requires your UMLS key, terms are cached locally)
+2. Crosswalk mappings that reference SNOMED CT codes (concept IDs only,
+   not full descriptions or hierarchies)
 
 ## Your Responsibilities
 

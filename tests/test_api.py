@@ -48,7 +48,7 @@ class TestHealth:
         data = resp.json()
         assert data["status"] == "ok"
         assert data["service"] == "fhir-codebridge FHIR Terminology Service"
-        assert data["version"] == "0.3.1"
+        assert data["version"] == "0.4.1"
         assert "terms_loaded" in data
         assert "auth_enabled" in data
 

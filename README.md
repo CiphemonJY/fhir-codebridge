@@ -4,6 +4,16 @@ Open source, Docker-deployable FHIR terminology mapping API. Maps clinical codes
 
 **Privacy-first:** Runs on your hardware. No PHI leaves your network.
 
+## Screenshots
+
+| Dashboard | Single Lookup |
+|-----------|--------------|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Lookup](docs/screenshots/lookup.png) |
+
+| Bulk Upload | Analytics |
+|-------------|-----------|
+| ![Bulk](docs/screenshots/bulk.png) | ![Analytics](docs/screenshots/analytics.png) |
+
 ## Quick Start
 
 ### Option A: Docker (recommended)
@@ -32,11 +42,11 @@ docker compose up -d
 # Verify (should respond in <60 seconds)
 curl http://localhost:8000/health
 
-# Test a lookup
+# Test a lookup (ICD-10-CM has 74,879 terms shipped — this always works)
 curl -X POST http://localhost:8000/lookup \
   -H "Content-Type: application/json" \
   -H "X-API-Key: YOUR-ADMIN-KEY" \
-  -d '{"code": "E11.9", "system": "ICD-10-CM", "target_system": "SNOMED-CT"}'
+  -d '{"code": "E11.9", "system": "ICD-10-CM"}'
 ```
 
 That's it. The service is running on port 8000.
@@ -48,6 +58,7 @@ Once deployed, open **http://localhost:8000** in your browser. No terminal neede
 - **Dashboard** — See service status and terminology coverage at a glance
 - **Single Lookup** — Search one code and map it to another system (like Google for medical codes)
 - **Bulk Upload** — Drag a CSV file with codes, get a results CSV back. Perfect for Excel users.
+- **Analytics** — Denial pattern analytics and revenue leakage dashboard
 
 The web UI works in any modern browser (Chrome, Firefox, Safari). No install required — it's served by the same API server.
 
@@ -70,13 +81,13 @@ fhir-codebridge is the terminology layer that CAC platforms should have had. It 
 
 | System | Shipped (verified) | With UMLS Loaded |
 |--------|-------------------|------------------|
+| ICD-10-CM | 74,879 terms ✅ (CMS 2027) | 74,879 |
+| RxNorm | 47,780 terms ✅ (NLM API) | ~81,000 |
 | CDT | 397 terms ✅ | 397 |
-| RxNorm | 500 terms ✅ | ~81,000 |
 | LOINC (core) | 23 terms ✅ | ~90,000 |
 | SNOMED-CT | — (requires UMLS) | ~350,000 |
-| ICD-10-CM | — (requires UMLS or CMS) | ~74,000 |
 | Crosswalk | 1,898 verified mappings ✅ | +126,000 (NLM official) |
-| **Total** | **~123,080 terms + 1,898 mappings** | **~600,000+** |
+| **Total** | **123,080 terms + 1,898 mappings** | **~600,000+** |
 
 ### How to Load Full Terminology
 
@@ -103,21 +114,31 @@ See `data/terminology_parsed/README.md` for detailed instructions.
 
 | Endpoint | Method | Description | Auth |
 |----------|--------|-------------|------|
-| `/health` | GET | Service status, version, term count | None |
+| `/` | GET | Web UI (4 tabs: Dashboard, Lookup, Bulk, Analytics) | None |
+| `/health` | GET | Deep health check — per-system status, data integrity | None |
 | `/stats` | GET | Terminology coverage statistics | Read+ |
 | `/systems` | GET | List loaded coding systems | Read+ |
-| `/lookup` | POST | Code lookup + cross-system mapping | Read+ |
+| `/lookup` | POST | Code lookup + cross-system mapping with provenance | Read+ |
 | `/$translate` | POST | FHIR ConceptMap $translate operation | Read+ |
+| `/validate` | POST | Pre-submission code validation (pass/warning/fail) | Read+ |
+| `/bulk` | POST | Bulk CSV upload — auto-detects code column | Read+ |
+| `/bulk/stream` | POST | Streaming bulk CSV for 200K+ row files | Read+ |
 | `/audit` | GET | Query audit log | Admin only |
+| `/metrics` | GET | Prometheus-compatible metrics | None |
+| `/terminology/version` | GET | Terminology version metadata (audit compliance) | Read+ |
+| `/analytics/denials` | GET | Denial pattern analytics from audit log | Read+ |
+| `/payer/rules` | GET | List payer rule sets | Read+ |
+| `/payer/rules/{name}` | GET | Get specific payer rule details | Read+ |
+| `/validate/payer` | POST | Validate codes against payer-specific rules | Read+ |
 | `/docs` | GET | Swagger UI (interactive API docs) | None |
 
-### Example: Lookup ICD-10 → SNOMED
+### Example: Lookup ICD-10-CM Code
 
 ```bash
 curl -X POST http://localhost:8000/lookup \
   -H "Content-Type: application/json" \
   -H "X-API-Key: YOUR-KEY" \
-  -d '{"code": "E11.9", "system": "ICD-10-CM", "target_system": "SNOMED-CT"}'
+  -d '{"code": "E11.9", "system": "ICD-10-CM"}'
 ```
 
 Response:
@@ -125,11 +146,23 @@ Response:
 {
   "found": true,
   "source": {"code": "E11.9", "system": "ICD-10-CM", "display": "Type 2 diabetes mellitus without complications"},
-  "targets": [{"code": "44054006", "system": "SNOMED-CT", "display": "Type 2 diabetes mellitus", "confidence": 0.95, "method": "verified_crosswalk"}],
+  "targets": [],
   "action": "auto_accept",
   "effective_confidence": 1.0,
-  "requires_human_review": false
+  "requires_human_review": false,
+  "provenance": {"source_authority": "CMS 2027 ICD-10-CM", "mapping_method": "exact_code_lookup", "confidence_level": "verified"}
 }
+```
+
+### Example: Cross-System Mapping (ICD-10-CM → SNOMED-CT)
+
+Cross-system mappings use the verified crosswalk. Not all codes have crosswalk entries — load UMLS for full coverage.
+
+```bash
+curl -X POST http://localhost:8000/lookup \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: YOUR-KEY" \
+  -d '{"code": "C00.9", "system": "ICD-10-CM", "target_system": "SNOMED-CT"}'
 ```
 
 ### Example: FHIR $translate
@@ -139,6 +172,15 @@ curl -X POST 'http://localhost:8000/$translate' \
   -H "Content-Type: application/json" \
   -H "X-API-Key: YOUR-KEY" \
   -d '{"code": "E11.9", "system": "http://hl7.org/fhir/sid/icd-10-cm", "target_system": "http://snomed.info/sct"}'
+```
+
+### Example: Pre-Submission Validation
+
+```bash
+curl -X POST http://localhost:8000/validate \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: YOUR-KEY" \
+  -d '{"codes": [{"code": "E11.9", "system": "ICD-10-CM"}], "target_system": "SNOMED-CT"}'
 ```
 
 ## Confidence Scoring
@@ -192,11 +234,11 @@ from codebridge import CodeBridge
 cb = CodeBridge("http://localhost:8000", api_key="your-key")
 
 # Single code lookup
-result = cb.lookup("E11.9", system="ICD-10-CM", target_system="SNOMED-CT")
+result = cb.lookup("E11.9", system="ICD-10-CM")
 print(result["source"]["display"])  # "Type 2 diabetes mellitus without complications"
 
 # Bulk map a CSV of codes
-cb.bulk_map("diagnoses.csv", source_system="ICD-10-CM", target_system="SNOMED-CT", output="results.csv")
+cb.bulk_map("diagnoses.csv", source_system="ICD-10-CM", output="results.csv")
 
 # Check service status
 stats = cb.stats()
@@ -206,8 +248,8 @@ print(f"{stats['total_terms']:,} terms loaded")
 Or use the CLI:
 ```bash
 codebridge health --url http://localhost:8000
-codebridge lookup E11.9 --system ICD-10-CM --target SNOMED-CT
-codebridge bulk codes.csv --source ICD-10-CM --target SNOMED-CT --o results.csv
+codebridge lookup E11.9 --system ICD-10-CM
+codebridge bulk codes.csv --source ICD-10-CM --output results.csv
 ```
 
 ## Architecture
@@ -225,10 +267,11 @@ Layer 5: Human-in-the-Loop → corrections feed back into training data
 - **API Key Auth:** Role-based access (admin / read). Set via env var or Docker secret.
 - **Audit Logging:** Every request logged (JSON Lines). Queryable via `/audit` endpoint. HIPAA §164.312(b) compliant.
 - **Docker Secrets:** API keys stored as files, not plaintext env vars.
+- **Rate Limiting:** In-memory token bucket (100 req/60s default, configurable).
 - **UMLS Guardrail:** Rate-limited (5 req/s) + cached (1h TTL). Patient context stripped before external API calls.
 - **On-Premises:** No data leaves your network. No cloud dependencies.
 
-See [INSTALL.md](INSTALL.md) for production hardening checklist.
+See [INSTALL.md](INSTALL.md) for production hardening checklist and [SECURITY.md](SECURITY.md) for vulnerability reporting.
 
 ## Deployment
 
@@ -236,23 +279,29 @@ See [INSTALL.md](INSTALL.md) for production hardening checklist.
 - **Full Guide:** [INSTALL.md](INSTALL.md) — prerequisites, UMLS key guide, firewall config, production hardening
 - **Examples:** `examples/` directory — curl scripts, Python client, Postman collection
 - **nginx TLS:** `examples/nginx/nginx.conf` — reverse proxy with TLS termination
+- **Training Materials:** `docs/training/` — quickstart guide, glossary, admin guide
 - **Commercial Services:** [COMMERCIAL.md](COMMERCIAL.md) — implementation consulting, managed hosting, training
 
 ## Project Status
 
-**Active** — maintained and deployed in development. v0.3.0 (not yet validated against real-world hospital data).
+**v0.4.1** — actively maintained. Seeking pilot deployments for validation feedback.
 
-v0.3.0 roadmap:
-- ✅ RAG lookup engine (100% benchmark)
-- ✅ 5 API endpoints with FHIR $translate
+Roadmap:
+- ✅ RAG lookup engine (100% benchmark on known terms)
+- ✅ 16 API endpoints including FHIR $translate, bulk CSV, streaming
+- ✅ Web UI (Dashboard, Lookup, Bulk Upload, Analytics)
 - ✅ RBAC + audit logging + Docker secrets
 - ✅ Pre-loaded terminology (123K+ verified terms + 1,898 crosswalk mappings)
-- ⬜ UMLS MRCONSO.RRF loader (v0.4.0 — supports hospital-provided full terminology)
-- ⬜ 100-mapping calibration test with UMLS data
-- ⬜ EHR connector templates (v0.5.0)
-- ⬜ Claim denial prediction (v0.5.0)
+- ✅ Mapping provenance + terminology version metadata (Tier 0)
+- ✅ Structured JSON logging + rate limiting + training materials (Tier 1)
+- ✅ Pre-submission validation + denial analytics + streaming bulk + scheduled updates (Tier 2)
+- ✅ Payer-specific rule engine + revenue leakage dashboard (Tier 3)
+- ✅ Client SDK (pip-installable) + CI/CD (GitHub Actions)
+- ⬜ UMLS MRCONSO.RRF loader (hospital-provided full terminology)
+- ⬜ EHR connector templates
+- ⬜ Operational runbook
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ## License
 

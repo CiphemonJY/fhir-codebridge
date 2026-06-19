@@ -1,5 +1,6 @@
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
 pydantic>=2.0.0
-requests>=2.31.0  # for examples/client_example.py
+requests>=2.31.0
 python-multipart>=0.0.6  # for file upload (bulk CSV processing)
+PyYAML>=6.0  # for payer rule engine (config/payer_rules/*.yml)

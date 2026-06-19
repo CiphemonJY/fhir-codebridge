@@ -4,19 +4,33 @@ fhir-codebridge FHIR Terminology Service
 =========================================
 FastAPI server wrapping the RAG lookup engine.
 
-Endpoints:
-  GET  /health              — service status
-  GET  /stats               — terminology coverage stats
-  POST /lookup              — code lookup + cross-system mapping
-  POST /$translate          — FHIR-compatible ConceptMap $translate operation
+Endpoints (16):
+  GET  /                    — web UI (Dashboard, Lookup, Bulk, Analytics)
+  GET  /health              — deep health check (per-system status, data integrity)
+  GET  /stats               — terminology coverage statistics
   GET  /systems             — list loaded coding systems
-  GET  /audit               — query audit log (requires admin key)
+  POST /lookup              — code lookup + cross-system mapping with provenance
+  POST /$translate          — FHIR ConceptMap $translate operation
+  POST /validate            — pre-submission code validation (pass/warning/fail)
+  POST /validate/payer      — validate codes against payer-specific rules
+  POST /bulk                 — bulk CSV upload (in-memory processing)
+  POST /bulk/stream          — streaming bulk CSV (for 200K+ row files)
+  GET  /audit                — query audit log (admin only)
+  GET  /metrics              — Prometheus-compatible metrics
+  GET  /terminology/version  — terminology version metadata (audit compliance)
+  GET  /analytics/denials    — denial pattern analytics from audit log
+  GET  /payer/rules          — list configured payer rule sets
+  GET  /payer/rules/{name}   — get specific payer rule details
 
 Security:
   - API key auth via CODEBRIDGE_API_KEYS env var (comma-separated)
   - RBAC: admin keys can query audit log, read-only keys can use lookup/translate
-  - Audit log: every request logged to data/audit.log
+  - Constant-time key comparison (hmac.compare_digest)
+  - Rate limiting: in-memory token bucket (100 req/60s default, configurable)
+  - Audit log: every request logged to data/audit.log (JSONL format)
+  - Structured JSON logging (SIEM-ingestible, via scripts/api/logging_config.py)
   - UMLS proxy: rate-limited + cached (guardrail against API abuse)
+  - Docker: runs as non-root user
 
 Run:
   uvicorn scripts.api.server:app --host 0.0.0.0 --port 8000
@@ -30,10 +44,11 @@ import sys
 import json
 import time
 import secrets
+import hmac
 from pathlib import Path
 from fastapi import FastAPI, HTTPException, Query, Request, Security, Depends, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse
 from fastapi.security import APIKeyHeader
 from pydantic import BaseModel, Field
 from typing import Optional
@@ -87,7 +102,7 @@ AUDIT_LOG.parent.mkdir(parents=True, exist_ok=True)
 app = FastAPI(
     title="fhir-codebridge FHIR Terminology Service",
     description="Open source on-prem terminology mapper. Bring your UMLS API key for full coverage.",
-    version="0.2.0",
+    version="0.4.1",
 )
 
 # --- Rate Limiting (in-memory token bucket) ---
@@ -171,7 +186,12 @@ async def get_api_key(request: Request, key: str = Security(API_KEY_HEADER)):
         return "admin"  # Only reached if CODEBRIDGE_AUTH_DISABLED=1 is explicitly set
     if not key:
         raise HTTPException(401, "Missing API key. Set X-API-Key header.")
-    role = API_KEYS.get(key)
+    # Constant-time key comparison to prevent timing attacks
+    role = None
+    for valid_key, valid_role in API_KEYS.items():
+        if hmac.compare_digest(key, valid_key):
+            role = valid_role
+            break
     if not role:
         raise HTTPException(401, "Invalid API key.")
     audit_log(request, "auth", {"role": role})
@@ -284,7 +304,7 @@ async def health():
     return {
         "status": "ok" if not missing else "degraded",
         "service": "fhir-codebridge FHIR Terminology Service",
-        "version": "0.3.1",
+        "version": "0.4.1",
         "terms_loaded": len(rag.by_code),
         "umls_enabled": rag.umls_loaded,
         "auth_enabled": AUTH_ENABLED,
@@ -306,7 +326,7 @@ async def terminology_version(role: str = Depends(get_api_key)):
     versions = rag.terminology_versions
     return {
         "snapshot_date": _date.today().isoformat(),
-        "service_version": "0.3.1",
+        "service_version": "0.4.1",
         "terminology_sets": versions,
         "total_terms": len(rag.by_code),
         "umls_loaded": rag.umls_loaded,
@@ -767,7 +787,7 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top:
       <button id="nav-lookup" onclick="showTab('lookup')">Single Lookup</button>
       <button id="nav-bulk" onclick="showTab('bulk')">Bulk Upload</button>
       <button id="nav-analytics" onclick="showTab('analytics')">Analytics</button>
-    </nav>
+    </div><div style="margin-left:auto;padding:0 12px"><input type="password" id="api-key-input" placeholder="API Key" value="" onchange="setApiKey(this.value)" style="font-size:12px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;width:140px"></div></nav>
   </div>
 </header>
 
@@ -886,13 +906,14 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top:
 
 </div>
 <footer>
-  <p>fhir-codebridge v0.2.0 — <a href="https://github.com/CiphemonJY/fhir-codebridge">GitHub</a> — MIT License</p>
+  <p>fhir-codebridge v0.4.1 — <a href="https://github.com/CiphemonJY/fhir-codebridge">GitHub</a> — MIT License</p>
 </footer>
 
 <script>
 const API = window.location.origin;
-const apiKey = new URLSearchParams(window.location.search).get('key') || '';
+let apiKey = sessionStorage.getItem('codebridge_key') || '';
 function headers() { const h = {'Content-Type':'application/json'}; if(apiKey) h['X-API-Key']=apiKey; return h; }
+function setApiKey(k) { apiKey = k; if(k) sessionStorage.setItem('codebridge_key', k); else sessionStorage.removeItem('codebridge_key'); }
 
 function showTab(tab) {
   ['dashboard','lookup','bulk','analytics'].forEach(t => {
@@ -905,7 +926,7 @@ function showTab(tab) {
 
 async function loadAnalytics() {
   try {
-    const resp = await fetch("/analytics/denials" + (apiKey ? "?key=" + apiKey : ""), {headers: apiKey ? {"X-API-Key": apiKey} : {}});
+    const resp = await fetch("/analytics/denials", {headers: headers()});
     const data = await resp.json();
     const el = document.getElementById("analytics-content");
     if (!data.total_lookups) {

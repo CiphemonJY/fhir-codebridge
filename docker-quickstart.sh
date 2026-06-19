@@ -20,7 +20,7 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 echo ""
 echo "  ╔═══════════════════════════════════════════════╗"
 echo "  ║  fhir-codebridge Docker Quick Start           ║"
-echo "  ║  FHIR Terminology Mapping Service v0.2.0      ║"
+echo "  ║  FHIR Terminology Mapping Service v0.4.1      ║"
 echo "  ╚═══════════════════════════════════════════════╝"
 echo ""
 
