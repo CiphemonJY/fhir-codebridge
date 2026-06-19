@@ -1,0 +1,117 @@
+[
+  {
+    "code": "4548-4",
+    "system": "LOINC",
+    "display": "Hemoglobin A1c"
+  },
+  {
+    "code": "8867-4",
+    "system": "LOINC",
+    "display": "Heart rate"
+  },
+  {
+    "code": "8480-6",
+    "system": "LOINC",
+    "display": "Systolic blood pressure"
+  },
+  {
+    "code": "8462-4",
+    "system": "LOINC",
+    "display": "Diastolic blood pressure"
+  },
+  {
+    "code": "29463-7",
+    "system": "LOINC",
+    "display": "Body weight"
+  },
+  {
+    "code": "8302-2",
+    "system": "LOINC",
+    "display": "Body height"
+  },
+  {
+    "code": "9279-1",
+    "system": "LOINC",
+    "display": "Respiratory rate"
+  },
+  {
+    "code": "33914-3",
+    "system": "LOINC",
+    "display": "Glucose"
+  },
+  {
+    "code": "718-7",
+    "system": "LOINC",
+    "display": "Hemoglobin"
+  },
+  {
+    "code": "2093-3",
+    "system": "LOINC",
+    "display": "Cholesterol [total]"
+  },
+  {
+    "code": "2085-9",
+    "system": "LOINC",
+    "display": "High density lipoprotein cholesterol"
+  },
+  {
+    "code": "2089-1",
+    "system": "LOINC",
+    "display": "Low density lipoprotein cholesterol"
+  },
+  {
+    "code": "6299-2",
+    "system": "LOINC",
+    "display": "Blood urea nitrogen"
+  },
+  {
+    "code": "33717-0",
+    "system": "LOINC",
+    "display": "Bilirubin"
+  },
+  {
+    "code": "3094-0",
+    "system": "LOINC",
+    "display": "Blood urea nitrogen/Creatinine"
+  },
+  {
+    "code": "14959-1",
+    "system": "LOINC",
+    "display": "Microalbumin"
+  },
+  {
+    "code": "2157-6",
+    "system": "LOINC",
+    "display": "Creatinine"
+  },
+  {
+    "code": "2339-0",
+    "system": "LOINC",
+    "display": "Glucose"
+  },
+  {
+    "code": "33718-8",
+    "system": "LOINC",
+    "display": "Sodium"
+  },
+  {
+    "code": "2823-3",
+    "system": "LOINC",
+    "display": "Potassium"
+  },
+  {
+    "code": "3016-3",
+    "system": "LOINC",
+    "display": "Thyrotropin"
+  },
+  {
+    "code": "24331-1",
+    "system": "LOINC",
+    "display": "Lipid panel"
+  },
+  {
+    "code": "24323-8",
+    "system": "LOINC",
+    "display": "Comprehensive metabolic panel"
+  }
+]

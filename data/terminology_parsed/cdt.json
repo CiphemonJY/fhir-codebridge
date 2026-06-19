@@ -1,0 +1,1987 @@
+[
+  {
+    "code": "D0120",
+    "display": "periodic oral evaluation - established patient",
+    "system": "CDT"
+  },
+  {
+    "code": "D0140",
+    "display": "limited oral evaluation - problem focused",
+    "system": "CDT"
+  },
+  {
+    "code": "D0145",
+    "display": "oral evaluation for a patient under three years of age and counseling with primary caregiver",
+    "system": "CDT"
+  },
+  {
+    "code": "D0150",
+    "display": "comprehensive oral evaluation - new or established patient",
+    "system": "CDT"
+  },
+  {
+    "code": "D0160",
+    "display": "detailed and extensive oral evaluation - problem focused, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D0170",
+    "display": "reevaluation  limited problem focused established patient not postoperative visit",
+    "system": "CDT"
+  },
+  {
+    "code": "D0171",
+    "display": "reevaluation  postoperative office visit",
+    "system": "CDT"
+  },
+  {
+    "code": "D0180",
+    "display": "comprehensive periodontal evaluation - new or established patient",
+    "system": "CDT"
+  },
+  {
+    "code": "D0190",
+    "display": "screening of a patient",
+    "system": "CDT"
+  },
+  {
+    "code": "D0191",
+    "display": "assessment of a patient",
+    "system": "CDT"
+  },
+  {
+    "code": "D0210",
+    "display": "intraoral - comprehensive series of radiographic images",
+    "system": "CDT"
+  },
+  {
+    "code": "D0220",
+    "display": "intraoral - periapical first radiographic image",
+    "system": "CDT"
+  },
+  {
+    "code": "D0230",
+    "display": "intraoral - periapical each additional radiographic image",
+    "system": "CDT"
+  },
+  {
+    "code": "D0240",
+    "display": "intraoral - occlusal radiographic image",
+    "system": "CDT"
+  },
+  {
+    "code": "D0250",
+    "display": "extra-oral - 2D projection radiographic image created using a stationary radiation source, and detector",
+    "system": "CDT"
+  },
+  {
+    "code": "D0270",
+    "display": "bitewing - single radiographic image",
+    "system": "CDT"
+  },
+  {
+    "code": "D0272",
+    "display": "bitewings - two radiographic images",
+    "system": "CDT"
+  },
+  {
+    "code": "D0273",
+    "display": "bitewings  three radiographic images",
+    "system": "CDT"
+  },
+  {
+    "code": "D0274",
+    "display": "bitewings - four radiographic images",
+    "system": "CDT"
+  },
+  {
+    "code": "D0277",
+    "display": "vertical bitewings  7 to 8 radiographic images",
+    "system": "CDT"
+  },
+  {
+    "code": "D0321",
+    "display": "other temporomandibular joint radiographic images, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D0322",
+    "display": "tomographic survey",
+    "system": "CDT"
+  },
+  {
+    "code": "D0330",
+    "display": "panoramic radiographic image",
+    "system": "CDT"
+  },
+  {
+    "code": "D0340",
+    "display": "2D cephalometric radiographic image  acquisition measurement and analysis",
+    "system": "CDT"
+  },
+  {
+    "code": "D0350",
+    "display": "2D oral/facial photographic image obtained intraorally or extraorally",
+    "system": "CDT"
+  },
+  {
+    "code": "D0360",
+    "display": "D0360",
+    "system": "CDT"
+  },
+  {
+    "code": "D0363",
+    "display": "D0363",
+    "system": "CDT"
+  },
+  {
+    "code": "D0364",
+    "display": "cone beam CT capture and interpretation with limited field of view - less than one whole jaw",
+    "system": "CDT"
+  },
+  {
+    "code": "D0366",
+    "display": "cone beam CT capture and interpretation with field of view of one full dental arch - maxilla, with or without cranium",
+    "system": "CDT"
+  },
+  {
+    "code": "D0367",
+    "display": "cone beam CT capture and interpretation with field of view of both jaws; with or without cranium",
+    "system": "CDT"
+  },
+  {
+    "code": "D0368",
+    "display": "cone beam CT capture and interpretation for TMJ series including two or more exposures",
+    "system": "CDT"
+  },
+  {
+    "code": "D0371",
+    "display": "sialoendoscopy capture and interpretation",
+    "system": "CDT"
+  },
+  {
+    "code": "D0380",
+    "display": "cone beam CT image capture with limited field of view - less than one whole jaw",
+    "system": "CDT"
+  },
+  {
+    "code": "D0381",
+    "display": "cone beam CT image capture with field of view of one full dental arch - mandible",
+    "system": "CDT"
+  },
+  {
+    "code": "D0382",
+    "display": "cone beam CT image capture with field of view of one full dental arch - maxilla, with or without cranium",
+    "system": "CDT"
+  },
+  {
+    "code": "D0383",
+    "display": "cone beam CT image capture with field of view of both jaws; with or without cranium",
+    "system": "CDT"
+  },
+  {
+    "code": "D0384",
+    "display": "cone beam CT image capture for TMJ series including two or more exposures",
+    "system": "CDT"
+  },
+  {
+    "code": "D0393",
+    "display": "virtual treatment simulation using 3D image volume or surface scan",
+    "system": "CDT"
+  },
+  {
+    "code": "D0395",
+    "display": "fusion of two or more 3D image volumes of one or more modalities",
+    "system": "CDT"
+  },
+  {
+    "code": "D0415",
+    "display": "collection of microorganisms for culture and sensitivity",
+    "system": "CDT"
+  },
+  {
+    "code": "D0416",
+    "display": "viral culture",
+    "system": "CDT"
+  },
+  {
+    "code": "D0417",
+    "display": "collection and preparation of saliva sample for laboratory diagnostic testing",
+    "system": "CDT"
+  },
+  {
+    "code": "D0431",
+    "display": "adjunctive pre-diagnostic test that aids in detection of mucosal abnormalities including premalignant and malignant lesions, not to include cytology or biopsy procedures",
+    "system": "CDT"
+  },
+  {
+    "code": "D0460",
+    "display": "pulp vitality tests",
+    "system": "CDT"
+  },
+  {
+    "code": "D0470",
+    "display": "diagnostic casts",
+    "system": "CDT"
+  },
+  {
+    "code": "D0473",
+    "display": "accession of tissue, gross and microscopic examination, preparation and transmission of written report",
+    "system": "CDT"
+  },
+  {
+    "code": "D0474",
+    "display": "accession of tissue, gross and microscopic examination, including assessment of surgical margins for presence of disease, preparation and transmission of written report",
+    "system": "CDT"
+  },
+  {
+    "code": "D0475",
+    "display": "decalcification procedure",
+    "system": "CDT"
+  },
+  {
+    "code": "D0478",
+    "display": "immunohistochemical stains",
+    "system": "CDT"
+  },
+  {
+    "code": "D0480",
+    "display": "accession of exfoliative cytologic smears, microscopic examination, preparation and transmission of written report",
+    "system": "CDT"
+  },
+  {
+    "code": "D0482",
+    "display": "direct immunofluorescence",
+    "system": "CDT"
+  },
+  {
+    "code": "D0485",
+    "display": "consultation, including preparation of slides from biopsy material supplied by referring source",
+    "system": "CDT"
+  },
+  {
+    "code": "D0502",
+    "display": "other oral pathology procedures, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D0601",
+    "display": "caries risk assessment and documentation, with a finding of low risk",
+    "system": "CDT"
+  },
+  {
+    "code": "D0602",
+    "display": "caries risk assessment and documentation, with a finding of moderate risk",
+    "system": "CDT"
+  },
+  {
+    "code": "D0603",
+    "display": "caries risk assessment and documentation, with a finding of high risk",
+    "system": "CDT"
+  },
+  {
+    "code": "D0604",
+    "display": "antigen testing for a public health related pathogen, including coronavirus",
+    "system": "CDT"
+  },
+  {
+    "code": "D0701",
+    "display": "panoramic radiographic image - image capture only",
+    "system": "CDT"
+  },
+  {
+    "code": "D0702",
+    "display": "2-D cephalometric radiographic image - image capture only",
+    "system": "CDT"
+  },
+  {
+    "code": "D0703",
+    "display": "2-D oral/facial photographic image obtained intra-orally or extra-orally - image capture only",
+    "system": "CDT"
+  },
+  {
+    "code": "D0801",
+    "display": "3D dental surface scan - direct",
+    "system": "CDT"
+  },
+  {
+    "code": "D0802",
+    "display": "3D dental surface scan - indirect",
+    "system": "CDT"
+  },
+  {
+    "code": "D0803",
+    "display": "3D facial surface scan - direct",
+    "system": "CDT"
+  },
+  {
+    "code": "D0804",
+    "display": "3D facial surface scan - indirect",
+    "system": "CDT"
+  },
+  {
+    "code": "D0999",
+    "display": "unspecified diagnostic procedure, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D1110",
+    "display": "prophylaxis - adult",
+    "system": "CDT"
+  },
+  {
+    "code": "D1120",
+    "display": "prophylaxis - child",
+    "system": "CDT"
+  },
+  {
+    "code": "D1201",
+    "display": "D1201",
+    "system": "CDT"
+  },
+  {
+    "code": "D1203",
+    "display": "D1203",
+    "system": "CDT"
+  },
+  {
+    "code": "D1204",
+    "display": "D1204",
+    "system": "CDT"
+  },
+  {
+    "code": "D1206",
+    "display": "topical application of fluoride varnish",
+    "system": "CDT"
+  },
+  {
+    "code": "D1208",
+    "display": "topical application of fluoride - excluding varnish",
+    "system": "CDT"
+  },
+  {
+    "code": "D1310",
+    "display": "nutritional counseling for control of dental disease",
+    "system": "CDT"
+  },
+  {
+    "code": "D1320",
+    "display": "tobacco counseling for the control and prevention of oral disease",
+    "system": "CDT"
+  },
+  {
+    "code": "D1330",
+    "display": "oral hygiene instructions",
+    "system": "CDT"
+  },
+  {
+    "code": "D1351",
+    "display": "sealant - per tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D1352",
+    "display": "preventive resin restoration in a moderate to high caries risk patient  permanent tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D1354",
+    "display": "application of caries arresting medicament  per tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D1510",
+    "display": "space maintainer  fixed unilateral  per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D1515",
+    "display": "D1515",
+    "system": "CDT"
+  },
+  {
+    "code": "D1701",
+    "display": "Pfizer-BioNTech Covid-19 vaccine administration - first dose",
+    "system": "CDT"
+  },
+  {
+    "code": "D1702",
+    "display": "Pfizer-BioNTech Covid-19 vaccine administration - second dose",
+    "system": "CDT"
+  },
+  {
+    "code": "D1703",
+    "display": "Moderna Covid-19 vaccine administration - first dose",
+    "system": "CDT"
+  },
+  {
+    "code": "D1704",
+    "display": "Moderna Covid-19 vaccine administration - second dose",
+    "system": "CDT"
+  },
+  {
+    "code": "D1705",
+    "display": "AstraZeneca Covid-19 vaccine administration - first dose",
+    "system": "CDT"
+  },
+  {
+    "code": "D1999",
+    "display": "unspecified preventive procedure, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D2140",
+    "display": "amalgam - one surface, primary or permanent",
+    "system": "CDT"
+  },
+  {
+    "code": "D2150",
+    "display": "amalgam - two surfaces, primary or permanent",
+    "system": "CDT"
+  },
+  {
+    "code": "D2160",
+    "display": "amalgam - three surfaces, primary or permanent",
+    "system": "CDT"
+  },
+  {
+    "code": "D2161",
+    "display": "amalgam - four or more surfaces, primary or permanent",
+    "system": "CDT"
+  },
+  {
+    "code": "D2330",
+    "display": "resinbased composite  one surface anterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D2331",
+    "display": "resinbased composite  two surfaces anterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D2332",
+    "display": "resinbased composite  three surfaces anterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D2335",
+    "display": "resinbased composite  four or more surfaces or involving incisal angle anterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D2390",
+    "display": "resinbased composite crown anterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D2391",
+    "display": "resinbased composite  one surface posterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D2392",
+    "display": "resinbased composite  two surfaces posterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D2393",
+    "display": "resinbased composite  three surfaces posterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D2394",
+    "display": "resinbased composite  four or more surfaces posterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D2544",
+    "display": "onlay  metallic  four or more surfaces",
+    "system": "CDT"
+  },
+  {
+    "code": "D2630",
+    "display": "inlay - porcelain/ceramic - three or more surfaces",
+    "system": "CDT"
+  },
+  {
+    "code": "D2643",
+    "display": "onlay - porcelain/ceramic - three surfaces",
+    "system": "CDT"
+  },
+  {
+    "code": "D2644",
+    "display": "onlay  porcelain/ceramic  four or more surfaces",
+    "system": "CDT"
+  },
+  {
+    "code": "D2710",
+    "display": "crown  resinbased composite indirect",
+    "system": "CDT"
+  },
+  {
+    "code": "D2740",
+    "display": "crown - porcelain/ceramic",
+    "system": "CDT"
+  },
+  {
+    "code": "D2750",
+    "display": "crown - porcelain fused to high noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D2751",
+    "display": "crown - porcelain fused to predominantly base metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D2752",
+    "display": "crown - porcelain fused to noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D2790",
+    "display": "crown - full cast high noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D2791",
+    "display": "crown  full cast predominantly base metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D2792",
+    "display": "crown  full cast noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D2794",
+    "display": "crown - titanium and titanium alloys",
+    "system": "CDT"
+  },
+  {
+    "code": "D2799",
+    "display": "interim crown - further treatment or completion of diagnosis necessary prior to final impression",
+    "system": "CDT"
+  },
+  {
+    "code": "D2920",
+    "display": "recement or rebond crown",
+    "system": "CDT"
+  },
+  {
+    "code": "D2929",
+    "display": "prefabricated porcelain/ceramic crown  primary tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D2930",
+    "display": "prefabricated stainless steel crown - primary tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D2931",
+    "display": "prefabricated stainless steel crown - permanent tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D2932",
+    "display": "prefabricated resin crown",
+    "system": "CDT"
+  },
+  {
+    "code": "D2933",
+    "display": "prefabricated stainless steel crown with resin window",
+    "system": "CDT"
+  },
+  {
+    "code": "D2934",
+    "display": "prefabricated esthetic coated stainless steel crown  primary tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D2940",
+    "display": "protective restoration",
+    "system": "CDT"
+  },
+  {
+    "code": "D2950",
+    "display": "core buildup, including any pins when required",
+    "system": "CDT"
+  },
+  {
+    "code": "D2952",
+    "display": "post and core in addition to crown, indirectly fabricated",
+    "system": "CDT"
+  },
+  {
+    "code": "D2954",
+    "display": "prefabricated post and core in addition to crown",
+    "system": "CDT"
+  },
+  {
+    "code": "D2961",
+    "display": "labial veneer resin laminate  indirect",
+    "system": "CDT"
+  },
+  {
+    "code": "D2962",
+    "display": "labial veneer porcelain laminate  indirect",
+    "system": "CDT"
+  },
+  {
+    "code": "D2970",
+    "display": "D2970",
+    "system": "CDT"
+  },
+  {
+    "code": "D2980",
+    "display": "crown repair necessitated by restorative material failure",
+    "system": "CDT"
+  },
+  {
+    "code": "D2990",
+    "display": "resin infiltration of incipient smooth surface lesions",
+    "system": "CDT"
+  },
+  {
+    "code": "D2999",
+    "display": "unspecified restorative procedure, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D3110",
+    "display": "pulp cap  direct excluding final restoration",
+    "system": "CDT"
+  },
+  {
+    "code": "D3120",
+    "display": "pulp cap - indirect (excluding final restoration)",
+    "system": "CDT"
+  },
+  {
+    "code": "D3220",
+    "display": "therapeutic pulpotomy excluding final restoration  removal of pulp coronal to the dentinocemental junction and application of medicament",
+    "system": "CDT"
+  },
+  {
+    "code": "D3221",
+    "display": "pulpal debridement, primary and permanent teeth",
+    "system": "CDT"
+  },
+  {
+    "code": "D3310",
+    "display": "endodontic therapy, anterior tooth (excluding final restoration)",
+    "system": "CDT"
+  },
+  {
+    "code": "D3320",
+    "display": "endodontic therapy, premolar tooth (excluding final restoration)",
+    "system": "CDT"
+  },
+  {
+    "code": "D3330",
+    "display": "endodontic therapy, molar tooth (excluding final restoration)",
+    "system": "CDT"
+  },
+  {
+    "code": "D3331",
+    "display": "treatment of root canal obstruction; non-surgical access",
+    "system": "CDT"
+  },
+  {
+    "code": "D3332",
+    "display": "incomplete endodontic therapy inoperable unrestorable or fractured tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D3333",
+    "display": "internal root repair of perforation defects",
+    "system": "CDT"
+  },
+  {
+    "code": "D3346",
+    "display": "retreatment of previous root canal therapy - anterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D3348",
+    "display": "retreatment of previous root canal therapy  molar",
+    "system": "CDT"
+  },
+  {
+    "code": "D3410",
+    "display": "apicoectomy - anterior",
+    "system": "CDT"
+  },
+  {
+    "code": "D3421",
+    "display": "apicoectomy - premolar (first root)",
+    "system": "CDT"
+  },
+  {
+    "code": "D3425",
+    "display": "apicoectomy - molar (first root)",
+    "system": "CDT"
+  },
+  {
+    "code": "D3430",
+    "display": "retrograde filling - per root",
+    "system": "CDT"
+  },
+  {
+    "code": "D4210",
+    "display": "gingivectomy or gingivoplasty - four or more contiguous teeth or tooth bounded spaces per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4211",
+    "display": "gingivectomy or gingivoplasty - one to three contiguous teeth or tooth bounded spaces per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4212",
+    "display": "gingivectomy or gingivoplasty to allow access for restorative procedure, per tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D4240",
+    "display": "gingival flap procedure, including root planing - four or more contiguous teeth or tooth bounded spaces per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4241",
+    "display": "gingival flap procedure, including root planing - one to three contiguous teeth or tooth bounded spaces per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4249",
+    "display": "clinical crown lengthening - hard tissue",
+    "system": "CDT"
+  },
+  {
+    "code": "D4260",
+    "display": "osseous surgery including elevation of a full thickness flap and closure  four or more contiguous teeth or tooth bounded spaces per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4261",
+    "display": "osseous surgery including elevation of a full thickness flap and closure  one to three contiguous teeth or tooth bounded spaces per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4263",
+    "display": "bone replacement graft - retained natural tooth - first site in quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4264",
+    "display": "bone replacement graft - retained natural tooth - each additional site in quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4265",
+    "display": "biologic materials to aid in soft and osseous tissue regeneration, per site",
+    "system": "CDT"
+  },
+  {
+    "code": "D4266",
+    "display": "guided tissue regeneration, natural teeth - resorbable barrier, per site",
+    "system": "CDT"
+  },
+  {
+    "code": "D4267",
+    "display": "guided tissue regeneration, natural teeth - non-resorbable barrier, per site",
+    "system": "CDT"
+  },
+  {
+    "code": "D4270",
+    "display": "pedicle soft tissue graft procedure",
+    "system": "CDT"
+  },
+  {
+    "code": "D4271",
+    "display": "D4271",
+    "system": "CDT"
+  },
+  {
+    "code": "D4273",
+    "display": "autogenous connective tissue graft procedure including donor and recipient surgical sites first tooth implant or edentulous tooth position in graft",
+    "system": "CDT"
+  },
+  {
+    "code": "D4277",
+    "display": "free soft tissue graft procedure (including recipient and donor surgical sites) first tooth, implant or edentulous tooth position in graft",
+    "system": "CDT"
+  },
+  {
+    "code": "D4278",
+    "display": "free soft tissue graft procedure (including recipient and donor surgical sites) each additional contiguous tooth, implant or edentulous tooth position in same graft site",
+    "system": "CDT"
+  },
+  {
+    "code": "D4321",
+    "display": "D4321",
+    "system": "CDT"
+  },
+  {
+    "code": "D4323",
+    "display": "splint - extra-coronal; natural teeth or prosthetic crowns",
+    "system": "CDT"
+  },
+  {
+    "code": "D4341",
+    "display": "periodontal scaling and root planing - four or more teeth per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4342",
+    "display": "periodontal scaling and root planing - one to three teeth per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4346",
+    "display": "scaling in presence of generalized moderate or severe gingival inflammation - full mouth, after oral evaluation",
+    "system": "CDT"
+  },
+  {
+    "code": "D4355",
+    "display": "full mouth debridement to enable a comprehensive periodontal evaluation and diagnosis on a subsequent visit",
+    "system": "CDT"
+  },
+  {
+    "code": "D4381",
+    "display": "localized delivery of antimicrobial agents via a controlled release vehicle into diseased crevicular tissue, per tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D4910",
+    "display": "periodontal maintenance",
+    "system": "CDT"
+  },
+  {
+    "code": "D4920",
+    "display": "unscheduled dressing change (by someone other than treating dentist or their staff)",
+    "system": "CDT"
+  },
+  {
+    "code": "D4921",
+    "display": "gingival irrigation with a medicinal agent - per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D4999",
+    "display": "unspecified periodontal procedure, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D5110",
+    "display": "complete denture - maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D5120",
+    "display": "complete denture - mandibular",
+    "system": "CDT"
+  },
+  {
+    "code": "D5130",
+    "display": "immediate denture - maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D5140",
+    "display": "immediate denture - mandibular",
+    "system": "CDT"
+  },
+  {
+    "code": "D5211",
+    "display": "maxillary partial denture - resin base (including, retentive/clasping materials, rests, and teeth)",
+    "system": "CDT"
+  },
+  {
+    "code": "D5212",
+    "display": "mandibular partial denture - resin base (including, retentive/clasping materials, rests, and teeth)",
+    "system": "CDT"
+  },
+  {
+    "code": "D5213",
+    "display": "maxillary partial denture - cast metal framework with resin denture bases (including retentive/clasping materials, rests and teeth)",
+    "system": "CDT"
+  },
+  {
+    "code": "D5214",
+    "display": "mandibular partial denture - cast metal framework with resin denture bases (including retentive/clasping materials, rests and teeth)",
+    "system": "CDT"
+  },
+  {
+    "code": "D5221",
+    "display": "immediate maxillary partial denture - resin base (including retentive/clasping materials, rests and teeth)",
+    "system": "CDT"
+  },
+  {
+    "code": "D5410",
+    "display": "adjust complete denture - maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D5411",
+    "display": "adjust complete denture - mandibular",
+    "system": "CDT"
+  },
+  {
+    "code": "D5421",
+    "display": "adjust partial denture - maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D5422",
+    "display": "adjust partial denture - mandibular",
+    "system": "CDT"
+  },
+  {
+    "code": "D5510",
+    "display": "D5510",
+    "system": "CDT"
+  },
+  {
+    "code": "D5520",
+    "display": "replace missing or broken teeth - complete denture (each tooth)",
+    "system": "CDT"
+  },
+  {
+    "code": "D5610",
+    "display": "D5610",
+    "system": "CDT"
+  },
+  {
+    "code": "D5611",
+    "display": "repair resin partial denture base, mandibular",
+    "system": "CDT"
+  },
+  {
+    "code": "D5622",
+    "display": "repair cast partial framework, maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D5630",
+    "display": "repair or replace broken retentive clasping materials - per tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D5640",
+    "display": "replace broken teeth - per tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D5650",
+    "display": "add tooth to existing partial denture",
+    "system": "CDT"
+  },
+  {
+    "code": "D5660",
+    "display": "add clasp to existing partial denture  per tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D5671",
+    "display": "replace all teeth and acrylic on cast metal framework (mandibular)",
+    "system": "CDT"
+  },
+  {
+    "code": "D5721",
+    "display": "rebase mandibular partial denture",
+    "system": "CDT"
+  },
+  {
+    "code": "D5731",
+    "display": "reline complete mandibular denture (direct)",
+    "system": "CDT"
+  },
+  {
+    "code": "D5740",
+    "display": "reline maxillary partial denture direct",
+    "system": "CDT"
+  },
+  {
+    "code": "D5750",
+    "display": "reline complete maxillary denture indirect",
+    "system": "CDT"
+  },
+  {
+    "code": "D5751",
+    "display": "reline complete mandibular denture indirect",
+    "system": "CDT"
+  },
+  {
+    "code": "D5761",
+    "display": "reline mandibular partial denture indirect",
+    "system": "CDT"
+  },
+  {
+    "code": "D5810",
+    "display": "interim complete denture maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D5811",
+    "display": "interim complete denture (mandibular)",
+    "system": "CDT"
+  },
+  {
+    "code": "D5820",
+    "display": "interim partial denture including retentive/clasping materials rests and teeth maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D5821",
+    "display": "interim partial denture (including retentive/clasping materials, rests, and teeth), mandibular",
+    "system": "CDT"
+  },
+  {
+    "code": "D5850",
+    "display": "tissue conditioning, maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D5866",
+    "display": "overdenture  partial mandibular",
+    "system": "CDT"
+  },
+  {
+    "code": "D5867",
+    "display": "replacement of replaceable part of semi-precision or precision attachment, per attachment",
+    "system": "CDT"
+  },
+  {
+    "code": "D5899",
+    "display": "unspecified removable prosthodontic procedure, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D5913",
+    "display": "nasal prosthesis",
+    "system": "CDT"
+  },
+  {
+    "code": "D5916",
+    "display": "ocular prosthesis",
+    "system": "CDT"
+  },
+  {
+    "code": "D5924",
+    "display": "cranial prosthesis",
+    "system": "CDT"
+  },
+  {
+    "code": "D5933",
+    "display": "obturator prosthesis, modification",
+    "system": "CDT"
+  },
+  {
+    "code": "D5936",
+    "display": "obturator prosthesis, interim",
+    "system": "CDT"
+  },
+  {
+    "code": "D5951",
+    "display": "feeding aid",
+    "system": "CDT"
+  },
+  {
+    "code": "D5984",
+    "display": "radiation shield",
+    "system": "CDT"
+  },
+  {
+    "code": "D5986",
+    "display": "fluoride gel carrier",
+    "system": "CDT"
+  },
+  {
+    "code": "D5999",
+    "display": "unspecified maxillofacial prosthesis, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D6010",
+    "display": "surgical placement of implant body: endosteal implant",
+    "system": "CDT"
+  },
+  {
+    "code": "D6011",
+    "display": "surgical access to an implant body second stage implant surgery",
+    "system": "CDT"
+  },
+  {
+    "code": "D6012",
+    "display": "surgical placement of interim implant body for transitional prosthesis: endosteal implant",
+    "system": "CDT"
+  },
+  {
+    "code": "D6013",
+    "display": "surgical placement of mini implant",
+    "system": "CDT"
+  },
+  {
+    "code": "D6051",
+    "display": "interim implant abutment placement",
+    "system": "CDT"
+  },
+  {
+    "code": "D6055",
+    "display": "connecting bar - implant supported or abutment supported",
+    "system": "CDT"
+  },
+  {
+    "code": "D6056",
+    "display": "prefabricated abutment - includes modification and placement",
+    "system": "CDT"
+  },
+  {
+    "code": "D6057",
+    "display": "custom fabricated abutment - includes placement",
+    "system": "CDT"
+  },
+  {
+    "code": "D6058",
+    "display": "abutment supported porcelain/ceramic crown",
+    "system": "CDT"
+  },
+  {
+    "code": "D6059",
+    "display": "abutment supported porcelain fused to metal crown high noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6061",
+    "display": "abutment supported porcelain fused to metal crown (noble metal)",
+    "system": "CDT"
+  },
+  {
+    "code": "D6065",
+    "display": "implant supported porcelain/ceramic crown",
+    "system": "CDT"
+  },
+  {
+    "code": "D6066",
+    "display": "implant supported crown - porcelain fused to high noble alloys",
+    "system": "CDT"
+  },
+  {
+    "code": "D6067",
+    "display": "implant supported crown  high noble alloys",
+    "system": "CDT"
+  },
+  {
+    "code": "D6068",
+    "display": "abutment supported retainer for porcelain/ceramic FPD",
+    "system": "CDT"
+  },
+  {
+    "code": "D6069",
+    "display": "abutment supported retainer for porcelain fused to metal FPD (high noble metal)",
+    "system": "CDT"
+  },
+  {
+    "code": "D6071",
+    "display": "abutment supported retainer for porcelain fused to metal FPD (noble metal)",
+    "system": "CDT"
+  },
+  {
+    "code": "D6072",
+    "display": "abutment supported retainer for cast metal FPD high noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6073",
+    "display": "abutment supported retainer for cast metal FPD predominantly base metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6076",
+    "display": "implant supported retainer for FPD - porcelain fused to high noble alloys",
+    "system": "CDT"
+  },
+  {
+    "code": "D6085",
+    "display": "interim implant crown",
+    "system": "CDT"
+  },
+  {
+    "code": "D6094",
+    "display": "abutment supported crown - titanium and titanium alloys",
+    "system": "CDT"
+  },
+  {
+    "code": "D6100",
+    "display": "surgical removal of implant body",
+    "system": "CDT"
+  },
+  {
+    "code": "D6103",
+    "display": "bone graft for repair of periimplant defect  does not include flap entry and closure",
+    "system": "CDT"
+  },
+  {
+    "code": "D6104",
+    "display": "bone graft at time of implant placement",
+    "system": "CDT"
+  },
+  {
+    "code": "D6110",
+    "display": "implant /abutment supported removable denture for edentulous arch  maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D6111",
+    "display": "implant /abutment supported removable denture for edentulous arch - mandibular",
+    "system": "CDT"
+  },
+  {
+    "code": "D6114",
+    "display": "implant /abutment supported fixed denture for edentulous arch - maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D6115",
+    "display": "implant /abutment supported fixed denture for edentulous arch - mandibular",
+    "system": "CDT"
+  },
+  {
+    "code": "D6119",
+    "display": "implant/abutment supported interim fixed denture for edentulous arch - maxillary",
+    "system": "CDT"
+  },
+  {
+    "code": "D6190",
+    "display": "radiographic/surgical implant index, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D6199",
+    "display": "unspecified implant procedure, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D6205",
+    "display": "pontic  indirect resin based composite",
+    "system": "CDT"
+  },
+  {
+    "code": "D6210",
+    "display": "pontic  cast high noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6240",
+    "display": "pontic - porcelain fused to high noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6241",
+    "display": "pontic - porcelain fused to predominantly base metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6242",
+    "display": "pontic - porcelain fused to noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6245",
+    "display": "pontic - porcelain/ceramic",
+    "system": "CDT"
+  },
+  {
+    "code": "D6253",
+    "display": "interim pontic - further treatment or completion of diagnosis necessary prior to final impression",
+    "system": "CDT"
+  },
+  {
+    "code": "D6740",
+    "display": "retainer crown - porcelain/ceramic",
+    "system": "CDT"
+  },
+  {
+    "code": "D6750",
+    "display": "retainer crown - porcelain fused to high noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6751",
+    "display": "retainer crown - porcelain fused to predominantly base metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6752",
+    "display": "retainer crown - porcelain fused to noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6790",
+    "display": "retainer crown  full cast high noble metal",
+    "system": "CDT"
+  },
+  {
+    "code": "D6930",
+    "display": "recement or rebond fixed partial denture",
+    "system": "CDT"
+  },
+  {
+    "code": "D6950",
+    "display": "precision attachment",
+    "system": "CDT"
+  },
+  {
+    "code": "D6999",
+    "display": "unspecified fixed prosthodontic procedure, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D7111",
+    "display": "extraction, coronal remnants - primary tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D7140",
+    "display": "extraction, erupted tooth or exposed root (elevation and/or forceps removal)",
+    "system": "CDT"
+  },
+  {
+    "code": "D7210",
+    "display": "extraction, erupted tooth requiring removal of bone and/or sectioning of tooth, and including elevation of mucoperiosteal flap if indicated",
+    "system": "CDT"
+  },
+  {
+    "code": "D7220",
+    "display": "removal of impacted tooth - soft tissue",
+    "system": "CDT"
+  },
+  {
+    "code": "D7230",
+    "display": "removal of impacted tooth - partially bony",
+    "system": "CDT"
+  },
+  {
+    "code": "D7240",
+    "display": "removal of impacted tooth - completely bony",
+    "system": "CDT"
+  },
+  {
+    "code": "D7241",
+    "display": "removal of impacted tooth - completely bony, with unusual surgical complications",
+    "system": "CDT"
+  },
+  {
+    "code": "D7250",
+    "display": "removal of residual tooth roots cutting procedure",
+    "system": "CDT"
+  },
+  {
+    "code": "D7251",
+    "display": "coronectomy - intentional partial tooth removal, impacted teeth only",
+    "system": "CDT"
+  },
+  {
+    "code": "D7260",
+    "display": "oroantral fistula closure",
+    "system": "CDT"
+  },
+  {
+    "code": "D7261",
+    "display": "primary closure of a sinus perforation",
+    "system": "CDT"
+  },
+  {
+    "code": "D7270",
+    "display": "tooth reimplantation and/or stabilization of accidentally evulsed or displaced tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D7272",
+    "display": "tooth transplantation (includes re-implantation from one site to another and splinting and/or stabilization)",
+    "system": "CDT"
+  },
+  {
+    "code": "D7280",
+    "display": "exposure of an unerupted tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D7282",
+    "display": "mobilization of erupted or malpositioned tooth to aid eruption",
+    "system": "CDT"
+  },
+  {
+    "code": "D7283",
+    "display": "placement of device to facilitate eruption of impacted tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D7285",
+    "display": "incisional biopsy of oral tissue-hard (bone, tooth)",
+    "system": "CDT"
+  },
+  {
+    "code": "D7286",
+    "display": "incisional biopsy of oral tissuesoft",
+    "system": "CDT"
+  },
+  {
+    "code": "D7287",
+    "display": "exfoliative cytological sample collection",
+    "system": "CDT"
+  },
+  {
+    "code": "D7288",
+    "display": "brush biopsy - transepithelial sample collection",
+    "system": "CDT"
+  },
+  {
+    "code": "D7290",
+    "display": "surgical repositioning of teeth",
+    "system": "CDT"
+  },
+  {
+    "code": "D7291",
+    "display": "transseptal fiberotomy/supra crestal fiberotomy, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D7293",
+    "display": "placement of temporary anchorage device requiring flap",
+    "system": "CDT"
+  },
+  {
+    "code": "D7294",
+    "display": "placement of temporary anchorage device without flap",
+    "system": "CDT"
+  },
+  {
+    "code": "D7295",
+    "display": "harvest of bone for use in autogenous grafting procedure",
+    "system": "CDT"
+  },
+  {
+    "code": "D7297",
+    "display": "corticotomy - four or more teeth or tooth spaces, per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D7310",
+    "display": "alveoloplasty in conjunction with extractions - four or more teeth or tooth spaces, per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D7311",
+    "display": "alveoloplasty in conjunction with extractions - one to three teeth or tooth spaces, per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D7320",
+    "display": "alveoloplasty not in conjunction with extractions - four or more teeth or tooth spaces, per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D7321",
+    "display": "alveoloplasty not in conjunction with extractions - one to three teeth or tooth spaces, per quadrant",
+    "system": "CDT"
+  },
+  {
+    "code": "D7410",
+    "display": "excision of benign lesion up to 1.25 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7411",
+    "display": "excision of benign lesion greater than 1.25 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7412",
+    "display": "excision of benign lesion, complicated",
+    "system": "CDT"
+  },
+  {
+    "code": "D7413",
+    "display": "excision of malignant lesion up to 1.25 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7414",
+    "display": "excision of malignant lesion greater than 1.25 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7441",
+    "display": "excision of malignant tumor - lesion diameter greater than 1.25 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7450",
+    "display": "removal of benign odontogenic cyst or tumor - lesion diameter up to 1.25 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7451",
+    "display": "removal of benign odontogenic cyst or tumor - lesion diameter greater than 1.25 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7461",
+    "display": "removal of benign nonodontogenic cyst or tumor  lesion diameter greater than 1.25 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7465",
+    "display": "destruction of lesions by physical or chemical method by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D7471",
+    "display": "removal of lateral exostosis (maxilla or mandible)",
+    "system": "CDT"
+  },
+  {
+    "code": "D7472",
+    "display": "removal of torus palatinus",
+    "system": "CDT"
+  },
+  {
+    "code": "D7473",
+    "display": "removal of torus mandibularis",
+    "system": "CDT"
+  },
+  {
+    "code": "D7510",
+    "display": "incision and drainage of abscess - intraoral soft tissue",
+    "system": "CDT"
+  },
+  {
+    "code": "D7511",
+    "display": "incision and drainage of abscess  intraoral soft tissue  complicated includes drainage of multiple fascial spaces",
+    "system": "CDT"
+  },
+  {
+    "code": "D7520",
+    "display": "incision and drainage of abscess  extraoral soft tissue",
+    "system": "CDT"
+  },
+  {
+    "code": "D7521",
+    "display": "incision and drainage of abscess - extraoral soft tissue - complicated (includes drainage of multiple fascial spaces)",
+    "system": "CDT"
+  },
+  {
+    "code": "D7530",
+    "display": "removal of foreign body from mucosa, skin, or subcutaneous alveolar tissue",
+    "system": "CDT"
+  },
+  {
+    "code": "D7550",
+    "display": "partial ostectomy/sequestrectomy for removal of non-vital bone",
+    "system": "CDT"
+  },
+  {
+    "code": "D7560",
+    "display": "maxillary sinusotomy for removal of tooth fragment or foreign body",
+    "system": "CDT"
+  },
+  {
+    "code": "D7640",
+    "display": "mandible  closed reduction teeth immobilized if present",
+    "system": "CDT"
+  },
+  {
+    "code": "D7670",
+    "display": "alveolus - closed reduction, may include stabilization of teeth",
+    "system": "CDT"
+  },
+  {
+    "code": "D7730",
+    "display": "mandible  open reduction",
+    "system": "CDT"
+  },
+  {
+    "code": "D7830",
+    "display": "manipulation under anesthesia",
+    "system": "CDT"
+  },
+  {
+    "code": "D7870",
+    "display": "arthrocentesis",
+    "system": "CDT"
+  },
+  {
+    "code": "D7871",
+    "display": "non-arthroscopic lysis and lavage",
+    "system": "CDT"
+  },
+  {
+    "code": "D7880",
+    "display": "occlusal orthotic device, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D7881",
+    "display": "occlusal orthotic device adjustment",
+    "system": "CDT"
+  },
+  {
+    "code": "D7910",
+    "display": "suture of recent small wounds up to 5 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7911",
+    "display": "complicated suture - up to 5 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7912",
+    "display": "complicated suture - greater than 5 cm",
+    "system": "CDT"
+  },
+  {
+    "code": "D7921",
+    "display": "collection and application of autologous blood concentrate product",
+    "system": "CDT"
+  },
+  {
+    "code": "D7922",
+    "display": "placement of intra-socket biological dressing to aid in hemostasis or clot stabilization, per site",
+    "system": "CDT"
+  },
+  {
+    "code": "D7940",
+    "display": "osteoplasty  for orthognathic deformities",
+    "system": "CDT"
+  },
+  {
+    "code": "D7950",
+    "display": "osseous, osteoperiosteal, or cartilage graft of the mandible or maxilla - autogenous or nonautogenous, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D7951",
+    "display": "sinus augmentation with bone or bone substitutes via a lateral open approach",
+    "system": "CDT"
+  },
+  {
+    "code": "D7952",
+    "display": "sinus augmentation via a vertical approach",
+    "system": "CDT"
+  },
+  {
+    "code": "D7953",
+    "display": "bone replacement graft for ridge preservation - per site",
+    "system": "CDT"
+  },
+  {
+    "code": "D7955",
+    "display": "repair of maxillofacial soft and/or hard tissue defect",
+    "system": "CDT"
+  },
+  {
+    "code": "D7960",
+    "display": "D7960",
+    "system": "CDT"
+  },
+  {
+    "code": "D7963",
+    "display": "frenuloplasty",
+    "system": "CDT"
+  },
+  {
+    "code": "D7970",
+    "display": "excision of hyperplastic tissue - per arch",
+    "system": "CDT"
+  },
+  {
+    "code": "D7971",
+    "display": "excision of pericoronal gingiva",
+    "system": "CDT"
+  },
+  {
+    "code": "D7982",
+    "display": "sialodochoplasty",
+    "system": "CDT"
+  },
+  {
+    "code": "D7996",
+    "display": "implantmandible for augmentation purposes excluding alveolar ridge by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D7997",
+    "display": "appliance removal (not by dentist who placed appliance), includes removal of archbar",
+    "system": "CDT"
+  },
+  {
+    "code": "D7999",
+    "display": "unspecified oral surgery procedure, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D8040",
+    "display": "limited orthodontic treatment of the adult dentition",
+    "system": "CDT"
+  },
+  {
+    "code": "D8060",
+    "display": "D8060",
+    "system": "CDT"
+  },
+  {
+    "code": "D8070",
+    "display": "comprehensive orthodontic treatment of the transitional dentition",
+    "system": "CDT"
+  },
+  {
+    "code": "D8080",
+    "display": "comprehensive orthodontic treatment of the adolescent dentition",
+    "system": "CDT"
+  },
+  {
+    "code": "D8090",
+    "display": "comprehensive orthodontic treatment of the adult dentition",
+    "system": "CDT"
+  },
+  {
+    "code": "D8210",
+    "display": "removable appliance therapy",
+    "system": "CDT"
+  },
+  {
+    "code": "D8220",
+    "display": "fixed appliance therapy",
+    "system": "CDT"
+  },
+  {
+    "code": "D8660",
+    "display": "preorthodontic treatment examination to monitor growth and development",
+    "system": "CDT"
+  },
+  {
+    "code": "D8670",
+    "display": "periodic orthodontic treatment visit",
+    "system": "CDT"
+  },
+  {
+    "code": "D8680",
+    "display": "orthodontic retention removal of appliances construction and placement of retainers",
+    "system": "CDT"
+  },
+  {
+    "code": "D8690",
+    "display": "D8690",
+    "system": "CDT"
+  },
+  {
+    "code": "D8692",
+    "display": "D8692",
+    "system": "CDT"
+  },
+  {
+    "code": "D8999",
+    "display": "unspecified orthodontic procedure by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D9110",
+    "display": "palliative treatment of dental pain - per visit",
+    "system": "CDT"
+  },
+  {
+    "code": "D9120",
+    "display": "fixed partial denture sectioning",
+    "system": "CDT"
+  },
+  {
+    "code": "D9210",
+    "display": "local anesthesia not in conjunction with operative or surgical procedures",
+    "system": "CDT"
+  },
+  {
+    "code": "D9211",
+    "display": "regional block anesthesia",
+    "system": "CDT"
+  },
+  {
+    "code": "D9212",
+    "display": "trigeminal division block anesthesia",
+    "system": "CDT"
+  },
+  {
+    "code": "D9215",
+    "display": "local anesthesia in conjunction with operative or surgical procedures",
+    "system": "CDT"
+  },
+  {
+    "code": "D9219",
+    "display": "evaluation for moderate sedation, deep sedation or general anesthesia",
+    "system": "CDT"
+  },
+  {
+    "code": "D9220",
+    "display": "D9220",
+    "system": "CDT"
+  },
+  {
+    "code": "D9221",
+    "display": "D9221",
+    "system": "CDT"
+  },
+  {
+    "code": "D9222",
+    "display": "deep sedation/general anesthesia - first 15 minutes",
+    "system": "CDT"
+  },
+  {
+    "code": "D9223",
+    "display": "deep sedation/general anesthesia - each subsequent 15 minute increment",
+    "system": "CDT"
+  },
+  {
+    "code": "D9230",
+    "display": "inhalation of nitrous oxide/analgesia, anxiolysis",
+    "system": "CDT"
+  },
+  {
+    "code": "D9239",
+    "display": "intravenous moderate (conscious) sedation/analgesia- first 15 minutes",
+    "system": "CDT"
+  },
+  {
+    "code": "D9241",
+    "display": "D9241",
+    "system": "CDT"
+  },
+  {
+    "code": "D9242",
+    "display": "D9242",
+    "system": "CDT"
+  },
+  {
+    "code": "D9243",
+    "display": "intravenous moderate conscious sedation/analgesia  each subsequent 15 minute increment",
+    "system": "CDT"
+  },
+  {
+    "code": "D9248",
+    "display": "nonintravenous conscious sedation",
+    "system": "CDT"
+  },
+  {
+    "code": "D9310",
+    "display": "consultation - diagnostic service provided by dentist or physician other than requesting dentist or physician",
+    "system": "CDT"
+  },
+  {
+    "code": "D9410",
+    "display": "house/extended care facility call",
+    "system": "CDT"
+  },
+  {
+    "code": "D9420",
+    "display": "hospital or ambulatory surgical center call",
+    "system": "CDT"
+  },
+  {
+    "code": "D9430",
+    "display": "office visit for observation during regularly scheduled hours  no other services performed",
+    "system": "CDT"
+  },
+  {
+    "code": "D9440",
+    "display": "office visit  after regularly scheduled hours",
+    "system": "CDT"
+  },
+  {
+    "code": "D9450",
+    "display": "case presentation, subsequent to detailed and extensive treatment planning",
+    "system": "CDT"
+  },
+  {
+    "code": "D9610",
+    "display": "therapeutic parenteral drug, single administration",
+    "system": "CDT"
+  },
+  {
+    "code": "D9612",
+    "display": "therapeutic parenteral drugs, two or more administrations, different medications",
+    "system": "CDT"
+  },
+  {
+    "code": "D9630",
+    "display": "drugs or medicaments dispensed in the office for home use",
+    "system": "CDT"
+  },
+  {
+    "code": "D9910",
+    "display": "application of desensitizing medicament",
+    "system": "CDT"
+  },
+  {
+    "code": "D9920",
+    "display": "behavior management, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D9930",
+    "display": "treatment of complications (post-surgical) - unusual circumstances, by report",
+    "system": "CDT"
+  },
+  {
+    "code": "D9940",
+    "display": "D9940",
+    "system": "CDT"
+  },
+  {
+    "code": "D9951",
+    "display": "occlusal adjustment  limited",
+    "system": "CDT"
+  },
+  {
+    "code": "D9952",
+    "display": "occlusal adjustment  complete",
+    "system": "CDT"
+  },
+  {
+    "code": "D9971",
+    "display": "odontoplasty - per tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D9974",
+    "display": "internal bleaching  per tooth",
+    "system": "CDT"
+  },
+  {
+    "code": "D9986",
+    "display": "missed appointment",
+    "system": "CDT"
+  },
+  {
+    "code": "D9987",
+    "display": "cancelled appointment",
+    "system": "CDT"
+  },
+  {
+    "code": "D9992",
+    "display": "dental case management - care coordination",
+    "system": "CDT"
+  },
+  {
+    "code": "D9997",
+    "display": "dental case management - patients with special health care needs",
+    "system": "CDT"
+  },
+  {
+    "code": "D9999",
+    "display": "unspecified adjunctive procedure, by report",
+    "system": "CDT"
+  }
+]

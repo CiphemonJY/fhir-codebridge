@@ -1,0 +1,29 @@
+services:
+  fhir-codebridge:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./secrets:/run/secrets:ro
+    # Docker secrets — read from file instead of plaintext env
+    # Mount secrets as files, app reads them via _read_secret()
+    environment:
+      - LISA_UMLS_API_KEY_FILE=/run/secrets/umls_api_key.txt
+      - LISA_API_KEYS_FILE=/run/secrets/lisa_api_keys.txt
+      - LISA_PORT=8000
+      - LISA_AUDIT_LOG=/app/data/audit.logl
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 4g
+          cpus: "2.0"
+        reservations:
+          memory: 512m
