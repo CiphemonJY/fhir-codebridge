@@ -9,10 +9,10 @@ services:
     # Docker secrets — read from file instead of plaintext env
     # Mount secrets as files, app reads them via _read_secret()
     environment:
-      - LISA_UMLS_API_KEY_FILE=/run/secrets/umls_api_key.txt
-      - LISA_API_KEYS_FILE=/run/secrets/lisa_api_keys.txt
-      - LISA_PORT=8000
-      - LISA_AUDIT_LOG=/app/data/audit.logl
+      - CODEBRIDGE_UMLS_API_KEY_FILE=/run/secrets/umls_api_key.txt
+      - CODEBRIDGE_API_KEYS_FILE=/run/secrets/lisa_api_keys.txt
+      - CODEBRIDGE_PORT=8000
+      - CODEBRIDGE_AUDIT_LOG=/app/data/audit.log
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]

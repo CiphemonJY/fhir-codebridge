@@ -24,7 +24,7 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 # --- Config ---
 REPO_URL="https://github.com/CiphemonJY/fhir-codebridge.git"
 INSTALL_DIR="${1:-$(pwd)/fhir-codebridge}"
-PORT="${LISA_PORT:-8000}"
+PORT="${CODEBRIDGE_PORT:-8000}"
 
 echo ""
 echo "  ╔═══════════════════════════════════════════════╗"

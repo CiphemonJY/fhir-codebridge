@@ -14,7 +14,7 @@ from pathlib import Path
 from datetime import datetime
 
 # Set test env vars
-os.environ['LISA_API_KEYS'] = 'test-admin-key:admin,test-read-key:read'
+os.environ['CODEBRIDGE_API_KEYS'] = 'test-admin-key:admin,test-read-key:read'
 
 # Load the server module directly (avoids path collision with api/server.py)
 ROOT = Path(__file__).resolve().parent.parent

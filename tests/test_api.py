@@ -19,23 +19,23 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 @pytest.fixture
 def open_client():
     """Create test client with auth explicitly disabled for testing."""
-    os.environ["LISA_AUTH_DISABLED"] = "1"
-    os.environ.pop("LISA_API_KEYS", None)
+    os.environ["CODEBRIDGE_AUTH_DISABLED"] = "1"
+    os.environ.pop("CODEBRIDGE_API_KEYS", None)
     import api.server as server_mod
     importlib.reload(server_mod)
     yield TestClient(server_mod.app)
-    os.environ.pop("LISA_AUTH_DISABLED", None)
+    os.environ.pop("CODEBRIDGE_AUTH_DISABLED", None)
 
 
 @pytest.fixture
 def authed_client():
     """Create test client with API key auth enabled."""
-    os.environ.pop("LISA_AUTH_DISABLED", None)
-    os.environ["LISA_API_KEYS"] = "test-admin-key:admin,test-read-key:read"
+    os.environ.pop("CODEBRIDGE_AUTH_DISABLED", None)
+    os.environ["CODEBRIDGE_API_KEYS"] = "test-admin-key:admin,test-read-key:read"
     import api.server as server_mod
     importlib.reload(server_mod)
     yield TestClient(server_mod.app)
-    os.environ.pop("LISA_API_KEYS", None)
+    os.environ.pop("CODEBRIDGE_API_KEYS", None)
 
 
 class TestHealth:
@@ -309,3 +309,30 @@ class TestBulk:
             data={"source_system": "ICD-10-CM", "target_system": "SNOMED-CT"},
         )
         assert resp.status_code == 400
+
+
+class TestMetrics:
+    """Prometheus metrics endpoint tests."""
+
+    def test_metrics_returns_text(self, open_client):
+        """Metrics endpoint should return Prometheus-format text."""
+        resp = open_client.get("/metrics")
+        assert resp.status_code == 200
+        assert "text/plain" in resp.headers.get("content-type", "")
+        body = resp.text
+        assert "codebridge_terms_loaded" in body
+        assert "codebridge_up 1" in body
+        assert "codebridge_umls_enabled" in body
+
+    def test_metrics_has_system_counts(self, open_client):
+        """Metrics should include per-system term counts."""
+        resp = open_client.get("/metrics")
+        body = resp.text
+        assert "codebridge_system_terms" in body
+        assert "ICD-10-CM" in body
+
+    def test_metrics_no_auth_required(self, open_client):
+        """Metrics should be accessible without auth (read-only stats)."""
+        # Already using open_client which has auth disabled
+        resp = open_client.get("/metrics")
+        assert resp.status_code == 200

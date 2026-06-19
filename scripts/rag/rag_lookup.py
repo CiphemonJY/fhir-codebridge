@@ -102,11 +102,11 @@ class RAGLookup:
         self._try_load_umls()
     
     def _init_umls_api(self):
-        """If LISA_UMLS_API_KEY is set, enable UMLS UTS API for live lookups."""
+        """If CODEBRIDGE_UMLS_API_KEY is set, enable UMLS UTS API for live lookups."""
         # Read from env or Docker secret file
-        key = os.environ.get("LISA_UMLS_API_KEY")
+        key = os.environ.get("CODEBRIDGE_UMLS_API_KEY")
         if not key:
-            file_path = os.environ.get("LISA_UMLS_API_KEY_FILE")
+            file_path = os.environ.get("CODEBRIDGE_UMLS_API_KEY_FILE")
             if file_path and os.path.exists(file_path):
                 with open(file_path) as f:
                     key = f.read().strip()
