@@ -83,7 +83,7 @@ if [ ! -f "$INSTALL_DIR/.env" ]; then
   
   # Generate random API key
   API_KEY=$(python3 -c "import secrets; print(secrets.token_hex(16))")
-  sed -i.bak "s/changeme-admin-key:admin/changeme-admin-key:admin,${API_KEY}:admin/" .env
+  sed -i.bak "s/changeme-admin-key:admin,changeme-readonly-key:read/${API_KEY}:admin/" .env
   rm -f .env.bak
   info "Admin API key generated: ${API_KEY}"
   warn "Save this key! You'll need it for API calls."

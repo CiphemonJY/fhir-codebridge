@@ -162,7 +162,7 @@ services:
 | `LISA_API_KEYS` | (none) | Comma-separated API keys with roles (`key:role`) |
 | `LISA_API_KEYS_FILE` | (none) | Path to Docker secret file containing API keys |
 | `LISA_PORT` | 8000 | Port for the API server |
-| `LISA_AUDIT_LOG` | `data/audit.logl` | Path to audit log file |
+| `LISA_AUDIT_LOG` | `data/audit.log` | Path to audit log file |
 
 ## Security Features
 
@@ -180,7 +180,7 @@ If no keys are configured, auth is disabled (open mode — for local dev only).
 
 ### Audit Logging
 
-Every API request is logged to `data/audit.logl` (JSON Lines format):
+Every API request is logged to `data/audit.log` (JSON Lines format):
 
 ```json
 {"ts":"2026-06-19T04:20:00Z","action":"lookup","ip":"10.0.0.1","endpoint":"/lookup","detail":{"code":"E11.9","system":"ICD-10-CM","found":true,"action":"auto_accept","confidence":1.0}}
@@ -210,7 +210,7 @@ UMLS UTS API calls are rate-limited (max 5 requests/second) and cached (1 hour T
 
 | Data | Location | Persists? |
 |------|----------|-----------|
-| Audit logs | `data/audit.logl` (Docker volume) | ✅ |
+| Audit logs | `data/audit.log` (Docker volume) | ✅ |
 | UMLS cache | In-memory | ❌ (rebuilt on startup) |
 | API keys | Docker secrets / env vars | ✅ (in your config) |
 | Terminology data | `data/terminology_parsed/` | ✅ (in the image) |

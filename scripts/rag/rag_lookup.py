@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-LISA_FTM RAG Lookup Layer
+fhir-codebridge RAG Lookup Layer
 =========================
 The simplest thing that works: 
   1. Exact code lookup → 100% accuracy, instant
@@ -103,7 +103,7 @@ class RAGLookup:
     
     def _init_umls_api(self):
         """If LISA_UMLS_API_KEY is set, enable UMLS UTS API for live lookups."""
-        # ponytail: read from env or Docker secret file
+        # Read from env or Docker secret file
         key = os.environ.get("LISA_UMLS_API_KEY")
         if not key:
             file_path = os.environ.get("LISA_UMLS_API_KEY_FILE")
@@ -686,7 +686,7 @@ if __name__ == '__main__':
     rag = RAGLookup()
     stats = rag.stats()
     
-    print("=== LISA_FTM RAG Lookup Engine ===\n")
+    print("=== fhir-codebridge RAG Lookup Engine ===\n")
     print(f"Total terms loaded: {stats['total_terms']:,}")
     print(f"Crosswalk mappings: {stats['crosswalk_mappings']:,}")
     print(f"UMLS loaded: {stats['umls_loaded']}")

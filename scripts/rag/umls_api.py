@@ -25,7 +25,7 @@ class UMLSClient:
     
     BASE = "https://uts-ws.nlm.nih.gov/rest"
     
-    # ponytail: in-memory cache + rate limit, no external deps
+    # In-memory cache + rate limit, no external deps
     _cache: dict = {}  # cache_key → (timestamp, data)
     _CACHE_TTL = 3600  # 1 hour
     _last_request_ts: float = 0
@@ -34,7 +34,7 @@ class UMLSClient:
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or os.environ.get("LISA_UMLS_API_KEY")
         if not self.api_key:
-            # ponytail: check Docker secret file
+            # Check Docker secret file
             file_path = os.environ.get("LISA_UMLS_API_KEY_FILE")
             if file_path and os.path.exists(file_path):
                 with open(file_path) as f:
@@ -66,7 +66,7 @@ class UMLSClient:
     def _cache_put(self, key: str, data):
         """Store result in cache."""
         self._cache[key] = (time.time(), data)
-        # ponytail: unbounded cache, switch to LRU if memory matters at scale
+        # Unbounded cache; switch to LRU if memory matters at scale
     
     def _get_tgt(self):
         """Get a ticket-granting ticket (TGT) for UTS authentication."""

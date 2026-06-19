@@ -65,7 +65,7 @@ now works for most common clinical terms:
 
 ### Neural Model (Experimental)
 
-The DP-LoRA fine-tuned model (Phase C of LISA_FTM) provides neural cross-system
+The DP-LoRA fine-tuned model (experimental neural cross-system mapping) provides neural cross-system
 mapping for codes NOT in the RAG layer. This is the experimental layer — 64.8%
 accuracy on unseen code pairs.
 
