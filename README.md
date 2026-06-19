@@ -177,6 +177,39 @@ With UMLS: full coverage (600K+ terms, cross-system mappings, NLM official SNOME
 
 Your API key is never stored or logged. See [SNOMED_LICENSE.md](SNOMED_LICENSE.md) for licensing details.
 
+## Client SDK
+
+Install the Python client library:
+
+```bash
+pip install fhir-codebridge
+```
+
+```python
+from codebridge import CodeBridge
+
+# Connect to your service
+cb = CodeBridge("http://localhost:8000", api_key="your-key")
+
+# Single code lookup
+result = cb.lookup("E11.9", system="ICD-10-CM", target_system="SNOMED-CT")
+print(result["source"]["display"])  # "Type 2 diabetes mellitus without complications"
+
+# Bulk map a CSV of codes
+cb.bulk_map("diagnoses.csv", source_system="ICD-10-CM", target_system="SNOMED-CT", output="results.csv")
+
+# Check service status
+stats = cb.stats()
+print(f"{stats['total_terms']:,} terms loaded")
+```
+
+Or use the CLI:
+```bash
+codebridge health --url http://localhost:8000
+codebridge lookup E11.9 --system ICD-10-CM --target SNOMED-CT
+codebridge bulk codes.csv --source ICD-10-CM --target SNOMED-CT --o results.csv
+```
+
 ## Architecture
 
 ```
@@ -207,17 +240,17 @@ See [INSTALL.md](INSTALL.md) for production hardening checklist.
 
 ## Project Status
 
-**Active** — maintained and deployed in development. Pre-v1.0 (not yet validated against real-world hospital data).
+**Active** — maintained and deployed in development. v0.3.0 (not yet validated against real-world hospital data).
 
-v0.1.0 roadmap:
+v0.3.0 roadmap:
 - ✅ RAG lookup engine (100% benchmark)
 - ✅ 5 API endpoints with FHIR $translate
 - ✅ RBAC + audit logging + Docker secrets
 - ✅ Pre-loaded terminology (123K+ verified terms + 1,898 crosswalk mappings)
-- ⬜ UMLS MRCONSO.RRF loader (v0.1.1 — supports hospital-provided full terminology)
+- ⬜ UMLS MRCONSO.RRF loader (v0.4.0 — supports hospital-provided full terminology)
 - ⬜ 100-mapping calibration test with UMLS data
-- ⬜ EHR connector templates (v0.2.0)
-- ⬜ Claim denial prediction (v0.2.0)
+- ⬜ EHR connector templates (v0.5.0)
+- ⬜ Claim denial prediction (v0.5.0)
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute.
 
