@@ -6,6 +6,17 @@ Open source, Docker-deployable FHIR terminology mapping API. Maps clinical codes
 
 ## Quick Start
 
+### Option A: Docker (recommended)
+```bash
+curl -fsSL https://raw.githubusercontent.com/CiphemonJY/fhir-codebridge/main/docker-quickstart.sh | bash
+```
+
+### Option B: pip install
+```bash
+curl -fsSL https://raw.githubusercontent.com/CiphemonJY/fhir-codebridge/main/quickstart.sh | bash
+```
+
+### Option C: Manual
 ```bash
 # Clone
 git clone https://github.com/CiphemonJY/fhir-codebridge.git
