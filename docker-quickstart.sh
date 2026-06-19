@@ -42,8 +42,8 @@ API_KEY=$(python3 -c "import secrets; print(secrets.token_hex(16))" 2>/dev/null 
 
 # Create .env
 cat > .env << EOF
-LISA_API_KEYS=${API_KEY}:admin
-LISA_PORT=8000
+CODEBRIDGE_API_KEYS=${API_KEY}:admin
+CODEBRIDGE_PORT=8000
 EOF
 info "Admin API key: ${API_KEY}"
 

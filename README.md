@@ -170,7 +170,7 @@ The National Library of Medicine provides free access to terminology data for US
 
 3. **UMLS UTS API Key** — for live lookups of codes not in your local database
    - Register: https://uts.nlm.nih.gov/uts/signup
-   - Add `LISA_UMLS_API_KEY=your-key` to `.env`
+   - Add `CODEBRIDGE_UMLS_API_KEY=your-key` to `.env`
 
 Without UMLS: 123K+ verified terms (74K ICD-10-CM from CMS, 47K RxNorm from NLM API, 397 CDT, 23 LOINC core) + 1,898 crosswalk mappings. SNOMED-CT and full LOINC require UMLS.
 With UMLS: full coverage (600K+ terms, cross-system mappings, NLM official SNOMED→ICD-10-CM).

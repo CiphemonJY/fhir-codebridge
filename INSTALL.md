@@ -28,7 +28,7 @@ ADMIN_KEY=$(openssl rand -hex 32)
 READ_KEY=$(openssl rand -hex 32)
 
 # Edit .env and set:
-# LISA_API_KEYS=${ADMIN_KEY}:admin,${READ_KEY}:read
+# CODEBRIDGE_API_KEYS=${ADMIN_KEY}:admin,${READ_KEY}:read
 # UMLS_API_KEY=your-umls-key (if you have one)
 
 # For Docker secrets (more secure, recommended for production):
@@ -84,8 +84,8 @@ cd fhir-codebridge
 pip install -r requirements.txt
 
 # Set environment variables
-export LISA_API_KEYS="admin-key:admin,readonly-key:read"
-export LISA_UMLS_API_KEY=your-umls-key  # optional
+export CODEBRIDGE_API_KEYS="admin-key:admin,readonly-key:read"
+export CODEBRIDGE_UMLS_API_KEY=your-umls-key  # optional
 
 uvicorn scripts.api.server:app --host 0.0.0.0 --port 8000
 ```
@@ -157,18 +157,18 @@ services:
 
 | Environment Variable | Default | Description |
 |---------------------|---------|-------------|
-| `LISA_UMLS_API_KEY` | (none) | UMLS UTS API key for full terminology access |
-| `LISA_UMLS_API_KEY_FILE` | (none) | Path to Docker secret file containing UMLS key |
-| `LISA_API_KEYS` | (none) | Comma-separated API keys with roles (`key:role`) |
-| `LISA_API_KEYS_FILE` | (none) | Path to Docker secret file containing API keys |
-| `LISA_PORT` | 8000 | Port for the API server |
-| `LISA_AUDIT_LOG` | `data/audit.log` | Path to audit log file |
+| `CODEBRIDGE_UMLS_API_KEY` | (none) | UMLS UTS API key for full terminology access |
+| `CODEBRIDGE_UMLS_API_KEY_FILE` | (none) | Path to Docker secret file containing UMLS key |
+| `CODEBRIDGE_API_KEYS` | (none) | Comma-separated API keys with roles (`key:role`) |
+| `CODEBRIDGE_API_KEYS_FILE` | (none) | Path to Docker secret file containing API keys |
+| `CODEBRIDGE_PORT` | 8000 | Port for the API server |
+| `CODEBRIDGE_AUDIT_LOG` | `data/audit.log` | Path to audit log file |
 
 ## Security Features
 
 ### API Key Authentication
 
-Set `LISA_API_KEYS` (env var or Docker secret) to enable auth.
+Set `CODEBRIDGE_API_KEYS` (env var or Docker secret) to enable auth.
 Format: `key1:role1,key2:role2`
 
 | Role | Permissions |
@@ -195,8 +195,8 @@ curl -H "X-API-Key: YOUR-ADMIN-KEY" http://localhost:8000/audit?limit=50
 ### Docker Secrets
 
 Production deployments should use Docker secrets (or Kubernetes secrets) rather than plaintext environment variables. The service reads from:
-- `LISA_UMLS_API_KEY_FILE` — path to UMLS API key file
-- `LISA_API_KEYS_FILE` — path to API keys file
+- `CODEBRIDGE_UMLS_API_KEY_FILE` — path to UMLS API key file
+- `CODEBRIDGE_API_KEYS_FILE` — path to API keys file
 
 See `docker-compose.yml` for the complete setup.
 
@@ -243,7 +243,7 @@ docker compose restart
 
 **Audit log empty:**
 - Verify `data/` directory is writable by the container
-- Check `LISA_AUDIT_LOG` path if using custom location
+- Check `CODEBRIDGE_AUDIT_LOG` path if using custom location
 
 **UMLS lookups not working:**
 - Verify UMLS data is loaded: `curl http://localhost:8000/health` — `umls_enabled` should be `true`

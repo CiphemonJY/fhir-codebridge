@@ -5,7 +5,7 @@ UMLS UTS API Client
 Looks up concepts and cross-system mappings via the NLM UTS REST API.
 Requires a UMLS API key (free registration at https://uts.nlm.nih.gov/uts/signup).
 
-Set env var: LISA_UMLS_API_KEY=your-key-here
+Set env var: CODEBRIDGE_UMLS_API_KEY=your-key-here
 
 The API key is NEVER stored or logged. It's read from the environment
 and used only for outbound UTS API calls.
@@ -32,16 +32,16 @@ class UMLSClient:
     _MIN_INTERVAL = 0.2  # 200ms between requests = max 5 req/s (NLM limit is ~20/s)
     
     def __init__(self, api_key: Optional[str] = None):
-        self.api_key = api_key or os.environ.get("LISA_UMLS_API_KEY")
+        self.api_key = api_key or os.environ.get("CODEBRIDGE_UMLS_API_KEY")
         if not self.api_key:
             # Check Docker secret file
-            file_path = os.environ.get("LISA_UMLS_API_KEY_FILE")
+            file_path = os.environ.get("CODEBRIDGE_UMLS_API_KEY_FILE")
             if file_path and os.path.exists(file_path):
                 with open(file_path) as f:
                     self.api_key = f.read().strip()
         if not self.api_key:
             raise ValueError(
-                "No UMLS API key found. Set LISA_UMLS_API_KEY env var "
+                "No UMLS API key found. Set CODEBRIDGE_UMLS_API_KEY env var "
                 "or pass api_key to UMLSClient(). "
                 "Get a free key at https://uts.nlm.nih.gov/uts/signup"
             )
@@ -227,8 +227,8 @@ class UMLSClient:
 if __name__ == "__main__":
     import sys
     
-    if not os.environ.get("LISA_UMLS_API_KEY"):
-        print("Set LISA_UMLS_API_KEY env var first.")
+    if not os.environ.get("CODEBRIDGE_UMLS_API_KEY"):
+        print("Set CODEBRIDGE_UMLS_API_KEY env var first.")
         print("Get a free key at https://uts.nlm.nih.gov/uts/signup")
         sys.exit(1)
     

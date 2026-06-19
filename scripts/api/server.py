@@ -13,7 +13,7 @@ Endpoints:
   GET  /audit               — query audit log (requires admin key)
 
 Security:
-  - API key auth via LISA_API_KEYS env var (comma-separated)
+  - API key auth via CODEBRIDGE_API_KEYS env var (comma-separated)
   - RBAC: admin keys can query audit log, read-only keys can use lookup/translate
   - Audit log: every request logged to data/audit.log
   - UMLS proxy: rate-limited + cached (guardrail against API abuse)
@@ -55,7 +55,7 @@ def _read_secret(name: str) -> str:
     return os.environ.get(name, "")
 
 # --- Config ---
-API_KEYS_ENV = _read_secret("LISA_API_KEYS")
+API_KEYS_ENV = _read_secret("CODEBRIDGE_API_KEYS")
 # Format: "key1:admin,key2:read,key3:read" or just "key1" (defaults to admin)
 API_KEYS: dict[str, str] = {}  # key → role
 if API_KEYS_ENV:
@@ -68,16 +68,16 @@ if API_KEYS_ENV:
             API_KEYS[entry] = "admin"
 
 # Auth: enabled if API keys are set OR if explicit auth-disabled flag is not set
-# Safety: must explicitly set LISA_AUTH_DISABLED=1 to run without auth
-AUTH_EXPLICITLY_DISABLED = os.environ.get("LISA_AUTH_DISABLED", "").strip() in ("1", "true", "yes")
+# Safety: must explicitly set CODEBRIDGE_AUTH_DISABLED=1 to run without auth
+AUTH_EXPLICITLY_DISABLED = os.environ.get("CODEBRIDGE_AUTH_DISABLED", "").strip() in ("1", "true", "yes")
 AUTH_ENABLED = bool(API_KEYS) or not AUTH_EXPLICITLY_DISABLED
 if AUTH_EXPLICITLY_DISABLED and not API_KEYS:
-    print("WARNING: LISA_AUTH_DISABLED=1 — API is running in open mode (no authentication). "
+    print("WARNING: CODEBRIDGE_AUTH_DISABLED=1 — API is running in open mode (no authentication). "
           "Do NOT use in production.")
 API_KEY_HEADER = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 # Audit log path
-AUDIT_LOG = Path(os.environ.get("LISA_AUDIT_LOG", "data/audit.log"))
+AUDIT_LOG = Path(os.environ.get("CODEBRIDGE_AUDIT_LOG", "data/audit.log"))
 AUDIT_LOG.parent.mkdir(parents=True, exist_ok=True)
 
 # --- Init ---
@@ -88,7 +88,7 @@ app = FastAPI(
 )
 
 # CORS: configurable via env var, defaults to restrictive (no wildcard + credentials)
-CORS_ORIGINS = os.environ.get("LISA_CORS_ORIGINS", "").strip()
+CORS_ORIGINS = os.environ.get("CODEBRIDGE_CORS_ORIGINS", "").strip()
 if CORS_ORIGINS:
     app.add_middleware(
         CORSMiddleware,
@@ -96,7 +96,7 @@ if CORS_ORIGINS:
         allow_methods=["GET", "POST"],
         allow_headers=["X-API-Key", "Content-Type"],
     )
-# No CORS middleware if LISA_CORS_ORIGINS not set = same-origin only (most secure)
+# No CORS middleware if CODEBRIDGE_CORS_ORIGINS not set = same-origin only (most secure)
 
 # Load RAG engine once at startup
 rag = RAGLookup()
@@ -127,7 +127,7 @@ def audit_log(request: Request, action: str, detail: dict):
 async def get_api_key(request: Request, key: str = Security(API_KEY_HEADER)):
     """Validate API key. Returns role or raises 401/403."""
     if not AUTH_ENABLED:
-        return "admin"  # Only reached if LISA_AUTH_DISABLED=1 is explicitly set
+        return "admin"  # Only reached if CODEBRIDGE_AUTH_DISABLED=1 is explicitly set
     if not key:
         raise HTTPException(401, "Missing API key. Set X-API-Key header.")
     role = API_KEYS.get(key)
@@ -876,7 +876,43 @@ loadDashboard();
 </html>"""
 
 
+# --- Metrics endpoint (Prometheus-compatible, text format) ---
+
+@app.get("/metrics")
+async def metrics():
+    """Prometheus-compatible metrics endpoint. No auth required (read-only stats)."""
+    stats = rag.stats()
+    total = stats.get("total_terms", 0)
+    systems = stats.get("by_system", {})
+    umls_loaded = stats.get("umls_loaded", False)
+    lines = [
+        "# HELP codebridge_terms_loaded Total terminology terms loaded",
+        "# TYPE codebridge_terms_loaded gauge",
+        f"codebridge_terms_loaded {total}",
+        "",
+        "# HELP codebridge_systems_loaded Number of coding systems with data",
+        "# TYPE codebridge_systems_loaded gauge",
+        f"codebridge_systems_loaded {len(systems)}",
+        "",
+        "# HELP codebridge_up Service health (1=up, 0=down)",
+        "# TYPE codebridge_up gauge",
+        "codebridge_up 1",
+        "",
+    ]
+    # Per-system term counts
+    for sys_name, count in systems.items():
+        safe = sys_name.replace("-", "_").replace(" ", "_")
+        lines.append(f"codebridge_system_terms{{system=\"{sys_name}\"}} {count}")
+    lines.append("")
+    # UMLS status
+    umls = 1 if umls_loaded else 0
+    lines.append("# HELP codebridge_umls_enabled Whether UMLS full load is active")
+    lines.append("# TYPE codebridge_umls_enabled gauge")
+    lines.append(f"codebridge_umls_enabled {umls}")
+    return StreamingResponse(io.StringIO("\n".join(lines)), media_type="text/plain")
+
+
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get("LISA_PORT", 8000))
+    port = int(os.environ.get("CODEBRIDGE_PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
