@@ -1,0 +1,2617 @@
+[
+  {
+    "code": "4548-4",
+    "system": "LOINC",
+    "display": "Hemoglobin A1c"
+  },
+  {
+    "code": "8867-4",
+    "system": "LOINC",
+    "display": "Heart rate"
+  },
+  {
+    "code": "8480-6",
+    "system": "LOINC",
+    "display": "Systolic blood pressure"
+  },
+  {
+    "code": "8462-4",
+    "system": "LOINC",
+    "display": "Diastolic blood pressure"
+  },
+  {
+    "code": "29463-7",
+    "system": "LOINC",
+    "display": "Body weight"
+  },
+  {
+    "code": "8302-2",
+    "system": "LOINC",
+    "display": "Body height"
+  },
+  {
+    "code": "9279-1",
+    "system": "LOINC",
+    "display": "Respiratory rate"
+  },
+  {
+    "code": "33914-3",
+    "system": "LOINC",
+    "display": "Glucose"
+  },
+  {
+    "code": "718-7",
+    "system": "LOINC",
+    "display": "Hemoglobin"
+  },
+  {
+    "code": "2093-3",
+    "system": "LOINC",
+    "display": "Cholesterol [total]"
+  },
+  {
+    "code": "2085-9",
+    "system": "LOINC",
+    "display": "High density lipoprotein cholesterol"
+  },
+  {
+    "code": "2089-1",
+    "system": "LOINC",
+    "display": "Low density lipoprotein cholesterol"
+  },
+  {
+    "code": "6299-2",
+    "system": "LOINC",
+    "display": "Blood urea nitrogen"
+  },
+  {
+    "code": "33717-0",
+    "system": "LOINC",
+    "display": "Bilirubin"
+  },
+  {
+    "code": "3094-0",
+    "system": "LOINC",
+    "display": "Blood urea nitrogen/Creatinine"
+  },
+  {
+    "code": "14959-1",
+    "system": "LOINC",
+    "display": "Microalbumin"
+  },
+  {
+    "code": "2157-6",
+    "system": "LOINC",
+    "display": "Creatinine"
+  },
+  {
+    "code": "2339-0",
+    "system": "LOINC",
+    "display": "Glucose"
+  },
+  {
+    "code": "33718-8",
+    "system": "LOINC",
+    "display": "Sodium"
+  },
+  {
+    "code": "2823-3",
+    "system": "LOINC",
+    "display": "Potassium"
+  },
+  {
+    "code": "3016-3",
+    "system": "LOINC",
+    "display": "Thyrotropin"
+  },
+  {
+    "code": "24331-1",
+    "system": "LOINC",
+    "display": "Lipid panel"
+  },
+  {
+    "code": "24323-8",
+    "system": "LOINC",
+    "display": "Comprehensive metabolic panel"
+  },
+  {
+    "code": "1000000",
+    "system": "RXNORM",
+    "display": "amlodipine 5 MG / hydrochlorothiazide 12.5 MG / olmesartan medoxomil 40 MG Oral Tablet [Tribenzor]"
+  },
+  {
+    "code": "1000001",
+    "system": "RXNORM",
+    "display": "amlodipine 5 MG / hydrochlorothiazide 25 MG / olmesartan medoxomil 40 MG Oral Tablet"
+  },
+  {
+    "code": "1000003",
+    "system": "RXNORM",
+    "display": "amlodipine 5 MG / hydrochlorothiazide 25 MG / olmesartan medoxomil 40 MG [Tribenzor]"
+  },
+  {
+    "code": "1000005",
+    "system": "RXNORM",
+    "display": "amlodipine 5 MG / hydrochlorothiazide 25 MG / olmesartan medoxomil 40 MG Oral Tablet [Tribenzor]"
+  },
+  {
+    "code": "1000009",
+    "system": "RXNORM",
+    "display": "dimethicone 100 MG/ML / miconazole nitrate 20 MG/ML / zinc oxide 100 MG/ML Topical Spray"
+  },
+  {
+    "code": "1000012",
+    "system": "RXNORM",
+    "display": "whole wheat allergenic extract 50 MG/ML"
+  },
+  {
+    "code": "1000013",
+    "system": "RXNORM",
+    "display": "whole wheat allergenic extract 50 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1000023",
+    "system": "RXNORM",
+    "display": "methenamine mandelate 100 MG/ML"
+  },
+  {
+    "code": "1000024",
+    "system": "RXNORM",
+    "display": "methenamine mandelate 100 MG/ML Oral Suspension"
+  },
+  {
+    "code": "1000025",
+    "system": "RXNORM",
+    "display": "methenamine hippurate 1000 MG Oral Capsule"
+  },
+  {
+    "code": "1000048",
+    "system": "RXNORM",
+    "display": "doxepin 10 MG Oral Capsule"
+  },
+  {
+    "code": "1000054",
+    "system": "RXNORM",
+    "display": "doxepin 10 MG/ML Oral Solution"
+  },
+  {
+    "code": "1000058",
+    "system": "RXNORM",
+    "display": "doxepin 100 MG Oral Capsule"
+  },
+  {
+    "code": "1000064",
+    "system": "RXNORM",
+    "display": "doxepin 150 MG Oral Capsule"
+  },
+  {
+    "code": "1000070",
+    "system": "RXNORM",
+    "display": "doxepin 25 MG Oral Capsule"
+  },
+  {
+    "code": "1000076",
+    "system": "RXNORM",
+    "display": "doxepin 50 MG Oral Capsule"
+  },
+  {
+    "code": "1000082",
+    "system": "RXNORM",
+    "display": "alcaftadine"
+  },
+  {
+    "code": "1000083",
+    "system": "RXNORM",
+    "display": "alcaftadine 2.5 MG/ML"
+  },
+  {
+    "code": "1000084",
+    "system": "RXNORM",
+    "display": "alcaftadine Ophthalmic Solution"
+  },
+  {
+    "code": "1000085",
+    "system": "RXNORM",
+    "display": "alcaftadine 2.5 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000086",
+    "system": "RXNORM",
+    "display": "Lastacaft"
+  },
+  {
+    "code": "1000087",
+    "system": "RXNORM",
+    "display": "alcaftadine 2.5 MG/ML [Lastacaft]"
+  },
+  {
+    "code": "1000088",
+    "system": "RXNORM",
+    "display": "alcaftadine Ophthalmic Solution [Lastacaft]"
+  },
+  {
+    "code": "1000089",
+    "system": "RXNORM",
+    "display": "alcaftadine 2.5 MG/ML Ophthalmic Solution [Lastacaft]"
+  },
+  {
+    "code": "1000090",
+    "system": "RXNORM",
+    "display": "doxepin hydrochloride 50 MG/ML"
+  },
+  {
+    "code": "1000091",
+    "system": "RXNORM",
+    "display": "doxepin hydrochloride 50 MG/ML Topical Cream"
+  },
+  {
+    "code": "1000092",
+    "system": "RXNORM",
+    "display": "doxepin hydrochloride 50 MG/ML [Prudoxin]"
+  },
+  {
+    "code": "1000093",
+    "system": "RXNORM",
+    "display": "doxepin hydrochloride 50 MG/ML Topical Cream [Prudoxin]"
+  },
+  {
+    "code": "1000094",
+    "system": "RXNORM",
+    "display": "doxepin hydrochloride 50 MG/ML [Zonalon]"
+  },
+  {
+    "code": "1000095",
+    "system": "RXNORM",
+    "display": "doxepin hydrochloride 50 MG/ML Topical Cream [Zonalon]"
+  },
+  {
+    "code": "1000097",
+    "system": "RXNORM",
+    "display": "doxepin 75 MG Oral Capsule"
+  },
+  {
+    "code": "1000104",
+    "system": "RXNORM",
+    "display": "incobotulinumtoxinA"
+  },
+  {
+    "code": "1000107",
+    "system": "RXNORM",
+    "display": "incobotulinumtoxinA 200 UNT Injection"
+  },
+  {
+    "code": "1000108",
+    "system": "RXNORM",
+    "display": "Xeomin"
+  },
+  {
+    "code": "1000112",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate"
+  },
+  {
+    "code": "1000113",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 10 MG"
+  },
+  {
+    "code": "1000114",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 10 MG Oral Tablet"
+  },
+  {
+    "code": "1000123",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 10 MG [Provera]"
+  },
+  {
+    "code": "1000124",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 10 MG Oral Tablet [Provera]"
+  },
+  {
+    "code": "1000125",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 150 MG/ML"
+  },
+  {
+    "code": "1000126",
+    "system": "RXNORM",
+    "display": "1 ML medroxyprogesterone acetate 150 MG/ML Injection"
+  },
+  {
+    "code": "1000127",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 150 MG/ML [Depo-Provera]"
+  },
+  {
+    "code": "1000128",
+    "system": "RXNORM",
+    "display": "1 ML medroxyprogesterone acetate 150 MG/ML Injection [Depo-Provera]"
+  },
+  {
+    "code": "1000130",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 400 MG/ML"
+  },
+  {
+    "code": "1000131",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 400 MG/ML Injectable Suspension"
+  },
+  {
+    "code": "1000132",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 400 MG/ML [Depo-Provera]"
+  },
+  {
+    "code": "1000133",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 400 MG/ML Injectable Suspension [Depo-Provera]"
+  },
+  {
+    "code": "1000134",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 2.5 MG"
+  },
+  {
+    "code": "1000135",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 2.5 MG Oral Tablet"
+  },
+  {
+    "code": "1000138",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 2.5 MG [Provera]"
+  },
+  {
+    "code": "1000139",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 2.5 MG Oral Tablet [Provera]"
+  },
+  {
+    "code": "1000140",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 5 MG"
+  },
+  {
+    "code": "1000141",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 5 MG Oral Tablet"
+  },
+  {
+    "code": "1000144",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 5 MG [Provera]"
+  },
+  {
+    "code": "1000145",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 5 MG Oral Tablet [Provera]"
+  },
+  {
+    "code": "1000146",
+    "system": "RXNORM",
+    "display": "estradiol cypionate"
+  },
+  {
+    "code": "1000147",
+    "system": "RXNORM",
+    "display": "estradiol cypionate 10 MG/ML"
+  },
+  {
+    "code": "1000148",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 50 MG/ML"
+  },
+  {
+    "code": "1000149",
+    "system": "RXNORM",
+    "display": "estradiol cypionate 10 MG/ML / medroxyprogesterone acetate 50 MG/ML Injectable Suspension"
+  },
+  {
+    "code": "1000153",
+    "system": "RXNORM",
+    "display": "1 ML medroxyprogesterone acetate 150 MG/ML Prefilled Syringe"
+  },
+  {
+    "code": "1000154",
+    "system": "RXNORM",
+    "display": "1 ML medroxyprogesterone acetate 150 MG/ML Prefilled Syringe [Depo-Provera]"
+  },
+  {
+    "code": "1000155",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 160 MG/ML"
+  },
+  {
+    "code": "1000156",
+    "system": "RXNORM",
+    "display": "0.65 ML medroxyprogesterone acetate 160 MG/ML Prefilled Syringe"
+  },
+  {
+    "code": "1000157",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 160 MG/ML [depo-subQ provera]"
+  },
+  {
+    "code": "1000158",
+    "system": "RXNORM",
+    "display": "0.65 ML medroxyprogesterone acetate 160 MG/ML Prefilled Syringe [depo-subQ provera]"
+  },
+  {
+    "code": "1000160",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 20 MG"
+  },
+  {
+    "code": "1000161",
+    "system": "RXNORM",
+    "display": "estradiol valerate 2 MG / medroxyprogesterone acetate 20 MG Oral Tablet"
+  },
+  {
+    "code": "1000162",
+    "system": "RXNORM",
+    "display": "Alternaria alternata allergenic extract 20000 UNT/ML"
+  },
+  {
+    "code": "1000163",
+    "system": "RXNORM",
+    "display": "Alternaria alternata allergenic extract 20000 UNT/ML Injectable Solution"
+  },
+  {
+    "code": "1000350",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 1.5 MG"
+  },
+  {
+    "code": "1000351",
+    "system": "RXNORM",
+    "display": "estrogens, conjugated (USP) 0.3 MG / medroxyprogesterone acetate 1.5 MG Oral Tablet"
+  },
+  {
+    "code": "1000352",
+    "system": "RXNORM",
+    "display": "estrogens, conjugated (USP) 0.45 MG / medroxyprogesterone acetate 1.5 MG Oral Tablet"
+  },
+  {
+    "code": "1000353",
+    "system": "RXNORM",
+    "display": "estrogens, conjugated (USP) 0.625 MG / estrogens, esterified (USP) 0.625 MG / medroxyprogesterone acetate 5 MG Oral Tablet"
+  },
+  {
+    "code": "1000355",
+    "system": "RXNORM",
+    "display": "estrogens, conjugated (USP) 0.625 MG / medroxyprogesterone acetate 2.5 MG Oral Tablet"
+  },
+  {
+    "code": "1000356",
+    "system": "RXNORM",
+    "display": "estrogens, conjugated (USP) 0.625 MG / medroxyprogesterone acetate 5 MG Oral Tablet"
+  },
+  {
+    "code": "1000363",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 100 MG"
+  },
+  {
+    "code": "1000364",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 100 MG Oral Tablet"
+  },
+  {
+    "code": "1000374",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 160 MG/ML Injectable Suspension"
+  },
+  {
+    "code": "1000375",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 200 MG"
+  },
+  {
+    "code": "1000376",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 200 MG Oral Tablet"
+  },
+  {
+    "code": "1000377",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 200 MG/ML"
+  },
+  {
+    "code": "1000378",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 200 MG/ML Injectable Suspension"
+  },
+  {
+    "code": "1000379",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 250 MG"
+  },
+  {
+    "code": "1000380",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 250 MG Oral Tablet"
+  },
+  {
+    "code": "1000383",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 400 MG"
+  },
+  {
+    "code": "1000384",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 400 MG Oral Tablet"
+  },
+  {
+    "code": "1000385",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 500 MG"
+  },
+  {
+    "code": "1000386",
+    "system": "RXNORM",
+    "display": "medroxyprogesterone acetate 500 MG Oral Tablet"
+  },
+  {
+    "code": "1000395",
+    "system": "RXNORM",
+    "display": "{28 (estrogens, conjugated (USP) 0.625 MG / medroxyprogesterone acetate 2.5 MG Oral Tablet) } Pack"
+  },
+  {
+    "code": "1000398",
+    "system": "RXNORM",
+    "display": "{28 (estrogens, conjugated (USP) 0.625 MG / medroxyprogesterone acetate 5 MG Oral Tablet) } Pack"
+  },
+  {
+    "code": "1000404",
+    "system": "RXNORM",
+    "display": "norethindrone acetate 5 MG"
+  },
+  {
+    "code": "1000405",
+    "system": "RXNORM",
+    "display": "norethindrone acetate 5 MG Oral Tablet"
+  },
+  {
+    "code": "1000406",
+    "system": "RXNORM",
+    "display": "norethindrone acetate 5 MG [Aygestin]"
+  },
+  {
+    "code": "1000407",
+    "system": "RXNORM",
+    "display": "norethindrone acetate 5 MG Oral Tablet [Aygestin]"
+  },
+  {
+    "code": "1000479",
+    "system": "RXNORM",
+    "display": "{1 (bisacodyl 5 MG Delayed Release Oral Tablet) / 1 (2000 ML) (polyethylene glycol 3350 210000 MG / potassium chloride 740 MG / sodium bicarbonate 2860 MG / sodium chloride 5600 MG Powder for Oral Solution) } Pack"
+  },
+  {
+    "code": "1000486",
+    "system": "RXNORM",
+    "display": "{14 (estrogens, conjugated (USP) 0.625 MG / medroxyprogesterone acetate 5 MG Oral Tablet) / 14 (estrogens, conjugated (USP) 0.625 MG Oral Tablet) } Pack"
+  },
+  {
+    "code": "1000487",
+    "system": "RXNORM",
+    "display": "{14 (estrogens, conjugated (USP) 0.625 MG / medroxyprogesterone acetate 5 MG Oral Tablet) / 14 (estrogens, conjugated (USP) 0.625 MG Oral Tablet) } Pack [Premphase 28 Day]"
+  },
+  {
+    "code": "1000490",
+    "system": "RXNORM",
+    "display": "{28 (estrogens, conjugated (USP) 0.3 MG / medroxyprogesterone acetate 1.5 MG Oral Tablet) } Pack"
+  },
+  {
+    "code": "1000491",
+    "system": "RXNORM",
+    "display": "{28 (estrogens, conjugated (USP) 0.3 MG / medroxyprogesterone acetate 1.5 MG Oral Tablet) } Pack [Prempro 0.3/1.5 28 Day]"
+  },
+  {
+    "code": "1000492",
+    "system": "RXNORM",
+    "display": "resveratrol"
+  },
+  {
+    "code": "1000493",
+    "system": "RXNORM",
+    "display": "resveratrol 250 MG"
+  },
+  {
+    "code": "1000494",
+    "system": "RXNORM",
+    "display": "resveratrol Oral Capsule"
+  },
+  {
+    "code": "1000495",
+    "system": "RXNORM",
+    "display": "resveratrol 250 MG Oral Capsule"
+  },
+  {
+    "code": "1000496",
+    "system": "RXNORM",
+    "display": "{28 (estrogens, conjugated (USP) 0.45 MG / medroxyprogesterone acetate 1.5 MG Oral Tablet) } Pack"
+  },
+  {
+    "code": "1000497",
+    "system": "RXNORM",
+    "display": "{28 (estrogens, conjugated (USP) 0.45 MG / medroxyprogesterone acetate 1.5 MG Oral Tablet) } Pack [Prempro 0.45/1.5 28 Day]"
+  },
+  {
+    "code": "1000499",
+    "system": "RXNORM",
+    "display": "{28 (estrogens, conjugated (USP) 0.625 MG / medroxyprogesterone acetate 2.5 MG Oral Tablet) } Pack [Prempro 0.625/2.5 28 Day]"
+  },
+  {
+    "code": "1000500",
+    "system": "RXNORM",
+    "display": "{28 (estrogens, conjugated (USP) 0.625 MG / medroxyprogesterone acetate 5 MG Oral Tablet) } Pack [Prempro 0.625/5 28 Day]"
+  },
+  {
+    "code": "1000502",
+    "system": "RXNORM",
+    "display": "dextromethorphan hydrobromide 6 MG/ML / guaifenesin 40 MG/ML / phenylephrine hydrochloride 1.5 MG/ML Oral Solution"
+  },
+  {
+    "code": "1000556",
+    "system": "RXNORM",
+    "display": "fluorometholone 1 MG/ML / sulfacetamide sodium 100 MG/ML Ophthalmic Suspension"
+  },
+  {
+    "code": "1000577",
+    "system": "RXNORM",
+    "display": "microcrystalline cellulose"
+  },
+  {
+    "code": "1000581",
+    "system": "RXNORM",
+    "display": "trichlorfon"
+  },
+  {
+    "code": "1000636",
+    "system": "RXNORM",
+    "display": "dimethicone 12.5 MG/ML Topical Lotion"
+  },
+  {
+    "code": "1000637",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 0.04 MG/MG"
+  },
+  {
+    "code": "1000638",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 0.04 MG/MG Ophthalmic Gel"
+  },
+  {
+    "code": "1000646",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 10 MG/ML"
+  },
+  {
+    "code": "1000647",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 10 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000659",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 10 MG/ML [Pilocar]"
+  },
+  {
+    "code": "1000660",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 10 MG/ML Ophthalmic Solution [Pilocar]"
+  },
+  {
+    "code": "1000663",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 100 MG/ML"
+  },
+  {
+    "code": "1000664",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 100 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000667",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 2.5 MG/ML"
+  },
+  {
+    "code": "1000668",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 2.5 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000673",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 0.1 MG/MG Ophthalmic Ointment"
+  },
+  {
+    "code": "1000705",
+    "system": "RXNORM",
+    "display": "benzalkonium / tolnaftate"
+  },
+  {
+    "code": "1000706",
+    "system": "RXNORM",
+    "display": "benzocaine / salicylamide"
+  },
+  {
+    "code": "1000708",
+    "system": "RXNORM",
+    "display": "betamethasone / clioquinol"
+  },
+  {
+    "code": "1000711",
+    "system": "RXNORM",
+    "display": "betamethasone / salicylic acid"
+  },
+  {
+    "code": "1000713",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 0.1 MG/MG Topical Gel"
+  },
+  {
+    "code": "1000719",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 10 MG/ML [BP 10-Wash]"
+  },
+  {
+    "code": "1000720",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 10 MG/ML Medicated Liquid Soap [BP 10-Wash]"
+  },
+  {
+    "code": "1000731",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 20 MG/ML Topical Cream"
+  },
+  {
+    "code": "1000736",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 20 MG/ML Topical Cream [Avar]"
+  },
+  {
+    "code": "1000859",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 40 MG/ML Medicated Liquid Soap"
+  },
+  {
+    "code": "1000860",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 40 MG/ML [BP Cleansing Wash]"
+  },
+  {
+    "code": "1000861",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 40 MG/ML Medicated Liquid Soap [BP Cleansing Wash]"
+  },
+  {
+    "code": "1000862",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 20 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000867",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 0.025 MG/MG"
+  },
+  {
+    "code": "1000868",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 0.025 MG/MG Ophthalmic Ointment"
+  },
+  {
+    "code": "1000869",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 20 MG/ML [Isoptocarpine]"
+  },
+  {
+    "code": "1000870",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 20 MG/ML Ophthalmic Solution [Isoptocarpine]"
+  },
+  {
+    "code": "1000873",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 0.06 MG/MG"
+  },
+  {
+    "code": "1000874",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 0.06 MG/MG Ophthalmic Ointment"
+  },
+  {
+    "code": "1000875",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 20 MG/ML [Pilocar]"
+  },
+  {
+    "code": "1000876",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 20 MG/ML Ophthalmic Solution [Pilocar]"
+  },
+  {
+    "code": "1000883",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 30 MG/ML"
+  },
+  {
+    "code": "1000884",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 30 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000895",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 20 MG/ML Medicated Liquid Soap"
+  },
+  {
+    "code": "1000897",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 40 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000902",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 40 MG/ML [Isoptocarpine]"
+  },
+  {
+    "code": "1000903",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 40 MG/ML Ophthalmic Solution [Isoptocarpine]"
+  },
+  {
+    "code": "1000906",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 40 MG/ML [Pilocar]"
+  },
+  {
+    "code": "1000907",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 40 MG/ML Ophthalmic Solution [Pilocar]"
+  },
+  {
+    "code": "1000912",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 5 MG"
+  },
+  {
+    "code": "1000913",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 5 MG Oral Tablet"
+  },
+  {
+    "code": "1000914",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 5 MG [Salagen]"
+  },
+  {
+    "code": "1000915",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 5 MG Oral Tablet [Salagen]"
+  },
+  {
+    "code": "1000916",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 5 MG/ML"
+  },
+  {
+    "code": "1000917",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 5 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000938",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 60 MG/ML"
+  },
+  {
+    "code": "1000939",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 60 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000946",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 40 MG/ML Medicated Pad"
+  },
+  {
+    "code": "1000975",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 40 MG/ML [Sumaxin]"
+  },
+  {
+    "code": "1000976",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 40 MG/ML Medicated Pad [Sumaxin]"
+  },
+  {
+    "code": "1000977",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.25 MG/ML"
+  },
+  {
+    "code": "1000978",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.25 MG/ML Nasal Solution"
+  },
+  {
+    "code": "1000979",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.25 MG/ML [Afrin]"
+  },
+  {
+    "code": "1000981",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.25 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1000986",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML"
+  },
+  {
+    "code": "1000987",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Solution"
+  },
+  {
+    "code": "1000990",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray"
+  },
+  {
+    "code": "1000991",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML [Afrin]"
+  },
+  {
+    "code": "1000992",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray [Afrin]"
+  },
+  {
+    "code": "1000993",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML [Allerest 12 Hour Nasal Spray]"
+  },
+  {
+    "code": "1000994",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray [Allerest 12 Hour Nasal Spray]"
+  },
+  {
+    "code": "1000995",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML [Dristan 12-Hour Nasal Spray]"
+  },
+  {
+    "code": "1000996",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray [Dristan 12-Hour Nasal Spray]"
+  },
+  {
+    "code": "1001",
+    "system": "RXNORM",
+    "display": "antipyrine"
+  },
+  {
+    "code": "1001001",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML [Duramist Plus]"
+  },
+  {
+    "code": "1001002",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray [Duramist Plus]"
+  },
+  {
+    "code": "1001003",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 7.5 MG"
+  },
+  {
+    "code": "1001004",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 7.5 MG Oral Tablet"
+  },
+  {
+    "code": "1001005",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 7.5 MG [Salagen]"
+  },
+  {
+    "code": "1001006",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 7.5 MG Oral Tablet [Salagen]"
+  },
+  {
+    "code": "1001013",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 80 MG/ML"
+  },
+  {
+    "code": "1001014",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 80 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1001053",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML [Neo-Synephrine 12 Hour]"
+  },
+  {
+    "code": "1001054",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray [Neo-Synephrine 12 Hour]"
+  },
+  {
+    "code": "1001057",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML [Nostrilla]"
+  },
+  {
+    "code": "1001058",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray [Nostrilla]"
+  },
+  {
+    "code": "1001065",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML [Sinex Long-Acting]"
+  },
+  {
+    "code": "1001066",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray [Sinex Long-Acting]"
+  },
+  {
+    "code": "1001080",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML [Sudafed OM]"
+  },
+  {
+    "code": "1001081",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray [Sudafed OM]"
+  },
+  {
+    "code": "1001083",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML [Zicam Sinus Relief]"
+  },
+  {
+    "code": "1001084",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Nasal Spray [Zicam Sinus Relief]"
+  },
+  {
+    "code": "1001378",
+    "system": "RXNORM",
+    "display": "oxymetazoline hydrochloride 0.5 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "10014",
+    "system": "RXNORM",
+    "display": "squalene"
+  },
+  {
+    "code": "1001401",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 1 MG/ML"
+  },
+  {
+    "code": "1001402",
+    "system": "RXNORM",
+    "display": "pilocarpine hydrochloride 1 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1001404",
+    "system": "RXNORM",
+    "display": "docetaxel 20 MG/ML"
+  },
+  {
+    "code": "1001405",
+    "system": "RXNORM",
+    "display": "docetaxel 20 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1001408",
+    "system": "RXNORM",
+    "display": "ergocalciferol 125 UNT"
+  },
+  {
+    "code": "1001409",
+    "system": "RXNORM",
+    "display": "calcium carbonate 625 MG / ergocalciferol 125 UNT Oral Tablet"
+  },
+  {
+    "code": "1001432",
+    "system": "RXNORM",
+    "display": "cabazitaxel 40 MG/ML"
+  },
+  {
+    "code": "1001433",
+    "system": "RXNORM",
+    "display": "1.5 ML cabazitaxel 40 MG/ML Injection"
+  },
+  {
+    "code": "1001434",
+    "system": "RXNORM",
+    "display": "caffeine / magnesium salicylate"
+  },
+  {
+    "code": "1001435",
+    "system": "RXNORM",
+    "display": "magnesium salicylate 162.5 MG"
+  },
+  {
+    "code": "1001436",
+    "system": "RXNORM",
+    "display": "caffeine / magnesium salicylate Oral Tablet"
+  },
+  {
+    "code": "1001437",
+    "system": "RXNORM",
+    "display": "caffeine 50 MG / magnesium salicylate 162.5 MG Oral Tablet"
+  },
+  {
+    "code": "1001472",
+    "system": "RXNORM",
+    "display": "dutasteride / tamsulosin"
+  },
+  {
+    "code": "1001567",
+    "system": "RXNORM",
+    "display": "iodine 10 MG/ML Topical Solution [Dairyland Brand Controlled Iodine Teat Dip]"
+  },
+  {
+    "code": "1001569",
+    "system": "RXNORM",
+    "display": "levothyroxine Oral Solution"
+  },
+  {
+    "code": "1001585",
+    "system": "RXNORM",
+    "display": "TachoSil"
+  },
+  {
+    "code": "1001591",
+    "system": "RXNORM",
+    "display": "fibrinogen, human 337 MG / thrombin, human 123 UNT Medicated Patch"
+  },
+  {
+    "code": "1001593",
+    "system": "RXNORM",
+    "display": "fibrinogen, human 337 MG / thrombin, human 123 UNT Medicated Patch [TachoSil]"
+  },
+  {
+    "code": "1001679",
+    "system": "RXNORM",
+    "display": "calcium carbonate 400 MG / cholecalciferol 133 UNT / magnesium oxide 167 MG Oral Tablet"
+  },
+  {
+    "code": "1001684",
+    "system": "RXNORM",
+    "display": "magnesium sulfate 0.0277 MEQ/ML"
+  },
+  {
+    "code": "1001685",
+    "system": "RXNORM",
+    "display": "potassium sulfate 0.0374 MEQ/ML"
+  },
+  {
+    "code": "1001686",
+    "system": "RXNORM",
+    "display": "sodium sulfate 0.257 MEQ/ML"
+  },
+  {
+    "code": "1001687",
+    "system": "RXNORM",
+    "display": "magnesium sulfate / potassium sulfate / sodium sulfate Oral Solution"
+  },
+  {
+    "code": "1001689",
+    "system": "RXNORM",
+    "display": "{2 (480 ML) (magnesium sulfate 0.0277 MEQ/ML / potassium sulfate 0.0374 MEQ/ML / sodium sulfate 0.257 MEQ/ML Oral Solution) } Pack"
+  },
+  {
+    "code": "1001690",
+    "system": "RXNORM",
+    "display": "{2 (480 ML) (magnesium sulfate 0.0277 MEQ/ML / potassium sulfate 0.0374 MEQ/ML / sodium sulfate 0.257 MEQ/ML Oral Solution) } Pack [Suprep Bowel Prep Kit]"
+  },
+  {
+    "code": "1001691",
+    "system": "RXNORM",
+    "display": "calcium carbonate 1250 MG / cholecalciferol 100 UNT / vitamin K1 0.04 MG Chewable Tablet"
+  },
+  {
+    "code": "1001714",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 90 MG/ML / sulfur 40 MG/ML Medicated Liquid Soap"
+  },
+  {
+    "code": "1001751",
+    "system": "RXNORM",
+    "display": "calcium citrate 250 MG / cholecalciferol 100 UNT Oral Tablet"
+  },
+  {
+    "code": "100213",
+    "system": "RXNORM",
+    "display": "Bifidobacterium infantis"
+  },
+  {
+    "code": "1002293",
+    "system": "RXNORM",
+    "display": "formoterol / mometasone"
+  },
+  {
+    "code": "1002299",
+    "system": "RXNORM",
+    "display": "nilotinib 150 MG [Tasigna]"
+  },
+  {
+    "code": "1002300",
+    "system": "RXNORM",
+    "display": "nilotinib 150 MG Oral Capsule [Tasigna]"
+  },
+  {
+    "code": "100272",
+    "system": "RXNORM",
+    "display": "Lactobacillus delbrueckii subsp. bulgaricus"
+  },
+  {
+    "code": "100278",
+    "system": "RXNORM",
+    "display": "Lacticaseibacillus rhamnosus"
+  },
+  {
+    "code": "10030",
+    "system": "RXNORM",
+    "display": "stannous fluoride"
+  },
+  {
+    "code": "10032",
+    "system": "RXNORM",
+    "display": "stanozolol"
+  },
+  {
+    "code": "10046",
+    "system": "RXNORM",
+    "display": "starch"
+  },
+  {
+    "code": "1005706",
+    "system": "RXNORM",
+    "display": "calcium citrate 1190 MG / cholecalciferol 0.005 MG Oral Tablet"
+  },
+  {
+    "code": "1005766",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 50 MG/ML [Avar]"
+  },
+  {
+    "code": "1005767",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 50 MG/ML Medicated Liquid Soap [Avar]"
+  },
+  {
+    "code": "1005819",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 50 MG/ML Medicated Pad"
+  },
+  {
+    "code": "1005830",
+    "system": "RXNORM",
+    "display": "{48 (prednisolone 5 MG Oral Tablet) } Pack"
+  },
+  {
+    "code": "1005831",
+    "system": "RXNORM",
+    "display": "{48 (prednisolone 5 MG Oral Tablet [MILLIPRED]) } Pack [Millipred DP 12 Day]"
+  },
+  {
+    "code": "1005834",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 50 MG/ML Topical Cream"
+  },
+  {
+    "code": "1005835",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 50 MG/ML Topical Cream [Avar]"
+  },
+  {
+    "code": "1005843",
+    "system": "RXNORM",
+    "display": "sulfacetamide / sulfur Topical Cream [Plexion]"
+  },
+  {
+    "code": "1005853",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 50 MG/ML Topical Foam"
+  },
+  {
+    "code": "1005856",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 50 MG/ML Topical Lotion"
+  },
+  {
+    "code": "1005920",
+    "system": "RXNORM",
+    "display": "ulipristal acetate"
+  },
+  {
+    "code": "1005921",
+    "system": "RXNORM",
+    "display": "ulipristal"
+  },
+  {
+    "code": "1005922",
+    "system": "RXNORM",
+    "display": "ulipristal acetate 30 MG"
+  },
+  {
+    "code": "1005923",
+    "system": "RXNORM",
+    "display": "ulipristal Oral Tablet"
+  },
+  {
+    "code": "1005924",
+    "system": "RXNORM",
+    "display": "ulipristal acetate 30 MG Oral Tablet"
+  },
+  {
+    "code": "1005925",
+    "system": "RXNORM",
+    "display": "Ella"
+  },
+  {
+    "code": "1005926",
+    "system": "RXNORM",
+    "display": "ulipristal acetate 30 MG [Ella]"
+  },
+  {
+    "code": "1005927",
+    "system": "RXNORM",
+    "display": "ulipristal Oral Tablet [Ella]"
+  },
+  {
+    "code": "1005928",
+    "system": "RXNORM",
+    "display": "ulipristal acetate 30 MG Oral Tablet [Ella]"
+  },
+  {
+    "code": "1006046",
+    "system": "RXNORM",
+    "display": "vitamin B12 3 MG/ML"
+  },
+  {
+    "code": "1006047",
+    "system": "RXNORM",
+    "display": "vitamin B12 3 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006055",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 50 MG/ML [Rosanil]"
+  },
+  {
+    "code": "1006056",
+    "system": "RXNORM",
+    "display": "sulfacetamide / sulfur Medicated Liquid Soap [Rosanil]"
+  },
+  {
+    "code": "1006057",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 50 MG/ML Medicated Liquid Soap [Rosanil]"
+  },
+  {
+    "code": "1006065",
+    "system": "RXNORM",
+    "display": "{21 (ethinyl estradiol 0.03 MG / levonorgestrel 0.15 MG Oral Tablet) / 7 (inert ingredients 1 MG Oral Tablet) } Pack [Altavera 28 Day]"
+  },
+  {
+    "code": "1006079",
+    "system": "RXNORM",
+    "display": "benzocaine 0.2 MG/MG / menthol 0.02 MG/MG Oral Gel"
+  },
+  {
+    "code": "1006094",
+    "system": "RXNORM",
+    "display": "petrolatum 0.649 MG/MG"
+  },
+  {
+    "code": "1006095",
+    "system": "RXNORM",
+    "display": "allantoin / benzocaine / camphor / petrolatum Topical Ointment"
+  },
+  {
+    "code": "1006096",
+    "system": "RXNORM",
+    "display": "allantoin 0.01 MG/MG / benzocaine 0.2 MG/MG / camphor 0.03 MG/MG / petrolatum 0.649 MG/MG Topical Ointment"
+  },
+  {
+    "code": "1006104",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 20 MG/ML [Avar]"
+  },
+  {
+    "code": "1006105",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML / sulfur 20 MG/ML Medicated Liquid Soap [Avar]"
+  },
+  {
+    "code": "1006107",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML Medicated Liquid Soap"
+  },
+  {
+    "code": "1006110",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML Medicated Liquid Soap [Ovace]"
+  },
+  {
+    "code": "1006120",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1006121",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML [Bleph-10]"
+  },
+  {
+    "code": "1006122",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML Ophthalmic Solution [Bleph-10]"
+  },
+  {
+    "code": "1006196",
+    "system": "RXNORM",
+    "display": "hydrogen peroxide 5 MG/ML Topical Solution"
+  },
+  {
+    "code": "1006258",
+    "system": "RXNORM",
+    "display": "Apiospora montagnei allergenic extract"
+  },
+  {
+    "code": "1006287",
+    "system": "RXNORM",
+    "display": "Aspergillus flavus allergenic extract 50 MG/ML"
+  },
+  {
+    "code": "1006288",
+    "system": "RXNORM",
+    "display": "Aspergillus flavus allergenic extract 50 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006293",
+    "system": "RXNORM",
+    "display": "Aspergillus flavus allergenic extract 40000 UNT/ML"
+  },
+  {
+    "code": "1006294",
+    "system": "RXNORM",
+    "display": "Aspergillus flavus allergenic extract 40000 UNT/ML Injectable Solution"
+  },
+  {
+    "code": "1006297",
+    "system": "RXNORM",
+    "display": "Aspergillus niger var. niger allergenic extract"
+  },
+  {
+    "code": "1006298",
+    "system": "RXNORM",
+    "display": "Aspergillus niger var. niger allergenic extract 50 MG/ML"
+  },
+  {
+    "code": "1006299",
+    "system": "RXNORM",
+    "display": "Aspergillus niger var. niger allergenic extract Injectable Solution"
+  },
+  {
+    "code": "1006300",
+    "system": "RXNORM",
+    "display": "Aspergillus niger var. niger allergenic extract 50 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006310",
+    "system": "RXNORM",
+    "display": "Aspergillus repens allergenic extract"
+  },
+  {
+    "code": "1006340",
+    "system": "RXNORM",
+    "display": "cayenne pepper allergenic extract"
+  },
+  {
+    "code": "1006346",
+    "system": "RXNORM",
+    "display": "arabica coffee bean allergenic extract 100 MG/ML"
+  },
+  {
+    "code": "1006347",
+    "system": "RXNORM",
+    "display": "arabica coffee bean allergenic extract 100 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006348",
+    "system": "RXNORM",
+    "display": "pork allergenic extract 50 MG/ML"
+  },
+  {
+    "code": "1006349",
+    "system": "RXNORM",
+    "display": "pork allergenic extract 50 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006352",
+    "system": "RXNORM",
+    "display": "Russian thistle pollen extract 100 MG/ML"
+  },
+  {
+    "code": "1006353",
+    "system": "RXNORM",
+    "display": "Russian thistle pollen extract 100 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006354",
+    "system": "RXNORM",
+    "display": "Russian thistle pollen extract 10000 UNT/ML"
+  },
+  {
+    "code": "1006360",
+    "system": "RXNORM",
+    "display": "Canada goldenrod pollen extract 100 MG/ML"
+  },
+  {
+    "code": "1006361",
+    "system": "RXNORM",
+    "display": "Canada goldenrod pollen extract 100 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006364",
+    "system": "RXNORM",
+    "display": "Canada goldenrod pollen extract 20000 UNT/ML"
+  },
+  {
+    "code": "1006365",
+    "system": "RXNORM",
+    "display": "Canada goldenrod pollen extract 20000 UNT/ML Injectable Solution"
+  },
+  {
+    "code": "1006366",
+    "system": "RXNORM",
+    "display": "Canada goldenrod pollen extract 40000 UNT/ML"
+  },
+  {
+    "code": "1006367",
+    "system": "RXNORM",
+    "display": "Canada goldenrod pollen extract 40000 UNT/ML Injectable Solution"
+  },
+  {
+    "code": "1006371",
+    "system": "RXNORM",
+    "display": "mango blossom pollen extract"
+  },
+  {
+    "code": "1006372",
+    "system": "RXNORM",
+    "display": "mango blossom pollen extract 50 MG/ML"
+  },
+  {
+    "code": "1006373",
+    "system": "RXNORM",
+    "display": "mango blossom pollen extract Injectable Solution"
+  },
+  {
+    "code": "1006374",
+    "system": "RXNORM",
+    "display": "mango blossom pollen extract 50 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006396",
+    "system": "RXNORM",
+    "display": "aminopentamide, sulfate"
+  },
+  {
+    "code": "1006397",
+    "system": "RXNORM",
+    "display": "aminopentamide"
+  },
+  {
+    "code": "1006439",
+    "system": "RXNORM",
+    "display": "sodium fluoride 50 MG/ML Mouthwash"
+  },
+  {
+    "code": "1006469",
+    "system": "RXNORM",
+    "display": "doconexent"
+  },
+  {
+    "code": "1006481",
+    "system": "RXNORM",
+    "display": "nettle pollen extract 100 MG/ML"
+  },
+  {
+    "code": "1006482",
+    "system": "RXNORM",
+    "display": "nettle pollen extract 100 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006485",
+    "system": "RXNORM",
+    "display": "nettle pollen extract 20000 UNT/ML"
+  },
+  {
+    "code": "1006486",
+    "system": "RXNORM",
+    "display": "nettle pollen extract 20000 UNT/ML Injectable Solution"
+  },
+  {
+    "code": "1006489",
+    "system": "RXNORM",
+    "display": "rough cocklebur pollen extract 10000 UNT/ML"
+  },
+  {
+    "code": "1006495",
+    "system": "RXNORM",
+    "display": "Indian wormwood sage pollen extract"
+  },
+  {
+    "code": "1006501",
+    "system": "RXNORM",
+    "display": "silk allergenic extract 50 MG/ML"
+  },
+  {
+    "code": "1006502",
+    "system": "RXNORM",
+    "display": "silk allergenic extract Injectable Solution"
+  },
+  {
+    "code": "1006503",
+    "system": "RXNORM",
+    "display": "silk allergenic extract 50 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006504",
+    "system": "RXNORM",
+    "display": "silk allergenic extract 100 MG/ML"
+  },
+  {
+    "code": "1006505",
+    "system": "RXNORM",
+    "display": "silk allergenic extract 100 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006506",
+    "system": "RXNORM",
+    "display": "tall oat grass pollen extract"
+  },
+  {
+    "code": "1006510",
+    "system": "RXNORM",
+    "display": "barley malt allergenic extract"
+  },
+  {
+    "code": "1006511",
+    "system": "RXNORM",
+    "display": "barley malt allergenic extract 50 MG/ML"
+  },
+  {
+    "code": "1006512",
+    "system": "RXNORM",
+    "display": "barley malt allergenic extract Injectable Solution"
+  },
+  {
+    "code": "1006513",
+    "system": "RXNORM",
+    "display": "barley malt allergenic extract 50 MG/ML Injectable Solution"
+  },
+  {
+    "code": "1006555",
+    "system": "RXNORM",
+    "display": "Clinpro 5000"
+  },
+  {
+    "code": "1006556",
+    "system": "RXNORM",
+    "display": "sodium fluoride 0.011 MG/MG [Clinpro 5000]"
+  },
+  {
+    "code": "1006557",
+    "system": "RXNORM",
+    "display": "sodium fluoride Toothpaste [Clinpro 5000]"
+  },
+  {
+    "code": "1006558",
+    "system": "RXNORM",
+    "display": "sodium fluoride 0.011 MG/MG Toothpaste [Clinpro 5000]"
+  },
+  {
+    "code": "1006607",
+    "system": "RXNORM",
+    "display": "dexmethylphenidate hydrochloride 40 MG"
+  },
+  {
+    "code": "1006608",
+    "system": "RXNORM",
+    "display": "24 HR dexmethylphenidate hydrochloride 40 MG Extended Release Oral Capsule"
+  },
+  {
+    "code": "1006609",
+    "system": "RXNORM",
+    "display": "dexmethylphenidate hydrochloride 40 MG [Focalin]"
+  },
+  {
+    "code": "1006610",
+    "system": "RXNORM",
+    "display": "24 HR dexmethylphenidate hydrochloride 40 MG Extended Release Oral Capsule [Focalin]"
+  },
+  {
+    "code": "1006619",
+    "system": "RXNORM",
+    "display": "eprinomectin"
+  },
+  {
+    "code": "1006620",
+    "system": "RXNORM",
+    "display": "eprinomectin 5 MG/ML"
+  },
+  {
+    "code": "1006621",
+    "system": "RXNORM",
+    "display": "eprinomectin Topical Solution"
+  },
+  {
+    "code": "1006622",
+    "system": "RXNORM",
+    "display": "eprinomectin 5 MG/ML Topical Solution"
+  },
+  {
+    "code": "1006623",
+    "system": "RXNORM",
+    "display": "Eprinex"
+  },
+  {
+    "code": "1006624",
+    "system": "RXNORM",
+    "display": "eprinomectin 5 MG/ML [Eprinex]"
+  },
+  {
+    "code": "1006625",
+    "system": "RXNORM",
+    "display": "eprinomectin Topical Solution [Eprinex]"
+  },
+  {
+    "code": "1006626",
+    "system": "RXNORM",
+    "display": "eprinomectin 5 MG/ML Topical Solution [Eprinex]"
+  },
+  {
+    "code": "1006631",
+    "system": "RXNORM",
+    "display": "ivermectin / pyrantel Chewable Tablet"
+  },
+  {
+    "code": "1006632",
+    "system": "RXNORM",
+    "display": "ivermectin 0.136 MG / pyrantel 114 MG Chewable Tablet"
+  },
+  {
+    "code": "1006633",
+    "system": "RXNORM",
+    "display": "Heartgard Plus"
+  },
+  {
+    "code": "1006634",
+    "system": "RXNORM",
+    "display": "ivermectin 0.136 MG / pyrantel 114 MG [Heartgard Plus]"
+  },
+  {
+    "code": "1006635",
+    "system": "RXNORM",
+    "display": "ivermectin / pyrantel Chewable Tablet [Heartgard Plus]"
+  },
+  {
+    "code": "1006637",
+    "system": "RXNORM",
+    "display": "ivermectin 0.136 MG / pyrantel 114 MG Chewable Tablet [Heartgard Plus]"
+  },
+  {
+    "code": "1006640",
+    "system": "RXNORM",
+    "display": "pyrantel 227 MG"
+  },
+  {
+    "code": "1006641",
+    "system": "RXNORM",
+    "display": "ivermectin 0.272 MG / pyrantel 227 MG Chewable Tablet"
+  },
+  {
+    "code": "1006642",
+    "system": "RXNORM",
+    "display": "ivermectin 0.272 MG / pyrantel 227 MG [Heartgard Plus]"
+  },
+  {
+    "code": "1006643",
+    "system": "RXNORM",
+    "display": "ivermectin 0.272 MG / pyrantel 227 MG Chewable Tablet [Heartgard Plus]"
+  },
+  {
+    "code": "1006645",
+    "system": "RXNORM",
+    "display": "ivermectin 0.068 MG / pyrantel 57 MG Chewable Tablet"
+  },
+  {
+    "code": "1006646",
+    "system": "RXNORM",
+    "display": "ivermectin 0.068 MG / pyrantel 57 MG [Heartgard Plus]"
+  },
+  {
+    "code": "1006647",
+    "system": "RXNORM",
+    "display": "ivermectin 0.068 MG / pyrantel 57 MG Chewable Tablet [Heartgard Plus]"
+  },
+  {
+    "code": "1006654",
+    "system": "RXNORM",
+    "display": "amprolium"
+  },
+  {
+    "code": "1006655",
+    "system": "RXNORM",
+    "display": "amprolium 200 MG/ML"
+  },
+  {
+    "code": "1006656",
+    "system": "RXNORM",
+    "display": "amprolium Oral Solution"
+  },
+  {
+    "code": "1006657",
+    "system": "RXNORM",
+    "display": "amprolium 200 MG/ML Oral Solution"
+  },
+  {
+    "code": "1006658",
+    "system": "RXNORM",
+    "display": "CORID"
+  },
+  {
+    "code": "1006659",
+    "system": "RXNORM",
+    "display": "amprolium 200 MG/ML [CORID]"
+  },
+  {
+    "code": "1006660",
+    "system": "RXNORM",
+    "display": "amprolium Oral Solution [CORID]"
+  },
+  {
+    "code": "1006661",
+    "system": "RXNORM",
+    "display": "amprolium 200 MG/ML Oral Solution [CORID]"
+  },
+  {
+    "code": "1006683",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML Topical Cream"
+  },
+  {
+    "code": "1006684",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML Topical Cream [Ovace]"
+  },
+  {
+    "code": "1006688",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML Topical Lotion"
+  },
+  {
+    "code": "1006689",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML Topical Lotion [Carmol Scalp]"
+  },
+  {
+    "code": "1006692",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML [Klaron]"
+  },
+  {
+    "code": "1006693",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 100 MG/ML Topical Lotion [Klaron]"
+  },
+  {
+    "code": "1006710",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 150 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1006726",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 200 MG/ML"
+  },
+  {
+    "code": "1006727",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 200 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1006728",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 300 MG/ML"
+  },
+  {
+    "code": "1006729",
+    "system": "RXNORM",
+    "display": "sulfacetamide sodium 300 MG/ML Ophthalmic Solution"
+  },
+  {
+    "code": "1006801",
+    "system": "RXNORM",
+    "display": "clozapine 150 MG Disintegrating Oral Tablet"
+  },
+  {
+    "code": "1006812",
+    "system": "RXNORM",
+    "display": "albendazole 113.6 MG/ML"
+  },
+  {
+    "code": "1006813",
+    "system": "RXNORM",
+    "display": "albendazole 113.6 MG/ML Oral Suspension"
+  },
+  {
+    "code": "1006814",
+    "system": "RXNORM",
+    "display": "Valbazen"
+  },
+  {
+    "code": "1006815",
+    "system": "RXNORM",
+    "display": "albendazole 113.6 MG/ML [Valbazen]"
+  },
+  {
+    "code": "1006816",
+    "system": "RXNORM",
+    "display": "albendazole Oral Suspension [Valbazen]"
+  },
+  {
+    "code": "1006817",
+    "system": "RXNORM",
+    "display": "albendazole 113.6 MG/ML Oral Suspension [Valbazen]"
+  },
+  {
+    "code": "1006818",
+    "system": "RXNORM",
+    "display": "Vetprofen"
+  },
+  {
+    "code": "1006819",
+    "system": "RXNORM",
+    "display": "carprofen 100 MG [Vetprofen]"
+  },
+  {
+    "code": "1006820",
+    "system": "RXNORM",
+    "display": "carprofen Oral Tablet [Vetprofen]"
+  },
+  {
+    "code": "1006821",
+    "system": "RXNORM",
+    "display": "carprofen 100 MG Oral Tablet [Vetprofen]"
+  },
+  {
+    "code": "1006822",
+    "system": "RXNORM",
+    "display": "carprofen 25 MG [Vetprofen]"
+  },
+  {
+    "code": "1006823",
+    "system": "RXNORM",
+    "display": "carprofen 25 MG Oral Tablet [Vetprofen]"
+  },
+  {
+    "code": "1006824",
+    "system": "RXNORM",
+    "display": "carprofen 75 MG [Vetprofen]"
+  },
+  {
+    "code": "1006825",
+    "system": "RXNORM",
+    "display": "carprofen 75 MG Oral Tablet [Vetprofen]"
+  },
+  {
+    "code": "1006850",
+    "system": "RXNORM",
+    "display": "pyrantel 2.27 MG/ML"
+  },
+  {
+    "code": "1006851",
+    "system": "RXNORM",
+    "display": "pyrantel 2.27 MG/ML Oral Suspension"
+  },
+  {
+    "code": "1006852",
+    "system": "RXNORM",
+    "display": "RFD"
+  },
+  {
+    "code": "1006853",
+    "system": "RXNORM",
+    "display": "pyrantel 2.27 MG/ML [RFD]"
+  },
+  {
+    "code": "1006854",
+    "system": "RXNORM",
+    "display": "pyrantel Oral Suspension [RFD]"
+  },
+  {
+    "code": "1006855",
+    "system": "RXNORM",
+    "display": "pyrantel 2.27 MG/ML Oral Suspension [RFD]"
+  },
+  {
+    "code": "1006856",
+    "system": "RXNORM",
+    "display": "Nemex"
+  },
+  {
+    "code": "1006857",
+    "system": "RXNORM",
+    "display": "pyrantel 4.54 MG/ML [Nemex]"
+  },
+  {
+    "code": "1006858",
+    "system": "RXNORM",
+    "display": "pyrantel Oral Suspension [Nemex]"
+  },
+  {
+    "code": "1006859",
+    "system": "RXNORM",
+    "display": "pyrantel 4.54 MG/ML Oral Suspension [Nemex]"
+  },
+  {
+    "code": "1006860",
+    "system": "RXNORM",
+    "display": "Strongid"
+  },
+  {
+    "code": "1006881",
+    "system": "RXNORM",
+    "display": "bromhexine / cephalexin"
+  },
+  {
+    "code": "1006882",
+    "system": "RXNORM",
+    "display": "triclosan / vitamin E"
+  },
+  {
+    "code": "1006883",
+    "system": "RXNORM",
+    "display": "pirenzepine / ranitidine"
+  },
+  {
+    "code": "1006884",
+    "system": "RXNORM",
+    "display": "carboxymethylcellulose / danthron / poloxamer"
+  },
+  {
+    "code": "1006885",
+    "system": "RXNORM",
+    "display": "bromhexine / erythromycin"
+  },
+  {
+    "code": "1006886",
+    "system": "RXNORM",
+    "display": "phenylephrine / zinc oxide"
+  },
+  {
+    "code": "1006887",
+    "system": "RXNORM",
+    "display": "acetaminophen / doxylamine / phenylephrine"
+  },
+  {
+    "code": "1006889",
+    "system": "RXNORM",
+    "display": "dimethicone / menthol / pramoxine"
+  },
+  {
+    "code": "1006890",
+    "system": "RXNORM",
+    "display": "chlorpheniramine / phenylpropanolamine / phenyltoloxamine / pseudoephedrine"
+  },
+  {
+    "code": "1006891",
+    "system": "RXNORM",
+    "display": "chlorpheniramine / hydrocortisone / pyrilamine"
+  },
+  {
+    "code": "1006892",
+    "system": "RXNORM",
+    "display": "belladonna alkaloids / kaolin / phenobarbital"
+  },
+  {
+    "code": "1006894",
+    "system": "RXNORM",
+    "display": "hydrochlorothiazide / sotalol"
+  },
+  {
+    "code": "1006895",
+    "system": "RXNORM",
+    "display": "fluocortolone caproate / fluocortolone pivalate"
+  },
+  {
+    "code": "1006896",
+    "system": "RXNORM",
+    "display": "borage oil / docosahexaenoate / eicosapentaenoate"
+  },
+  {
+    "code": "1006899",
+    "system": "RXNORM",
+    "display": "gamma-linolenate / vitamin E"
+  },
+  {
+    "code": "1006900",
+    "system": "RXNORM",
+    "display": "glutamate / magnesium citrate"
+  },
+  {
+    "code": "1006901",
+    "system": "RXNORM",
+    "display": "cascara sagrada / dehydrocholate"
+  },
+  {
+    "code": "1006902",
+    "system": "RXNORM",
+    "display": "betaine / glutamate / pepsin A"
+  },
+  {
+    "code": "1006903",
+    "system": "RXNORM",
+    "display": "pancreatin / vitamin B6"
+  },
+  {
+    "code": "1006904",
+    "system": "RXNORM",
+    "display": "heparinoids / hyaluronidase"
+  },
+  {
+    "code": "1006905",
+    "system": "RXNORM",
+    "display": "carbetapentane / guaiacolsulfonate / phenylephrine"
+  },
+  {
+    "code": "1006906",
+    "system": "RXNORM",
+    "display": "sodium bicarbonate / sodium chloride / sodium phosphate, dibasic"
+  },
+  {
+    "code": "1006907",
+    "system": "RXNORM",
+    "display": "ethanol / glucose"
+  },
+  {
+    "code": "1006908",
+    "system": "RXNORM",
+    "display": "testosterone 17-phenylpropionate / testosterone decanoate / testosterone isocaproate / testosterone propionate"
+  },
+  {
+    "code": "1006911",
+    "system": "RXNORM",
+    "display": "benzoate / salicylic acid"
+  },
+  {
+    "code": "1006912",
+    "system": "RXNORM",
+    "display": "benzocaine / phenylpropanolamine"
+  },
+  {
+    "code": "1006913",
+    "system": "RXNORM",
+    "display": "biotin / dicalcium phosphate"
+  },
+  {
+    "code": "1006914",
+    "system": "RXNORM",
+    "display": "calcium carbonate / cholecalciferol / ferrous fumarate"
+  },
+  {
+    "code": "1006915",
+    "system": "RXNORM",
+    "display": "poliovirus vaccine inactivated, type 1 (Mahoney) / poliovirus vaccine inactivated, type 2 (MEF-1) / poliovirus vaccine inactivated, type 3 (Saukett)"
+  },
+  {
+    "code": "1006916",
+    "system": "RXNORM",
+    "display": "benzocaine / isopropyl alcohol"
+  },
+  {
+    "code": "1006917",
+    "system": "RXNORM",
+    "display": "estrogens, conjugated (USP) / medroxyprogesterone"
+  },
+  {
+    "code": "1006919",
+    "system": "RXNORM",
+    "display": "Capsicum oleoresin / turpentine"
+  },
+  {
+    "code": "1006920",
+    "system": "RXNORM",
+    "display": "miconazole / zinc oxide"
+  },
+  {
+    "code": "1006921",
+    "system": "RXNORM",
+    "display": "clioquinol / triamcinolone"
+  },
+  {
+    "code": "1006922",
+    "system": "RXNORM",
+    "display": "lidocaine / phenol"
+  },
+  {
+    "code": "1006924",
+    "system": "RXNORM",
+    "display": "chlorquinaldol / diflucortolone"
+  },
+  {
+    "code": "1006925",
+    "system": "RXNORM",
+    "display": "monofluorophosphate / sodium fluoride"
+  },
+  {
+    "code": "1006926",
+    "system": "RXNORM",
+    "display": "bisacodyl / casanthranol"
+  },
+  {
+    "code": "1006927",
+    "system": "RXNORM",
+    "display": "diflucortolone / salicylic acid"
+  },
+  {
+    "code": "1006930",
+    "system": "RXNORM",
+    "display": "levocarnitine / ubidecarenone"
+  },
+  {
+    "code": "1006931",
+    "system": "RXNORM",
+    "display": "boron / calcium carbonate"
+  },
+  {
+    "code": "1006932",
+    "system": "RXNORM",
+    "display": "menthol / salicylic acid"
+  },
+  {
+    "code": "1006933",
+    "system": "RXNORM",
+    "display": "benzydamine / cetylpyridinium"
+  },
+  {
+    "code": "1006939",
+    "system": "RXNORM",
+    "display": "Haemophilus capsular oligosaccharide / Neisseria meningitidis"
+  },
+  {
+    "code": "1006941",
+    "system": "RXNORM",
+    "display": "glycolate / lactate"
+  },
+  {
+    "code": "1006942",
+    "system": "RXNORM",
+    "display": "glutamine / tyrosine"
+  },
+  {
+    "code": "1006943",
+    "system": "RXNORM",
+    "display": "chromic sulfate / zinc sulfate"
+  },
+  {
+    "code": "1006944",
+    "system": "RXNORM",
+    "display": "chloramphenicol / naphazoline / neomycin"
+  },
+  {
+    "code": "1006945",
+    "system": "RXNORM",
+    "display": "calcium phosphate / procyanidolic oligomer"
+  },
+  {
+    "code": "1006948",
+    "system": "RXNORM",
+    "display": "ascorbic acid / niacinamide / vitamin A"
+  },
+  {
+    "code": "1006949",
+    "system": "RXNORM",
+    "display": "activated charcoal / bile salts / pancreatin"
+  },
+  {
+    "code": "1006951",
+    "system": "RXNORM",
+    "display": "camphor / eucalyptol / menthol"
+  },
+  {
+    "code": "1006952",
+    "system": "RXNORM",
+    "display": "meprobamate / pentaerythritol"
+  },
+  {
+    "code": "1006954",
+    "system": "RXNORM",
+    "display": "carbon dioxide / helium / nitrogen / oxygen"
+  },
+  {
+    "code": "1006955",
+    "system": "RXNORM",
+    "display": "rutin / vincamine"
+  },
+  {
+    "code": "1006956",
+    "system": "RXNORM",
+    "display": "hydroxyzine / pentaerythritol"
+  },
+  {
+    "code": "1006957",
+    "system": "RXNORM",
+    "display": "sweetleaf preparation / zinc acetate"
+  },
+  {
+    "code": "1006959",
+    "system": "RXNORM",
+    "display": "dehydrosanol / triamterene"
+  },
+  {
+    "code": "1006960",
+    "system": "RXNORM",
+    "display": "mefruside / reserpine"
+  },
+  {
+    "code": "1006961",
+    "system": "RXNORM",
+    "display": "allantoin / ichthammol"
+  },
+  {
+    "code": "1006963",
+    "system": "RXNORM",
+    "display": "neostigmine / pilocarpine"
+  },
+  {
+    "code": "1006964",
+    "system": "RXNORM",
+    "display": "magnesium gluconate / potassium tartrate"
+  },
+  {
+    "code": "1006965",
+    "system": "RXNORM",
+    "display": "beta carotene / vitamin E"
+  },
+  {
+    "code": "1006966",
+    "system": "RXNORM",
+    "display": "lidocaine / methylbenzethonium"
+  },
+  {
+    "code": "1006967",
+    "system": "RXNORM",
+    "display": "magnesium oxide / magnesium sulfate"
+  },
+  {
+    "code": "1006968",
+    "system": "RXNORM",
+    "display": "cysteine / methionine"
+  },
+  {
+    "code": "1006969",
+    "system": "RXNORM",
+    "display": "calcium gluconate / calcium levulinate"
+  },
+  {
+    "code": "1006970",
+    "system": "RXNORM",
+    "display": "acetaminophen / dimenhydrinate"
+  },
+  {
+    "code": "1006971",
+    "system": "RXNORM",
+    "display": "coumarin / rutin"
+  },
+  {
+    "code": "1006972",
+    "system": "RXNORM",
+    "display": "bismuth subgallate / butoxycaine / zinc oxide"
+  },
+  {
+    "code": "1006973",
+    "system": "RXNORM",
+    "display": "atropine / epinephrine / tyramine"
+  },
+  {
+    "code": "1006974",
+    "system": "RXNORM",
+    "display": "lidocaine / lindane"
+  },
+  {
+    "code": "1006975",
+    "system": "RXNORM",
+    "display": "sulfamerazine / trimethoprim"
+  },
+  {
+    "code": "1006976",
+    "system": "RXNORM",
+    "display": "cellulose / methylcellulose"
+  },
+  {
+    "code": "1006977",
+    "system": "RXNORM",
+    "display": "meprobamate / theophylline"
+  },
+  {
+    "code": "1006978",
+    "system": "RXNORM",
+    "display": "methocarbamol / methylnicotinate"
+  },
+  {
+    "code": "1006980",
+    "system": "RXNORM",
+    "display": "dihydroergotamine / propyphenazone"
+  },
+  {
+    "code": "1006981",
+    "system": "RXNORM",
+    "display": "framycetin / naphazoline"
+  },
+  {
+    "code": "1006983",
+    "system": "RXNORM",
+    "display": "allantoin / thymol"
+  },
+  {
+    "code": "1006984",
+    "system": "RXNORM",
+    "display": "bromhexine / cefaclor"
+  },
+  {
+    "code": "1006985",
+    "system": "RXNORM",
+    "display": "dextran / phenylbutazone"
+  },
+  {
+    "code": "1006986",
+    "system": "RXNORM",
+    "display": "metoclopramide / pancreatin / pepsin A"
+  },
+  {
+    "code": "1006987",
+    "system": "RXNORM",
+    "display": "linoleate / omega-3 acid ethyl esters (USP) / vitamin E"
+  },
+  {
+    "code": "1006988",
+    "system": "RXNORM",
+    "display": "brilliant green / gentian violet"
+  },
+  {
+    "code": "1006989",
+    "system": "RXNORM",
+    "display": "hematoporphyrin / procaine"
+  },
+  {
+    "code": "1006990",
+    "system": "RXNORM",
+    "display": "benzalkonium / pantothenic acid"
+  },
+  {
+    "code": "1006991",
+    "system": "RXNORM",
+    "display": "hydrocortisone / natamycin / neomycin"
+  },
+  {
+    "code": "1006992",
+    "system": "RXNORM",
+    "display": "merbromin / penicillin G"
+  },
+  {
+    "code": "1006993",
+    "system": "RXNORM",
+    "display": "niacinamide / quinine / thiamine"
+  },
+  {
+    "code": "1006994",
+    "system": "RXNORM",
+    "display": "piretanide / ramipril"
+  },
+  {
+    "code": "1006995",
+    "system": "RXNORM",
+    "display": "aluminum hydroxide / aspirin / caffeine"
+  },
+  {
+    "code": "1006996",
+    "system": "RXNORM",
+    "display": "estrogens, conjugated (USP) / medrogestone"
+  },
+  {
+    "code": "1006997",
+    "system": "RXNORM",
+    "display": "benzocaine / salicylic acid"
+  },
+  {
+    "code": "1006999",
+    "system": "RXNORM",
+    "display": "dodecyl sulfate / zinc pyrithione"
+  },
+  {
+    "code": "1007000",
+    "system": "RXNORM",
+    "display": "colistin / furazolidone"
+  },
+  {
+    "code": "1007001",
+    "system": "RXNORM",
+    "display": "mefruside / nifedipine"
+  },
+  {
+    "code": "1007002",
+    "system": "RXNORM",
+    "display": "pentosan polysulfate / troxerutin / xanthinol"
+  },
+  {
+    "code": "1007003",
+    "system": "RXNORM",
+    "display": "acebutolol / mefruside"
+  },
+  {
+    "code": "1007004",
+    "system": "RXNORM",
+    "display": "chlorotheophylline / diphenhydramine"
+  },
+  {
+    "code": "1007005",
+    "system": "RXNORM",
+    "display": "aspirin / quinine"
+  },
+  {
+    "code": "1007006",
+    "system": "RXNORM",
+    "display": "activated charcoal / salicylic acid / sulfur"
+  },
+  {
+    "code": "1007007",
+    "system": "RXNORM",
+    "display": "loratadine / povidone"
+  },
+  {
+    "code": "1007008",
+    "system": "RXNORM",
+    "display": "alginic acid / carboxymethylcellulose"
+  },
+  {
+    "code": "1007009",
+    "system": "RXNORM",
+    "display": "iodoquinol / papaverine / phthalylsulfathiazole"
+  },
+  {
+    "code": "1007010",
+    "system": "RXNORM",
+    "display": "methyclothiazide / triamterene"
+  },
+  {
+    "code": "1007011",
+    "system": "RXNORM",
+    "display": "dequalinium / dibunate"
+  }
+]

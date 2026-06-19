@@ -1,0 +1,97 @@
+{
+  "info": {
+    "name": "fhir-codebridge",
+    "description": "FHIR Terminology Mapping Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "description": "Base URL for the fhir-codebridge service"
+    },
+    {
+      "key": "api_key",
+      "value": "changeme-admin-key",
+      "description": "Admin API key"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/health"
+      }
+    },
+    {
+      "name": "Statistics",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/stats",
+        "header": [{"key": "X-API-Key", "value": "{{api_key}}"}]
+      }
+    },
+    {
+      "name": "Systems",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/systems",
+        "header": [{"key": "X-API-Key", "value": "{{api_key}}"}]
+      }
+    },
+    {
+      "name": "Lookup Code (ICD-10 → SNOMED)",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/lookup",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"},
+          {"key": "X-API-Key", "value": "{{api_key}}"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"code\": \"E11.9\", \"system\": \"ICD-10-CM\", \"target_system\": \"SNOMED-CT\"}"
+        }
+      }
+    },
+    {
+      "name": "Lookup by Display Text",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/lookup",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"},
+          {"key": "X-API-Key", "value": "{{api_key}}"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"display\": \"metformin\", \"target_system\": \"RXNORM\"}"
+        }
+      }
+    },
+    {
+      "name": "FHIR $translate",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/$translate",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"},
+          {"key": "X-API-Key", "value": "{{api_key}}"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"code\": \"E11.9\", \"system\": \"http://hl7.org/fhir/sid/icd-10-cm\", \"target_system\": \"http://snomed.info/sct\"}"
+        }
+      }
+    },
+    {
+      "name": "Audit Log Query",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/audit?limit=50",
+        "header": [{"key": "X-API-Key", "value": "{{api_key}}"}]
+      }
+    }
+  ]
+}

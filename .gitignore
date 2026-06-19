@@ -1,0 +1,41 @@
+# Environment and secrets
+.env
+secrets/
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# Data — don't commit raw downloads (re-downloadable from CMS/NLM)
+data/terminology_raw/umls/*
+!data/terminology_raw/umls/README.md
+!data/terminology_raw/umls/.gitkeep
+data/terminology_raw/icd10cm/*.zip
+data/terminology_raw/icd10cm/20*/
+!data/terminology_raw/icd10cm/.gitkeep
+!data/terminology_raw/icd10cm/README.md
+
+# Audit logs
+data/audit.log*
+
+# Docker
+*.tar.gz
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude/agent artifacts
+.claude/
+.ciphemon/
+.hermes/
