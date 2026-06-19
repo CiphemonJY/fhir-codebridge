@@ -138,6 +138,10 @@ if CORS_ORIGINS:
 # Load RAG engine once at startup
 rag = RAGLookup()
 
+# Payer rule engine
+from scripts.api.payer_rules import PayerRuleEngine
+payer_rules = PayerRuleEngine()
+
 
 # --- Audit Logging ---
 
@@ -612,6 +616,80 @@ def _confidence_label(conf: float) -> str:
 
 # --- Web UI (single HTML file, no build step, no extra deps) ---
 
+
+
+@app.get("/payer/rules")
+async def get_payer_rules(role: str = Depends(get_api_key)):
+    """List configured payer rules and statistics."""
+    return payer_rules.stats()
+
+
+@app.get("/payer/rules/{payer_name}")
+async def get_payer_rules_by_name(payer_name: str, role: str = Depends(get_api_key)):
+    """Get rules for a specific payer."""
+    rules = payer_rules.rules.get(payer_name, [])
+    return {"payer": payer_name, "rule_count": len(rules), "rules": rules}
+
+
+@app.post("/validate/payer")
+async def validate_with_payer_rules(
+    req: dict = None,
+    request: Request = None,
+    role: str = Depends(get_api_key),
+):
+    """
+    Validate codes against payer-specific rules.
+    
+    Body:
+    {
+        "codes": [{"code": "E11.9", "system": "ICD-10-CM"}],
+        "payer": "Medicare",
+        "patient_gender": "M",
+        "patient_age": 55,
+        "co_codes": [{"code": "4548-4", "system": "LOINC"}]
+    }
+    """
+    import json as _json
+    body = await request.json()
+    codes = body.get("codes", [])
+    payer = body.get("payer")
+    gender = body.get("patient_gender")
+    age = body.get("patient_age")
+    co_codes = body.get("co_codes", [])
+    
+    results = []
+    for item in codes:
+        code = item.get("code", "")
+        system = item.get("system", "")
+        issues = payer_rules.check_code(
+            code=code, system=system, payer=payer,
+            patient_gender=gender, patient_age=age, co_codes=co_codes
+        )
+        results.append({
+            "code": code,
+            "system": system,
+            "issues": issues,
+            "has_issues": len(issues) > 0,
+            "status": "fail" if any(i["severity"] == "fail" for i in issues) else
+                      "warning" if issues else "pass"
+        })
+    
+    audit_log(request, "validate_payer", {
+        "payer": payer,
+        "codes_count": len(codes),
+        "issues_found": sum(len(r["issues"]) for r in results),
+    })
+    
+    return {
+        "payer": payer,
+        "total": len(results),
+        "pass": sum(1 for r in results if r["status"] == "pass"),
+        "warning": sum(1 for r in results if r["status"] == "warning"),
+        "fail": sum(1 for r in results if r["status"] == "fail"),
+        "results": results,
+    }
+
+
 @app.get("/", response_class=HTMLResponse)
 async def web_ui():
     """Serve the non-technical user web interface."""
@@ -688,6 +766,7 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top:
       <button id="nav-dashboard" class="active" onclick="showTab('dashboard')">Dashboard</button>
       <button id="nav-lookup" onclick="showTab('lookup')">Single Lookup</button>
       <button id="nav-bulk" onclick="showTab('bulk')">Bulk Upload</button>
+      <button id="nav-analytics" onclick="showTab('analytics')">Analytics</button>
     </nav>
   </div>
 </header>
@@ -810,6 +889,42 @@ function showTab(tab) {
     document.getElementById('nav-'+t).classList.toggle('active', t === tab);
   });
   if(tab === 'dashboard') loadDashboard();
+  if(tab === 'analytics') loadAnalytics();
+}
+
+async function loadAnalytics() {
+  try {
+    const resp = await fetch("/analytics/denials" + (apiKey ? "?key=" + apiKey : ""), {headers: apiKey ? {"X-API-Key": apiKey} : {}});
+    const data = await resp.json();
+    const el = document.getElementById("analytics-content");
+    if (!data.total_lookups) {
+      el.innerHTML = "<p style=\"color:#666;\">No audit data available yet. Make some lookups first.</p>";
+      return;
+    }
+    let html = "<table class=\"coverage-table\"><tr><th>Metric</th><th>Value</th></tr>";
+    html += "<tr><td>Total Lookups</td><td>" + data.total_lookups + "</td></tr>";
+    if (data.action_distribution) {
+      for (const [action, count] of Object.entries(data.action_distribution)) {
+        html += "<tr><td>" + action + "</td><td>" + count + "</td></tr>";
+      }
+    }
+    if (data.confidence_distribution) {
+      html += "<tr><td colspan=\"2\"><strong>Confidence Distribution</strong></td></tr>";
+      for (const [level, count] of Object.entries(data.confidence_distribution)) {
+        html += "<tr><td>" + level + "</td><td>" + count + "</td></tr>";
+      }
+    }
+    if (data.top_rejected_codes && data.top_rejected_codes.length > 0) {
+      html += "<tr><td colspan=\"2\"><strong>Top Rejected Codes</strong></td></tr>";
+      for (const [code, count] of data.top_rejected_codes) {
+        html += "<tr><td>" + code + "</td><td>" + count + "</td></tr>";
+      }
+    }
+    html += "</table>";
+    el.innerHTML = html;
+  } catch(e) {
+    document.getElementById("analytics-content").innerHTML = "<p style=\"color:#c00;\">Error loading analytics: " + e.message + "</p>";
+  }
 }
 
 async function loadDashboard() {

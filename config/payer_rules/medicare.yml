@@ -1,0 +1,47 @@
+# Medicare Claim Editing Rules
+# Based on common CMS denial patterns. Contributed rules welcome.
+payer: Medicare
+rules:
+  # Diabetes requires supporting lab work
+  - code_system: ICD-10-CM
+    code_pattern: "E11*"
+    checks:
+      - type: requires_secondary
+        system: LOINC
+        code: "4548-4"
+        message: "Type 2 diabetes diagnosis requires HbA1c lab result within 90 days"
+  
+  # Type 1 and Type 2 diabetes are mutually exclusive
+  - code_system: ICD-10-CM
+    code_pattern: "E10*"
+    checks:
+      - type: excluded_with
+        code_system: ICD-10-CM
+        code_pattern: "E11*"
+        message: "E10 (Type 1) and E11 (Type 2) diabetes are mutually exclusive"
+  
+  # Obstetric codes are female-only
+  - code_system: ICD-10-CM
+    code_pattern: "O*"
+    checks:
+      - type: gender_restriction
+        allowed: "F"
+        message: "Obstetric codes (O00-O9A) are female-only"
+  
+  # Acute MI requires cardiology follow-up within 14 days
+  - code_system: ICD-10-CM
+    code_pattern: "I21*"
+    checks:
+      - type: requires_secondary
+        system: CDT
+        code_pattern: "9*"
+        message: "Acute MI (I21) requires cardiology follow-up within 14 days"
+
+  # Well-visits frequency limit
+  - code_system: CDT
+    code: "D0120"
+    checks:
+      - type: frequency_limit
+        max_per_period: 2
+        period_days: 365
+        message: "Periodic oral evaluation limited to 2x per year (Medicare dental)"
