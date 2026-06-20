@@ -7,7 +7,7 @@ Thank you for your interest in contributing! fhir-codebridge is an open source F
 ### High Priority
 
 1. **Terminology data** — help expand pre-loaded SNOMED CT and LOINC coverage
-2. **Mapping bundles** — verified ICD-10 → SNOMED, LOINC normalization, RxNorm crosswalks
+2. **Mapping bundles** — sourced ICD-10 → SNOMED, LOINC normalization, RxNorm crosswalks
 3. **EHR integration examples** — Epic, Cerner, Meditech reference patterns
 4. **Testing** — run the benchmark suite against your real-world data and report results
 5. **Documentation** — INSTALL.md improvements, deployment guides for specific environments
@@ -83,7 +83,7 @@ python3 scripts/calibration_test_100.py
 If you're contributing terminology data or mapping bundles:
 
 1. **Format:** JSON array of `{"code": "...", "system": "...", "display": "..."}`
-2. **Source:** Must be from a redistributable source (public domain, UMLS with key, or your own verified mappings)
+2. **Source:** Must be from a redistributable source (public domain, UMLS with key, or your own sourced mappings)
 3. **Verification:** Include the source and verification method in your PR
 4. **Licensing:** Do not include SNOMED CT full edition (requires license). Use the problem-list subset or UMLS API.
 

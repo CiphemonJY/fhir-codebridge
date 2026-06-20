@@ -1,6 +1,6 @@
 # fhir-codebridge Quick Start Guide
 
-*First lookup in 5 minutes. No coding experience required.*
+*First lookup in minutes. No coding experience required.*
 
 ## What This Tool Does
 
@@ -25,10 +25,11 @@ python -m uvicorn scripts.api.server:app --port 8000
 
 Open your browser and go to: **http://localhost:8000**
 
-You'll see three tabs:
+You'll see four tabs:
 - **Dashboard** — shows service status and loaded terminology
 - **Single Lookup** — look up one code at a time
 - **Bulk Upload** — process a CSV file of codes
+- **Analytics** — view denial pattern analytics and lookup statistics
 
 ## Step 3: Your First Lookup
 
@@ -64,7 +65,7 @@ Results columns:
 
 | Label | Score | Meaning |
 |-------|-------|---------|
-| High | ≥0.95 | Exact match or verified crosswalk — safe for automated use |
+| High | ≥0.95 | Exact match or crosswalk — appropriate for automated use |
 | Medium | ≥0.80 | Strong fuzzy match — review recommended |
 | Low | ≥0.60 | Weak match — human review required |
 | Very Low | <0.60 | No reliable match found |

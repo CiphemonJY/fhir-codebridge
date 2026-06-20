@@ -1,5 +1,8 @@
-# Texas Medicaid Claim Editing Rules
-# Based on common Texas Medicaid denial patterns.
+# Texas Medicaid Claim Editing Rules — SAMPLES
+# These are illustrative examples, not official TX Medicaid policy.
+# Hospitals should replace these with their own denial-pattern rules.
+# Contributed rules welcome via PR.
+
 payer: Texas Medicaid
 rules:
   # Emergency department visits require urgency indicator
@@ -9,7 +12,7 @@ rules:
       - type: frequency_limit
         max_per_period: 1
         period_days: 180
-        message: "Emergency oral evaluation limited to 1x per 6 months (TX Medicaid)"
+        message: "Emergency oral evaluation limited to 1x per 6 months"
   
   # Well-child visits by age
   - code_system: ICD-10-CM
@@ -18,4 +21,4 @@ rules:
       - type: age_restriction
         min: 0
         max: 21
-        message: "Well-child codes (Z00) are for patients under 21 (TX Medicaid)"
+        message: "Well-child codes (Z00) are for patients under 21"

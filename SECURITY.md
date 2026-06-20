@@ -17,7 +17,7 @@ fhir-codebridge is designed for healthcare environments where data privacy is cr
 
 - **On-premises deployment:** No PHI leaves your network. No cloud dependencies.
 - **API key authentication:** Role-based access (admin / read-only). Constant-time key comparison.
-- **Audit logging:** Every request logged (JSON Lines format). HIPAA §164.312(b) compliant.
+- **Audit logging:** Every request logged (JSON Lines format). implements audit logging per HIPAA §164.312(b).
 - **Rate limiting:** In-memory token bucket (100 req/60s default, configurable).
 - **Docker secrets:** API keys stored as files, not plaintext environment variables.
 - **Non-root container:** Docker image runs as unprivileged user.

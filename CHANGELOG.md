@@ -68,7 +68,7 @@ Versions follow [semantic versioning](https://semver.org/).
 - Initial public release
 - RAG lookup engine (100% accuracy on known terms)
 - 5 API endpoints: `/health`, `/stats`, `/systems`, `/lookup`, `/$translate`
-- 123,080 verified terms (ICD-10-CM, RxNorm, CDT, LOINC, crosswalk)
+- 123,079 sourced terms (ICD-10-CM, RxNorm, CDT, LOINC, crosswalk)
 - RBAC with API key authentication
 - Audit logging (JSONL format)
 - Docker deployment with secrets support

@@ -1,5 +1,8 @@
-# Medicare Claim Editing Rules
-# Based on common CMS denial patterns. Contributed rules welcome.
+# Medicare Claim Editing Rules — SAMPLES
+# These are illustrative examples, not official CMS policy.
+# Hospitals should replace these with their own denial-pattern rules.
+# Contributed rules welcome via PR.
+
 payer: Medicare
 rules:
   # Diabetes requires supporting lab work
@@ -44,4 +47,4 @@ rules:
       - type: frequency_limit
         max_per_period: 2
         period_days: 365
-        message: "Periodic oral evaluation limited to 2x per year (Medicare dental)"
+        message: "Periodic oral evaluation limited to 2x per year"

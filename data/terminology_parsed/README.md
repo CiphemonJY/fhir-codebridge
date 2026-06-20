@@ -2,7 +2,7 @@
 
 This directory contains the terminology data files used by the RAG lookup engine.
 
-## Shipped Data (Verified)
+## Shipped Data (Sourced)
 
 These files are included with the project and contain verified data from project sources:
 
@@ -13,9 +13,9 @@ These files are included with the project and contain verified data from project
 | `cdt.json` | CDT | 397 | CDT source TSV (current dental terminology) |
 | `loinc_core.json` | LOINC | 23 | Core LOINC vital signs (from project data) |
 | `db523_ontology.json` | LOINC + RxNorm | 523 | Combined ontology (db_523 project data) |
-| `crosswalk_v3.json` | Crosswalk | 1,898 | Verified Synthea cross-system mappings |
+| `crosswalk_v3.json` | Crosswalk | 1,898 | Synthea-derived cross-system similarity mappings |
 
-**Total: 123,080 verified entries — no hallucinated data.**
+**Total: 123,079 sourced entries — no hallucinated data.**
 
 ### Data Sources
 
@@ -23,7 +23,7 @@ These files are included with the project and contain verified data from project
 - **NLM RxNorm API**: Public domain. Retrieved via [RxNorm REST API](https://rxnav.nlm.nih.gov/)
 - **CDT**: Project source data (ADA license required for redistribution in commercial products)
 - **LOINC**: Project source subset. Full set requires free registration at [loinc.org](https://loinc.org/)
-- **Crosswalk**: Generated from Synthea patient data with cosine similarity scoring
+- **Crosswalk**: Generated from Synthea synthetic patient data using embedding cosine similarity scoring
 
 ## Hospital-Provided Data (Placeholders)
 
@@ -62,7 +62,7 @@ If you only need specific systems:
 ##### SNOMED-CT to ICD-10-CM Mapping
 - Available with the SNOMED CT US Edition download
 - File: `tls_Icd10cmHumanReadableMap_US1000124_YYYYMMDD.tsv`
-- Over 126,000 verified SNOMED → ICD-10-CM mappings
+- Over 126,000 NLM-verified SNOMED → ICD-10-CM mappings
 - Convert: `scripts/build_terminology_data.py --snomed-icd10-map <path>`
 
 ##### ICD-10-CM

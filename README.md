@@ -89,8 +89,8 @@ fhir-codebridge is a lightweight, open-source terminology mapping service. It ma
 | CDT | 397 terms ✅ | 397 |
 | LOINC (core) | 23 terms ✅ | ~90,000 |
 | SNOMED-CT | — (requires UMLS) | ~350,000 |
-| Crosswalk | 1,898 verified mappings ✅ | +126,000 (NLM official) |
-| **Total** | **123,080 terms + 1,898 mappings** | **~600,000+** |
+| Crosswalk | 1,898 computed mappings ✅ | +126,000 (NLM official) |
+| **Total** | **123,079 terms + 1,898 mappings** | **~600,000+** |
 
 ### How to Load Full Terminology
 
@@ -104,7 +104,7 @@ The system ships with verified starter data from project sources. For full cover
 
 2. **SNOMED CT US Edition** (includes official ICD-10-CM mapping):
    - Download from [NLM SNOMED CT](https://www.nlm.nih.gov/healthit/snomedct/us_edition.html)
-   - Includes 126,000+ verified SNOMED → ICD-10-CM mappings
+   - Includes 126,000+ NLM-verified SNOMED → ICD-10-CM mappings
 
 3. **Individual systems** (if you only need specific ones):
    - ICD-10-CM: [CMS.gov](https://www.cms.gov/Medicare/Coding/ICD10) (public domain)
@@ -192,11 +192,11 @@ Every mapping includes a confidence score and routing action:
 
 | Score | Action | Description |
 |-------|--------|-------------|
-| ≥ 95% | `auto_accept` | Verified mapping — safe for automated use |
+| ≥ 95% | `auto_accept` | Exact match or crosswalk — appropriate for automated use |
 | 70-95% | `review` | Likely match — human should confirm |
 | < 70% | `reject` | No reliable match — code manually |
 
-The RAG lookup engine (verified database) returns 100% accuracy on known terms. The neural model (experimental, opt-in) handles unknown terms at ~65% accuracy — every result is flagged with a confidence score, so low-confidence mappings are never silently accepted.
+The RAG lookup engine (sourced database) returns 100% accuracy on known terms. The neural model (experimental, opt-in) handles unknown terms at ~65% accuracy — every result is flagged with a confidence score, so low-confidence mappings are never silently accepted.
 
 See [BENCHMARK.md](BENCHMARK.md) for detailed results.
 
@@ -217,7 +217,7 @@ The National Library of Medicine provides free access to terminology data for US
    - Register: https://uts.nlm.nih.gov/uts/signup
    - Add `CODEBRIDGE_UMLS_API_KEY=your-key` to `.env`
 
-Without UMLS: 123K+ verified terms (74K ICD-10-CM from CMS, 47K RxNorm from NLM API, 397 CDT, 23 LOINC core) + 1,898 crosswalk mappings. SNOMED-CT and full LOINC require UMLS.
+Without UMLS: 123K+ sourced terms (74K ICD-10-CM from CMS, 47K RxNorm from NLM API, 397 CDT, 23 LOINC core) + 1,898 crosswalk mappings. SNOMED-CT and full LOINC require UMLS.
 With UMLS: full coverage (600K+ terms, cross-system mappings, NLM official SNOMED→ICD-10-CM).
 
 Your API key is never stored or logged. See [SNOMED_LICENSE.md](SNOMED_LICENSE.md) for licensing details.
@@ -258,8 +258,8 @@ codebridge bulk codes.csv --source ICD-10-CM --output results.csv
 ## Architecture
 
 ```
-Layer 1: Verified Mapping Database → 100% on known terms (RAG)
-Layer 2: UMLS UTS API (if key provided) → NLM-verified cross-system mappings (rate-limited + cached)
+Layer 1: Sourced Mapping Database → 100% on known terms (RAG)
+Layer 2: UMLS UTS API (if key provided) → NLM-sourced cross-system mappings (rate-limited + cached)
 Layer 3: Neural Prediction Model (experimental, opt-in) → ~65% on unknown terms
 Layer 4: Confidence Scoring → auto_accept / review / reject
 Layer 5: Human-in-the-Loop → corrections feed back into training data
@@ -268,7 +268,7 @@ Layer 5: Human-in-the-Loop → corrections feed back into training data
 ## Security
 
 - **API Key Auth:** Role-based access (admin / read). Set via env var or Docker secret.
-- **Audit Logging:** Every request logged (JSON Lines). Queryable via `/audit` endpoint. HIPAA §164.312(b) compliant.
+- **Audit Logging:** Every request logged (JSON Lines). Queryable via `/audit` endpoint. implements audit logging per HIPAA §164.312(b).
 - **Docker Secrets:** API keys stored as files, not plaintext env vars.
 - **Rate Limiting:** In-memory token bucket (100 req/60s default, configurable).
 - **UMLS Guardrail:** Rate-limited (5 req/s) + cached (1h TTL). Patient context stripped before external API calls.
@@ -294,7 +294,7 @@ Roadmap:
 - ✅ 16 API endpoints including FHIR $translate, bulk CSV, streaming
 - ✅ Web UI (Dashboard, Lookup, Bulk Upload, Analytics)
 - ✅ RBAC + audit logging + Docker secrets
-- ✅ Pre-loaded terminology (123K+ verified terms + 1,898 crosswalk mappings)
+- ✅ Pre-loaded terminology (123K+ sourced terms + 1,898 crosswalk mappings)
 - ✅ Mapping provenance + terminology version metadata (Tier 0)
 - ✅ Structured JSON logging + rate limiting + training materials (Tier 1)
 - ✅ Pre-submission validation + denial analytics + streaming bulk + scheduled updates (Tier 2)

@@ -53,10 +53,10 @@ A FHIR operation that translates a code from one system to another. fhir-codebri
 ## Terms
 
 ### Crosswalk
-A verified mapping table between two coding systems. Example: ICD-10-CM `E11.9` maps to SNOMED-CT `73211009`.
+A mapping table between two coding systems. Example: ICD-10-CM `E11.9` maps to SNOMED-CT `73211009`.
 
 ### Provenance
-Metadata showing where a mapping came from and how it was verified. Required for audit compliance.
+Metadata showing where a mapping came from and how it was computed. Required for audit compliance.
 
 ### Token bucket
 A rate limiting algorithm. fhir-codebridge uses it to prevent API abuse.
