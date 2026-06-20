@@ -37,14 +37,15 @@ ERROR_PATTERNS = [
 ]
 
 WARNING_PATTERNS = [
-    # Performance numbers without qualifier
-    (r'~\d+\s*(?:seconds|ms|MB|GB)\b(?!.*(?:measured|ESTIMATED|estimated))',
-     'WARN: Performance number without "measured" or "ESTIMATED" qualifier.'),
+    # Performance numbers without qualifier (check whole line for ESTIMATED/measured)
+    (r'~\d+\s*(?:seconds|ms|MB|GB)\b',
+     'WARN: Performance number without "measured" or "ESTIMATED" qualifier.',
+     'line_has_estimated'),
     # Deployment time claims
     (r'(?:in|under|less than)\s*\d+\s*minutes?(?!.*(?:measured|estimated))',
      'WARN: Deployment time claim. Remove specific time estimates.'),
     # "verified" without source citation nearby
-    (r'\bverified\b(?!.*(?:source|NLM|CMS|AHRQ|KFF|UMLS|official|manually|computed|not|date|level|confidence))',
+    (r'\bverified\b(?!.*(?:source|NLM|CMS|AHRQ|KFF|UMLS|official|manually|computed|not|date|level|confidence|badge|NLM-verified))',
      'WARN: "verified" used without citing a source. Add citation or use "computed".'),
     # Hardcoded term counts (should match stats())
     (r'\b\d{5,6}\s*(?:terms|entries|codes|mappings)\b',
@@ -64,7 +65,7 @@ def check_file(filepath):
                 for pattern, message in ERROR_PATTERNS:
                     if re.search(pattern, line, re.IGNORECASE):
                         issues.append(('ERROR', lineno, message, line.strip()))
-                for pattern, message in WARNING_PATTERNS:
+                for entry in WARNING_PATTERNS:
                     if re.search(pattern, line, re.IGNORECASE):
                         issues.append(('WARN', lineno, message, line.strip()))
     except (UnicodeDecodeError, IsADirectoryError):

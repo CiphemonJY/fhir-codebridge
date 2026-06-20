@@ -34,7 +34,7 @@ jobs:
 
       - name: Check documentation claims
         run: |
-          python scripts/check_claims.py --strict || true
+          python scripts/check_claims.py --strict
 
       - name: Test Docker build
         run: docker build -t codebridge-test .
