@@ -62,19 +62,23 @@ Once deployed, open **http://localhost:8000** in your browser. No terminal neede
 
 The web UI works in any modern browser (Chrome, Firefox, Safari). No install required — it's served by the same API server.
 
-## Why Use This
+## What This Is
 
-| Feature | fhir-codebridge | 3M 360 Encompass | HAPI FHIR | Apache cTAKES |
-|---------|----------------|-------------------|-----------|---------------|
-| Open source | ✅ MIT | ❌ Commercial | ✅ Apache 2.0 | ✅ Apache 2.0 |
-| Docker deploy | ✅ 1 command | ❌ On-prem install | ✅ (Java stack) | ❌ Complex setup |
-| Terminology mapping | ✅ Core feature | ✅ Embedded | ❌ Not a mapper | ❌ NLP, not mapping |
-| FHIR $translate | ✅ | ❌ Proprietary | ✅ (no maps included) | ❌ |
-| Confidence scoring | ✅ 3-tier | ✅ (opaque) | ❌ | ❌ |
-| UMLS integration | ✅ BYO key | ✅ (bundled) | ❌ | ❌ |
-| Time to deploy | ~15 min | 3-6 months | Hours (but no mapping) | Hours (but NLP) |
+fhir-codebridge is a lightweight, open-source terminology mapping service. It maps codes between clinical coding systems (ICD-10-CM, SNOMED-CT, LOINC, RxNorm, CDT) with confidence scoring and a FHIR `$translate` endpoint.
 
-fhir-codebridge is the terminology layer that CAC platforms should have had. It unbundles code mapping from monolithic platforms — deploy in 15 minutes, not 6-month RFP cycles.
+**What it is:**
+- A self-hosted API for terminology lookup and cross-system mapping
+- Docker-deployable in minutes with 123K+ pre-loaded terms
+- MIT-licensed, auditable, no vendor lock-in
+- UMLS-ready: drop in your MRCONSO.RRF to scale to 600K+ terms
+
+**What it is not:**
+- Not a FHIR server framework (see [HAPI FHIR](https://hapifhir.io))
+- Not a clinical NLP engine (see [Apache cTAKES](https://ctakes.apache.org))
+- Not an enterprise CAC platform (see 3M 360 Encompass / Solventum)
+- Not a replacement for clinical coder judgment — always review low-confidence mappings
+
+**Project status:** v0.4.1, single-maintainer, seeking pilot deployments for validation feedback. No production deployments yet.
 
 ## What Works Today
 
