@@ -10,7 +10,7 @@ Versions follow [semantic versioning](https://semver.org/).
 - `GET /payer/rules` — list configured payer rule sets
 - `GET /payer/rules/{name}` — get specific payer rule details
 - `POST /validate/payer` — validate codes against payer-specific rules
-- Revenue leakage dashboard (4th web UI tab: Analytics)
+- Denial pattern analytics (4th web UI tab: Analytics)
 - Sample payer rules: Medicare, Texas Medicaid
 
 ### Fixed
