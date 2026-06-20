@@ -56,7 +56,7 @@ You should see:
     "status": "ok",
     "service": "fhir-codebridge FHIR Terminology Service",
     "version": "0.4.1",
-    "terms_loaded": 123080,
+    "terms_loaded": 123079,
     "umls_enabled": false,
     "auth_enabled": true
 }
@@ -110,8 +110,8 @@ UMLS (Unified Medical Language System) is published by the National Library of M
 - RxNorm (47,780 terms) — ingredients, brand names, clinical drugs from NLM API ✅
 - CDT (397 terms) — full dental procedure codes ✅
 - LOINC (23 terms) — core vital signs only (full set needs UMLS/registration)
-- Crosswalk (1,898 verified mappings) — cross-system code mapping
-- Total: 123,080 verified terms + 1,898 crosswalk mappings
+- Crosswalk (1,898 computed mappings) — cross-system code mapping
+- Total: 123,079 sourced terms + 1,898 crosswalk mappings
 
 **Tip:** The service ships with 123K+ terms covering ICD-10-CM, RxNorm, and CDT. Load UMLS to add SNOMED-CT (~350K) and full LOINC (~90K).
 
@@ -269,7 +269,7 @@ Before deploying in production:
 - [ ] **Change default API keys** — generate with `openssl rand -hex 32`
 - [ ] **Enable TLS** — use nginx or Caddy reverse proxy (see `examples/nginx/`)
 - [ ] **Set up log rotation** — audit logs grow over time
-- [ ] **Configure audit log retention** — default 6 years for HIPAA compliance
+- [ ] **Configure audit log retention** — minimum 6 years (HIPAA §164.530(j) documentation retention requirement)
 - [ ] **Restrict port binding** — bind to `127.0.0.1` + reverse proxy
 - [ ] **Set up automated backups** — at minimum, daily audit log backup
 - [ ] **Monitor health endpoint** — `GET /health` for uptime monitoring

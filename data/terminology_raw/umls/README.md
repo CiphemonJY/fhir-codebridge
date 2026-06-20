@@ -29,7 +29,7 @@ A single `MRCONSO.RRF` file contains **all** of the following:
 - RxNorm (~81K codes)
 - CPT, CVX, and 200+ other vocabularies
 
-That's **600K+ verified terminology entries** from one file.
+That's **600K+ sourced terminology entries** from one file.
 
 ## File Format
 

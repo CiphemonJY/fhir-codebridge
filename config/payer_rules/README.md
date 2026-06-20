@@ -1,7 +1,9 @@
-# Payer-Specific Rules
+# Payer-Specific Rules (Samples)
 
 Each YAML file in this directory defines coding rules for a specific payer.
 Hospitals can contribute rules they've learned from denial patterns.
+
+**The shipped rules are illustrative samples, not official payer policy.** Replace them with rules derived from your own remittance advice data.
 
 ## File Naming
 `{payer_name}.yml` — e.g., `medicare.yml`, `medicaid_texas.yml`, `bcbs.yml`

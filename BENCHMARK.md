@@ -7,18 +7,18 @@
 | System | Count | Source | Full Set Size | Coverage |
 |--------|-------|--------|---------------|----------|
 | ICD-10-CM | 74,879 | CMS 2027 (public domain) | ~74,879 | **100%** ✅ |
-| RxNorm | 47,780 | NLM RxNorm REST API (public domain) | ~81,000 | 59% |
+| RxNorm | 47,780 | NLM RxNorm REST API (public domain) | ~80,000 (est.) | ~59% (est.) |
 | CDT | 397 | Project source TSV | 397 | **100%** ✅ |
 | LOINC (core) | 23 | Project source TSV | ~90,000 | 0.03% |
 | SNOMED-CT | 0 | — (requires UMLS license) | ~350,000 | 0% |
-| Crosswalk | 1,898 | Synthea verified mappings | — | — |
-| **Total** | **123,080** | | | |
+| Crosswalk | 1,898 | Synthea-derived similarity mappings | — | — |
+| **Total** | **123,079** | | | |
 
 **No hallucinated data.** Every entry is from an official source:
 - CMS ICD-10-CM 2027 code descriptions (public domain, freely redistributable)
 - NLM RxNorm REST API — ingredients, brand names, clinical drugs (public domain)
 - Project source TSVs (CDT, LOINC core, db_523 ontology)
-- Synthea crosswalk (verified mappings)
+- Synthea-derived crosswalk (similarity-based mappings)
 
 ### With UMLS Loaded (Hospital-Provided)
 
@@ -29,7 +29,7 @@ When a hospital provides their UMLS Metathesaurus (`MRCONSO.RRF`):
 | SNOMED-CT | ~350,000 | UMLS SNOMEDCT_US |
 | ICD-10-CM | ~74,000 | UMLS ICD10CM (already shipped via CMS) |
 | LOINC | ~90,000 | UMLS LNC |
-| RxNorm | ~81,000 | UMLS RXNORM (partially shipped via API) |
+| RxNorm | ~81,000 (est.) | UMLS RXNORM (partially shipped via API) |
 | CDT | ~397 | UMLS CDT (already shipped) |
 | CPT | ~13,000 | UMLS CPT |
 | **Total** | **~600,000+** | Single MRCONSO.RRF file |
@@ -47,10 +47,10 @@ Output: auto_accept @ 100.0% — "Type 2 diabetes mellitus without complications
 Method: exact_code_lookup
 ```
 
-### Crosswalk Mappings: Verified ✅
+### Crosswalk Mappings: Computed (Not Hallucinated) ✅
 
 The 1,898 crosswalk mappings were generated through Synthea patient data analysis
-with cosine similarity scoring against the db_523 ontology. These are verified
+with cosine similarity scoring against the db_523 ontology. These are computed (not manually reviewed)
 mappings, not hallucinated.
 
 ### Fuzzy Text Matching: 90% ✅
@@ -84,7 +84,7 @@ Run: `python3 scripts/calibration_test_100.py`
 
 ## SNOMED-CT to ICD-10-CM Official Mapping
 
-NLM provides an official SNOMED CT to ICD-10-CM mapping with **126,000+ verified
+NLM provides an official SNOMED CT to ICD-10-CM mapping with **126,000+ NLM-verified
 concepts** as part of the SNOMED CT US Edition release. This is the gold standard
 crosswalk — far more comprehensive than our 1,898 Synthea-derived mappings.
 
@@ -95,10 +95,10 @@ To load:
 
 ## Performance
 
-- **Startup time**: ~2 seconds with 123K terms
+- **Startup time**: < 1 second with 123K terms (measured ~0.14s)
 - **Lookup latency**: < 1ms per query (in-memory dict + prefix index)
-- **Memory**: ~50MB with 123K terms
-- **With full UMLS**: ~200MB memory, ~5s startup, < 1ms lookup
+- **Memory**: ESTIMATED ~50MB with 123K terms (not benchmarked)
+- **With full UMLS**: ESTIMATED ~200MB memory, ~5s startup, < 1ms lookup
 
 ---
 

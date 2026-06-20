@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # fhir-codebridge Quick Start Installer
 # =======================================
-# Clones, installs, and starts the service in under 5 minutes.
+# Clones, installs, and starts the service in a few minutes..
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/CiphemonJY/fhir-codebridge/main/quickstart.sh | bash
