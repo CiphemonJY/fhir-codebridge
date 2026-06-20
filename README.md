@@ -58,7 +58,7 @@ Once deployed, open **http://localhost:8000** in your browser. No terminal neede
 - **Dashboard** — See service status and terminology coverage at a glance
 - **Single Lookup** — Search one code and map it to another system (like Google for medical codes)
 - **Bulk Upload** — Drag a CSV file with codes, get a results CSV back. Perfect for Excel users.
-- **Analytics** — Denial pattern analytics and revenue leakage dashboard
+- **Analytics** — Denial pattern analytics from audit log data
 
 The web UI works in any modern browser (Chrome, Firefox, Safari). No install required — it's served by the same API server.
 
@@ -72,7 +72,6 @@ The web UI works in any modern browser (Chrome, Firefox, Safari). No install req
 | FHIR $translate | ✅ | ❌ Proprietary | ✅ (no maps included) | ❌ |
 | Confidence scoring | ✅ 3-tier | ✅ (opaque) | ❌ | ❌ |
 | UMLS integration | ✅ BYO key | ✅ (bundled) | ❌ | ❌ |
-| Price | Free + BYO key | $100K+/yr | Free | Free |
 | Time to deploy | ~15 min | 3-6 months | Hours (but no mapping) | Hours (but NLP) |
 
 fhir-codebridge is the terminology layer that CAC platforms should have had. It unbundles code mapping from monolithic platforms — deploy in 15 minutes, not 6-month RFP cycles.
@@ -295,7 +294,7 @@ Roadmap:
 - ✅ Mapping provenance + terminology version metadata (Tier 0)
 - ✅ Structured JSON logging + rate limiting + training materials (Tier 1)
 - ✅ Pre-submission validation + denial analytics + streaming bulk + scheduled updates (Tier 2)
-- ✅ Payer-specific rule engine + revenue leakage dashboard (Tier 3)
+- ✅ Payer-specific rule engine + denial pattern analytics (Tier 3)
 - ✅ Client SDK (pip-installable) + CI/CD (GitHub Actions)
 - ⬜ UMLS MRCONSO.RRF loader (hospital-provided full terminology)
 - ⬜ EHR connector templates
