@@ -99,10 +99,24 @@ AUDIT_LOG = Path(os.environ.get("CODEBRIDGE_AUDIT_LOG", "data/audit.log"))
 AUDIT_LOG.parent.mkdir(parents=True, exist_ok=True)
 
 # --- Init ---
+from contextlib import asynccontextmanager
+import signal as _signal
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Graceful startup and shutdown."""
+    logger.info("fhir-codebridge starting", extra={"event": "startup", "version": "0.4.1"})
+    yield
+    # Graceful shutdown: flush audit log, log shutdown
+    logger.info("fhir-codebridge shutting down", extra={"event": "shutdown"})
+    # Clear rate limit buckets
+    rate_buckets.clear()
+
 app = FastAPI(
     title="fhir-codebridge FHIR Terminology Service",
     description="Open source on-prem terminology mapper. Bring your UMLS API key for full coverage.",
     version="0.4.1",
+    lifespan=lifespan,
 )
 
 # --- Rate Limiting (in-memory token bucket) ---
