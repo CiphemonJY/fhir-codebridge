@@ -2,10 +2,15 @@
 
 Outputs JSON log lines to stderr for SIEM ingestion:
 {"timestamp": "2026-06-19T18:07:00Z", "level": "INFO", "event": "lookup", "code": "E11.9", ...}
+
+Audit log rotation: set CODEBRIDGE_AUDIT_LOG_MAX_BYTES (default 10MB) and
+CODEBRIDGE_AUDIT_LOG_BACKUP_COUNT (default 5) to control rotation.
 """
 
 import json
 import logging
+import logging.handlers
+import os
 import sys
 from datetime import datetime, timezone
 
@@ -21,27 +26,35 @@ class JsonFormatter(logging.Formatter):
             "message": record.getMessage(),
         }
         # Add any extra fields passed via logging.info("msg", extra={...})
-        if hasattr(record, "event"):
-            log_entry["event"] = record.event
-        if hasattr(record, "code"):
-            log_entry["code"] = record.code
-        if hasattr(record, "system"):
-            log_entry["system"] = record.system
-        if hasattr(record, "action"):
-            log_entry["action"] = record.action
-        if hasattr(record, "confidence"):
-            log_entry["confidence"] = record.confidence
-        if hasattr(record, "ip"):
-            log_entry["ip"] = record.ip
-        if hasattr(record, "user_agent"):
-            log_entry["user_agent"] = record.user_agent
-        if hasattr(record, "duration_ms"):
-            log_entry["duration_ms"] = record.duration_ms
-        if hasattr(record, "error"):
-            log_entry["error"] = record.error
+        for attr in ("event", "code", "system", "action", "confidence", "ip",
+                      "user_agent", "duration_ms", "error"):
+            if hasattr(record, attr):
+                log_entry[attr] = getattr(record, attr)
         if record.exc_info and record.exc_info[1]:
             log_entry["exception"] = str(record.exc_info[1])
         return json.dumps(log_entry, default=str)
+
+
+def get_audit_log_handler():
+    """Get a rotating file handler for audit logs.
+
+    Configurable via environment:
+    - CODEBRIDGE_AUDIT_LOG_MAX_BYTES (default 10485760 = 10MB)
+    - CODEBRIDGE_AUDIT_LOG_BACKUP_COUNT (default 5)
+    """
+    max_bytes = int(os.environ.get("CODEBRIDGE_AUDIT_LOG_MAX_BYTES", "10485760"))
+    backup_count = int(os.environ.get("CODEBRIDGE_AUDIT_LOG_BACKUP_COUNT", "5"))
+    log_path = os.environ.get("CODEBRIDGE_AUDIT_LOG", "data/audit.log")
+
+    # Ensure parent directory exists
+    import os as _os
+    _os.makedirs(_os.path.dirname(log_path) if _os.path.dirname(log_path) else ".", exist_ok=True)
+
+    handler = logging.handlers.RotatingFileHandler(
+        log_path, maxBytes=max_bytes, backupCount=backup_count
+    )
+    handler.setFormatter(JsonFormatter())
+    return handler
 
 
 def setup_logging(level: str = "INFO"):
