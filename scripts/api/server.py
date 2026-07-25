@@ -808,7 +808,8 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top:
       <button id="nav-lookup" onclick="showTab('lookup')">Single Lookup</button>
       <button id="nav-bulk" onclick="showTab('bulk')">Bulk Upload</button>
       <button id="nav-analytics" onclick="showTab('analytics')">Analytics</button>
-    </div><div style="margin-left:auto;padding:0 12px"><input type="password" id="api-key-input" placeholder="API Key" value="" onchange="setApiKey(this.value)" style="font-size:12px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;width:140px"></div></nav>
+      <div style="margin-left:auto;padding:0 12px"><input type="password" id="api-key-input" placeholder="API Key" value="" onchange="setApiKey(this.value)" style="font-size:12px;padding:4px 8px;border:1px solid #ccc;border-radius:4px;width:140px"></div>
+    </nav>
   </div>
 </header>
 
