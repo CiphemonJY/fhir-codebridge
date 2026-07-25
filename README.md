@@ -84,12 +84,12 @@ fhir-codebridge is a lightweight, open-source terminology mapping service. It ma
 
 | System | Shipped (verified) | With UMLS Loaded |
 |--------|-------------------|------------------|
-| ICD-10-CM | 74,879 terms ✅ (CMS 2027) | 74,879 |
-| RxNorm | 47,780 terms ✅ (NLM API) | ~81,000 |
-| CDT | 397 terms ✅ | 397 |
-| LOINC (core) | 23 terms ✅ | ~90,000 |
+| ICD-10-CM | 74,879 terms (CMS 2027) | 74,879 |
+| RxNorm | 47,780 terms (NLM API) | ~81,000 |
+| CDT | 397 terms | 397 |
+| LOINC (core) | 23 terms | ~90,000 |
 | SNOMED-CT | — (requires UMLS) | ~350,000 |
-| Crosswalk | 1,898 computed mappings ✅ | +126,000 (NLM official) |
+| Crosswalk | 1,898 computed mappings | +126,000 (NLM official) |
 | **Total** | **123,079 terms + 1,898 mappings** | **~600,000+** |
 
 ### How to Load Full Terminology
@@ -198,13 +198,31 @@ Every mapping includes a confidence score and routing action:
 
 The score is a similarity reading, not a probability. It comes from exact-match
 rules and `difflib` string ratios, and no calibrator is fitted against observed
-correctness, so a 0.80 does not mean "right 80% of the time" — on a
-membership-labelled set of 800 queries, every mapping emitted at 0.60 and at
-0.80 was wrong (0/71 and 0/28). Treat the rows above as routing bands. Measured
-numbers, method and scope are in [BENCHMARK.md](BENCHMARK.md#calibration);
-`scripts/calibration_report.py` reproduces them.
+correctness, so a 0.80 does not mean "right 80% of the time". Treat the rows
+above as routing bands.
 
-The RAG lookup engine (sourced database) returns 100% accuracy on known terms. The neural model (experimental, opt-in) handles unknown terms at ~65% accuracy — every result is flagged with a confidence score, so low-confidence mappings are never silently accepted.
+What the score has been measured to mean, on two labelled sets whose labels come
+from the data rather than from clinical judgement:
+
+- Asked whether a returned code is real and is the one requested, it separates
+  exactly: 600/600 correct at 1.0 and 0/600 at 0.0, with nothing in between.
+- Asked to find a term whose display text has been varied — a typo, a
+  transposed word, different punctuation — it is close to calibrated above
+  about 0.91 and materially overconfident below it. Accuracy inside the
+  `review` band (0.70–0.95) is 0.672, 95% CI [0.547, 0.777]. Overall AUC on
+  that traffic is 0.981, so the ranking is good but not perfect either.
+
+Measured numbers, method and scope are in
+[BENCHMARK.md](BENCHMARK.md#calibration); `scripts/calibration_report.py`
+reproduces both sets.
+
+Looked up by exact code or exact display text, a term that is in the loaded
+terminology is returned correctly (600/600 on the membership set). That figure
+covers exact retrieval only, and should not be read as accuracy on real queries:
+when the display text is varied the way a person would type it, accuracy in the
+`review` band falls to 0.672. Every result carries a confidence score, and
+mappings below the auto-accept floor are routed to a human rather than accepted
+silently.
 
 See [BENCHMARK.md](BENCHMARK.md) for detailed results.
 
@@ -298,19 +316,19 @@ See [INSTALL.md](INSTALL.md) for production hardening checklist and [SECURITY.md
 **v0.4.1** — actively maintained. Seeking pilot deployments for validation feedback.
 
 Roadmap:
-- ✅ RAG lookup engine (100% benchmark on known terms)
-- ✅ 16 API endpoints including FHIR $translate, bulk CSV, streaming
-- ✅ Web UI (Dashboard, Lookup, Bulk Upload, Analytics)
-- ✅ RBAC + audit logging + Docker secrets
-- ✅ Pre-loaded terminology (123K+ sourced terms + 1,898 crosswalk mappings)
-- ✅ Mapping provenance + terminology version metadata (Tier 0)
-- ✅ Structured JSON logging + rate limiting + training materials (Tier 1)
-- ✅ Pre-submission validation + denial analytics + streaming bulk + scheduled updates (Tier 2)
-- ✅ Payer-specific rule engine + denial pattern analytics (Tier 3)
-- ✅ Client SDK (pip-installable) + CI/CD (GitHub Actions)
-- ⬜ UMLS MRCONSO.RRF loader (hospital-provided full terminology)
-- ⬜ EHR connector templates
-- ⬜ Operational runbook
+- Done — RAG lookup engine (exact retrieval measured in BENCHMARK.md)
+- Done — 16 API endpoints including FHIR $translate, bulk CSV, streaming
+- Done — Web UI (Dashboard, Lookup, Bulk Upload, Analytics)
+- Done — RBAC + audit logging + Docker secrets
+- Done — Pre-loaded terminology (123K+ sourced terms + 1,898 crosswalk mappings)
+- Done — Mapping provenance + terminology version metadata (Tier 0)
+- Done — Structured JSON logging + rate limiting + training materials (Tier 1)
+- Done — Pre-submission validation + denial analytics + streaming bulk + scheduled updates (Tier 2)
+- Done — Payer-specific rule engine + denial pattern analytics (Tier 3)
+- Done — Client SDK (pip-installable) + CI/CD (GitHub Actions)
+- Planned — UMLS MRCONSO.RRF loader (hospital-provided full terminology)
+- Planned — EHR connector templates
+- Planned — Operational runbook
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and [CHANGELOG.md](CHANGELOG.md) for version history.
 
