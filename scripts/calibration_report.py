@@ -28,6 +28,17 @@ Labelled sets are never generated from thin air. Two ways to get one:
       thing it returned is real. It does NOT measure whether a cross-system
       mapping is clinically right.
 
+  --build-perturbation-set FILE
+      Builds a set by rewriting the display text of terms that ARE in the
+      terminology — case, punctuation, a typo, a transposed word — and asking
+      for them by display. The correct answer is known by construction: the
+      entry the string was derived from. This is the only one of the three modes
+      that puts genuine correct and incorrect mappings INSIDE the 0.6-0.95 band
+      the review threshold governs, because a present code otherwise exits at an
+      exact hit and an absent code has no right answer at all. Perturbations
+      that remove clinical content (word_drop, truncate) can name a different
+      real concept, so those rows carry correct=null and await adjudication.
+
   --emit-unlabelled FILE
       Runs real queries through the engine and writes rows with "correct": null
       for a human to adjudicate. Clinical correctness of a cross-system mapping
@@ -228,6 +239,206 @@ def build_membership_set(out_path, n_positives=400, n_negatives=400, seed=1234, 
     return rows
 
 
+# --------------------------------------------------------------------------
+# perturbation-labelled set builder
+# --------------------------------------------------------------------------
+#
+# The membership set cannot say anything about the traffic the fuzzy matcher
+# exists for. A code that is present exits at an exact hit with confidence 1.0,
+# and a code that is absent has no correct answer at all, so every row lands at
+# 1.0 or at 0.0 and the 0.6-0.95 band the router governs stays empty of real
+# positives. This builder fills it: take a term that IS in the terminology,
+# vary how it is written, and ask for it by display text. The correct answer is
+# known by construction — it is the entry the string came from — so the labels
+# are still derived rather than judged.
+
+# Spelling changes that do not change what the term denotes. Returning a
+# different concept for one of these is wrong, so the label follows.
+MEANING_PRESERVING = (
+    "case_flip",     # upper-case the whole term
+    "punct_strip",   # drop , . - ( ) /
+    "whitespace",    # double a space
+    "typo_swap",     # transpose two adjacent letters
+    "typo_drop",     # delete one letter
+    "typo_dup",      # double one letter
+    "word_reorder",  # swap two words
+)
+
+# Changes that remove clinical content. "type 2 diabetes mellitus with
+# hyperglycemia" minus its last two words names a DIFFERENT real concept, and
+# returning that concept is arguably the right answer to the shortened query.
+# The label is therefore NOT derivable, so these rows are written with
+# correct=null for a terminologist — the same discipline as emit_unlabelled.
+MEANING_ALTERING = (
+    "word_drop",
+    "truncate",
+)
+
+_PUNCT = ",.-()/"
+
+
+def _perturb(rng, text, kind):
+    """
+    Apply one named perturbation. Returns the new string, or None when the kind
+    does not apply to this text (too short, too few words, no punctuation, no
+    letters) or when it happened to be a no-op.
+    """
+    words = text.split()
+    letters = [i for i, ch in enumerate(text) if ch.isalpha()]
+
+    if kind == "case_flip":
+        out = text.upper()
+    elif kind == "punct_strip":
+        if not any(ch in _PUNCT for ch in text):
+            return None
+        out = "".join(ch for ch in text if ch not in _PUNCT)
+    elif kind == "whitespace":
+        if len(words) < 2:
+            return None
+        i = rng.randrange(1, len(words))
+        out = " ".join(words[:i]) + "  " + " ".join(words[i:])
+    elif kind == "typo_swap":
+        cands = [i for i in letters if i + 1 < len(text) and text[i + 1].isalpha() and text[i] != text[i + 1]]
+        if not cands:
+            return None
+        i = rng.choice(cands)
+        out = text[:i] + text[i + 1] + text[i] + text[i + 2:]
+    elif kind == "typo_drop":
+        if len(letters) < 6:
+            return None
+        i = rng.choice(letters)
+        out = text[:i] + text[i + 1:]
+    elif kind == "typo_dup":
+        if not letters:
+            return None
+        i = rng.choice(letters)
+        out = text[:i] + text[i] * 2 + text[i + 1:]
+    elif kind == "word_reorder":
+        if len(words) < 2:
+            return None
+        i = rng.randrange(len(words) - 1)
+        w = list(words)
+        w[i], w[i + 1] = w[i + 1], w[i]
+        out = " ".join(w)
+    elif kind == "word_drop":
+        if len(words) < 3:
+            return None
+        i = rng.randrange(len(words))
+        out = " ".join(words[:i] + words[i + 1:])
+    elif kind == "truncate":
+        if len(text) < 12:
+            return None
+        out = text[:max(8, int(len(text) * 0.7))].rstrip()
+    else:
+        raise ValueError("unknown perturbation kind: %r" % (kind,))
+
+    if out.strip() == "" or out == text:
+        return None
+    return out
+
+
+def build_perturbation_set(out_path, n=600, seed=1234, min_display_len=10,
+                           include_altering=True, verbose=True):
+    """
+    Build a labelled set from surface variations of terms that are really there.
+
+    For each row: pick a loaded entry with real display text, rewrite its display
+    with one named perturbation, and query the engine by display. A row is
+    correct when the engine comes back with the entry the string was derived from
+    — or with any entry carrying that same display, since a display shared by
+    several codes cannot be disambiguated from the text alone.
+
+    Meaning-preserving perturbations get a derived 0/1 label. Meaning-altering
+    ones (word_drop, truncate) get correct=null, because a shorter term can name
+    a genuinely different concept and only a terminologist can say whether the
+    answer was right. They are still emitted, with their kind recorded, so the
+    worksheet is there when someone wants to adjudicate it.
+
+    SCOPE LIMIT: this measures whether display retrieval survives how a term is
+    written. It does not measure clinical correctness of a cross-system mapping.
+    """
+    from rag.rag_lookup import RAGLookup
+
+    rag = RAGLookup()
+    rng = random.Random(seed)
+
+    kinds = list(MEANING_PRESERVING) + (list(MEANING_ALTERING) if include_altering else [])
+
+    # Only entries whose display is real text, long enough to perturb. The
+    # display index already excludes rows whose display is just their own code.
+    usable = [k for k, e in rag.by_code.items()
+              if e["display"].lower() in rag.by_display and len(e["display"]) >= min_display_len]
+    usable.sort()
+    if not usable:
+        raise SystemExit("no entries with display text of at least %d chars" % min_display_len)
+
+    rows = []
+    attempts = 0
+    while len(rows) < n and attempts < n * 60:
+        attempts += 1
+        e = rag.by_code[usable[rng.randrange(len(usable))]]
+        kind = kinds[len(rows) % len(kinds)]
+        query = _perturb(rng, e["display"], kind)
+        if query is None:
+            continue
+
+        r = rag.map_with_confidence(display=query)
+        src = r.get("source") or {}
+        same_display = rag.by_display.get(e["display"].lower(), [])
+        hit = any(src.get("code") == x["code"] and src.get("system") == x["system"] for x in same_display)
+
+        preserving = kind in MEANING_PRESERVING
+        rows.append({
+            "id": "perturb:%s|%s:%s" % (e["system"], e["code"], kind),
+            "class": "perturbed_display_preserving" if preserving else "perturbed_display_altering",
+            "perturbation": kind,
+            "meaning_preserving": preserving,
+            "query": {"display": query},
+            "expected": {"code": e["code"], "system": e["system"], "display": e["display"]},
+            "returned": {"code": src.get("code"), "system": src.get("system"),
+                         "display": src.get("display"), "method": r.get("method")},
+            "action": r["action"],
+            "confidence": r["effective_confidence"],
+            "correct": int(hit) if preserving else None,
+        })
+        if verbose and len(rows) % 100 == 0:
+            print("  ... %d/%d rows" % (len(rows), n), file=sys.stderr, flush=True)
+
+    rng.shuffle(rows)
+    with open(out_path, "w") as f:
+        for row in rows:
+            f.write(json.dumps(row) + "\n")
+    if verbose:
+        labelled = sum(1 for r in rows if r["correct"] is not None)
+        print("Wrote %d rows to %s (%d labelled, %d await adjudication)" % (
+            len(rows), out_path, labelled, len(rows) - labelled), file=sys.stderr)
+        print("Labels derive from which entry the query string was built from,", file=sys.stderr)
+        print("not from clinical adjudication of a cross-system mapping.", file=sys.stderr)
+    return rows
+
+
+def perturbation_report(rows):
+    """Accuracy per perturbation kind — the stratum a pooled metric hides."""
+    by_kind = {}
+    for r in rows:
+        if r.get("correct") is None or "perturbation" not in r:
+            continue
+        k = r["perturbation"]
+        s = by_kind.setdefault(k, {"n": 0, "correct": 0, "conf": 0.0})
+        s["n"] += 1
+        s["correct"] += int(r["correct"])
+        s["conf"] += float(r["confidence"])
+    if not by_kind:
+        return None
+    out = ["  perturbation        n   mean conf   accuracy   95% CI", "  " + "-" * 64]
+    for k in sorted(by_kind, key=lambda k: by_kind[k]["correct"] / by_kind[k]["n"]):
+        s = by_kind[k]
+        lo, hi = wilson_interval(s["correct"], s["n"])
+        out.append("  %-16s %5d      %.4f     %.4f   [%.3f, %.3f]" % (
+            k, s["n"], s["conf"] / s["n"], s["correct"] / s["n"], lo, hi))
+    return "\n".join(out)
+
+
 def emit_unlabelled(out_path, n=200, seed=1234, verbose=True):
     """
     Write real cross-system mappings with "correct": null for human adjudication.
@@ -337,10 +548,16 @@ def main():
     ap.add_argument("--labels", help="JSONL labelled set")
     ap.add_argument("--build-membership-set", metavar="OUT",
                     help="build a membership-labelled set and write it here")
+    ap.add_argument("--build-perturbation-set", metavar="OUT",
+                    help="build a set from surface variations of real terms and write it here")
     ap.add_argument("--emit-unlabelled", metavar="OUT",
                     help="write real mappings with correct=null for human adjudication")
     ap.add_argument("--n-positives", type=int, default=400)
     ap.add_argument("--n-negatives", type=int, default=400)
+    ap.add_argument("--n-perturbations", type=int, default=600,
+                    help="row count for --build-perturbation-set")
+    ap.add_argument("--no-meaning-altering", action="store_true",
+                    help="omit word_drop/truncate rows, which need adjudication")
     ap.add_argument("--n", type=int, default=200, help="row count for --emit-unlabelled")
     ap.add_argument("--seed", type=int, default=1234)
     ap.add_argument("--bins", type=int, default=10, help="equal-frequency bins for ECE")
@@ -354,6 +571,12 @@ def main():
         build_membership_set(args.build_membership_set, args.n_positives, args.n_negatives, args.seed)
         if not args.labels:
             args.labels = args.build_membership_set
+
+    if args.build_perturbation_set:
+        build_perturbation_set(args.build_perturbation_set, args.n_perturbations, args.seed,
+                               include_altering=not args.no_meaning_altering)
+        if not args.labels:
+            args.labels = args.build_perturbation_set
 
     if args.emit_unlabelled:
         emit_unlabelled(args.emit_unlabelled, args.n, args.seed)
@@ -412,6 +635,12 @@ def main():
     report = {"labelled_set": str(args.labels), "classes": classes, "overall": overall,
               "reliability": reliability_table(conf, lab, n_bins=args.bins, strategy=args.strategy)}
 
+    per_kind = perturbation_report(rows)
+    if per_kind:
+        print("\nAccuracy per perturbation — the stratum a pooled metric hides")
+        print("-" * 92)
+        print(per_kind)
+
     if args.fit != "none":
         rng = random.Random(args.seed)
         idx = list(range(len(conf)))
@@ -436,7 +665,9 @@ def main():
         print("  Brier        %.5f     %.5f    %+.5f" % (before["brier"], after["brier"], after["brier"] - before["brier"]))
         b_auc = before["auc"] if before["auc"] is not None else float("nan")
         a_auc = after["auc"] if after["auc"] is not None else float("nan")
-        print("  AUC          %.5f     %.5f    %+.5f   (a monotone map cannot help ranking)" % (b_auc, a_auc, a_auc - b_auc))
+        print("  AUC          %.5f     %.5f    %+.5f   (a monotone map cannot improve ranking, and"
+              % (b_auc, a_auc, a_auc - b_auc))
+        print("                                              lowers AUC when it merges distinct scores into ties)")
         print("\n  Calibrator (apply as a lookup, no library needed):")
         print("  " + json.dumps(cal.to_dict())[:400])
         report["calibration_fit"] = {"kind": args.fit, "n_fit": len(fit_i), "n_holdout": len(hold_i),

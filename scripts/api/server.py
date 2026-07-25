@@ -226,7 +226,13 @@ class LookupRequest(BaseModel):
     system: Optional[str] = Field(None, description="Coding system (e.g. 'ICD-10-CM')")
     display: Optional[str] = Field(None, description="Display text to search (e.g. 'metformin')")
     target_system: Optional[str] = Field(None, description="Map to this system (e.g. 'SNOMED-CT')")
-    threshold: float = Field(0.6, description="Minimum confidence for fuzzy matches (0.0-1.0)")
+    # Applied as of this change. This field previously advertised 0.6 and was
+    # dropped on the floor — map_with_confidence hardcoded 0.5 — so the default
+    # here is 0.5 to keep the served behaviour identical now that the value is
+    # actually forwarded. What the right floor is remains an open measurement
+    # question; see BENCHMARK.md#calibration.
+    threshold: float = Field(0.5, ge=0.0, le=1.0,
+                             description="Minimum similarity a fuzzy display match must reach (0.0-1.0)")
 
 
 class MappingTarget(BaseModel):
@@ -385,6 +391,7 @@ async def lookup(req: LookupRequest, request: Request, role: str = Depends(get_a
         system=system,
         display=req.display,
         target_system=target,
+        threshold=req.threshold,
     )
     
     audit_log(request, "lookup", {

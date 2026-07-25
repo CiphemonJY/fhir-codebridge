@@ -85,7 +85,7 @@ class CodeBridge:
         system: Optional[str] = None,
         display: Optional[str] = None,
         target_system: Optional[str] = None,
-        threshold: float = 0.6,
+        threshold: float = 0.5,
     ) -> Dict:
         """
         Look up a clinical code and optionally map it to another system.
@@ -95,10 +95,12 @@ class CodeBridge:
             system: Source coding system (e.g., "ICD-10-CM"). Auto-detected if omitted.
             display: Display text to search instead of code (fuzzy match).
             target_system: Map to this system (e.g., "SNOMED-CT").
-            threshold: Sent as the minimum confidence for fuzzy matches
-                (0.0-1.0). Note: the service currently accepts this field but
-                does not apply it — map_with_confidence() uses a fixed internal
-                0.5 — so changing it does not change the result.
+            threshold: Minimum similarity a fuzzy display match must reach to be
+                returned (0.0-1.0). Applied by the service. It only affects the
+                fuzzy display path: an exact code hit scores 1.0 and is returned
+                regardless. Earlier releases accepted this field and dropped it,
+                using a fixed internal 0.5; the default here is 0.5 so the
+                result is unchanged for callers who never set it.
 
         Returns:
             Dict with: found (bool), source (dict), targets (list), action,
@@ -107,8 +109,9 @@ class CodeBridge:
         effective_confidence is a similarity reading, not a probability: it is
         1.0 for an exact hit and otherwise a difflib string ratio, and no
         calibrator is fitted against observed correctness. requires_human_review
-        is derived from it by threshold. See BENCHMARK.md#calibration for what
-        the score has been measured to mean.
+        is derived from it by the router's own auto-accept cutoff of 0.95, not by
+        the threshold argument above. See BENCHMARK.md#calibration for what the
+        score has been measured to mean.
         """
         body = {"code": code, "threshold": threshold}
         if system:
@@ -225,7 +228,8 @@ def main():
     p_lookup.add_argument("code", help="Code to look up")
     p_lookup.add_argument("--system", "-s", default=None, help="Source system")
     p_lookup.add_argument("--target", "-t", default=None, help="Target system")
-    p_lookup.add_argument("--threshold", type=float, default=0.6, help="Min confidence")
+    p_lookup.add_argument("--threshold", type=float, default=0.5,
+                          help="Min similarity for a fuzzy display match")
 
     p_bulk = sub.add_parser("bulk", help="Bulk map codes from CSV")
     p_bulk.add_argument("file", help="CSV file path")

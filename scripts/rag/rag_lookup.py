@@ -38,9 +38,45 @@ class RAGLookup:
         self.umls_api = None
         self._prefix_index = {}  # first-3-chars → list of display strings
         self.terminology_versions = {}  # system → {version, loaded_date, source, entry_count}
+        self.skipped_self_referential = 0  # entries whose display was just their code
         self._load()
         self._init_umls_api()
-    
+
+    @staticmethod
+    def _is_self_referential_display(entry):
+        """
+        True when an entry's display text is nothing but its own code.
+
+        Some shipped terminology carries placeholder rows like
+        {"code": "D0360", "display": "D0360"} — 20 of them in cdt.json. Indexing
+        those under by_display lets the fuzzy display matcher answer a *code*
+        query with a different, real code: an unknown "D9655" arrives as display
+        text, difflib scores it 0.6-0.8 against the code-shaped display of
+        another CDT entry, and the router hands that to a human coder as a
+        likely mapping. Measured accuracy of every mapping produced this way:
+        0/149. The entry stays in by_code, so exact code lookup is unchanged —
+        it just stops claiming to be display text, which it is not.
+        """
+        display = str(entry.get('display', '')).strip().lower()
+        code = str(entry.get('code', '')).strip().lower()
+        return bool(code) and display == code
+
+    def _index_display(self, entry):
+        """
+        Add an entry to the display index, unless its display is its own code.
+
+        Returns True if indexed. Single funnel for every by_display write so a
+        new load path cannot reintroduce the self-referential rows.
+        """
+        if self._is_self_referential_display(entry):
+            self.skipped_self_referential += 1
+            return False
+        display_lower = str(entry['display']).lower()
+        if display_lower not in self.by_display:
+            self.by_display[display_lower] = []
+        self.by_display[display_lower].append(entry)
+        return True
+
     def _load(self):
         """Load all available terminology data.
         
@@ -71,10 +107,7 @@ class RAGLookup:
                     if 'source' in entry and not file_source:
                         file_source = entry['source']
                     self.by_code[key] = entry
-                    display_lower = entry['display'].lower()
-                    if display_lower not in self.by_display:
-                        self.by_display[display_lower] = []
-                    self.by_display[display_lower].append(entry)
+                    self._index_display(entry)
                     sys_name = entry['system']
                     self.systems[sys_name] = self.systems.get(sys_name, 0) + 1
                     file_count += 1
@@ -195,13 +228,10 @@ class RAGLookup:
                 if key not in self.by_code:
                     entry = {'code': code, 'system': sys_name, 'display': name}
                     self.by_code[key] = entry
-                    display_lower = name.lower()
-                    if display_lower not in self.by_display:
-                        self.by_display[display_lower] = []
-                    self.by_display[display_lower].append(entry)
+                    self._index_display(entry)
                     self.systems[sys_name] = self.systems.get(sys_name, 0) + 1
                     count += 1
-        
+
         if count > 0:
             self.umls_loaded = True
             import sys; print(f"UMLS loaded: +{count} terms from MRCONSO.RRF", file=sys.stderr)
@@ -685,40 +715,74 @@ class RAGLookup:
                 if key not in self.by_code:
                     entry = {'code': code, 'system': sys_name, 'display': name}
                     self.by_code[key] = entry
-                    display_lower = name.lower()
-                    if display_lower not in self.by_display:
-                        self.by_display[display_lower] = []
-                    self.by_display[display_lower].append(entry)
+                    self._index_display(entry)
                     self.systems[sys_name] = self.systems.get(sys_name, 0) + 1
                     count += 1
-        
+
         self.umls_loaded = True
         return count
 
 
-    def map_with_confidence(self, code=None, system=None, display=None, target_system=None):
+    def looks_like_display_text(self, text):
+        """
+        True when a caller-supplied string is plausibly a clinical term rather
+        than a code, and so is worth sending to the fuzzy display matcher.
+
+        Guards the code-miss retry below. A code that exists in no loaded system
+        used to be re-sent as display text, where difflib would match it against
+        another code and return a real-but-unrelated mapping at 0.6-0.8 —
+        confident enough for the router to put it in front of a human coder.
+        Codes are compact tokens; clinical terms are prose. The test:
+
+          - contains whitespace                  -> prose  ("chest pain")
+          - carries no digit                     -> prose  ("diabetes")
+          - listed in the curated synonym or
+            abbreviation tables                  -> prose  ("t2dm", "dm2")
+          - otherwise                            -> a code ("D9655", "E11.9")
+
+        The curated clause is what keeps digit-bearing abbreviations working;
+        they are the only digit-bearing strings we accept as display text.
+        """
+        t = str(text).strip().lower()
+        if not t:
+            return False
+        if t in self.SYNONYM_TO_CODE or t in self.ABBREVIATIONS:
+            return True
+        if any(ch.isspace() for ch in t):
+            return True
+        return not any(ch.isdigit() for ch in t)
+
+    def map_with_confidence(self, code=None, system=None, display=None, target_system=None,
+                            threshold=0.5):
         """
         Full mapping pipeline with confidence-based routing.
         Returns: result + action (auto_accept | review | reject)
-        
+
         Thresholds (from LLM Council recommendation):
           ≥ 0.95 → auto_accept (verified lookup or exact match)
           0.70-0.95 → review (coder confirms before billing)
           < 0.70 → reject (human must code from scratch)
+
+        threshold is the minimum similarity a fuzzy display match must reach to
+        be returned at all. It defaults to 0.5, the value this method used to
+        hardcode, so callers that do not pass it see unchanged behaviour. It was
+        previously accepted by the API and SDK and silently dropped here.
         """
         result = self.map_term(
             code=code, system=system, display=display,
-            target_system=target_system, threshold=0.5
+            target_system=target_system, threshold=threshold
         )
-        
-        # If code-based lookup failed, try as display text
-        if not result['found'] and code and not display:
+
+        # If code-based lookup failed, try as display text — but only when the
+        # string reads as a clinical term. Retrying an actual code here is what
+        # produced the fabricated CDT mappings; see looks_like_display_text.
+        if not result['found'] and code and not display and self.looks_like_display_text(code):
             # The 'code' might actually be a display term (e.g., 'type 2 diabetes')
             result = self.map_term(
                 code=None, system=system, display=code,
-                target_system=target_system, threshold=0.5
+                target_system=target_system, threshold=threshold
             )
-        
+
         # Determine action based on best confidence
         best_conf = result['confidence']
         best_target_conf = max([t['confidence'] for t in result['targets']], default=0)
