@@ -274,8 +274,16 @@ def test_perturbation_report_ignores_unadjudicated_rows():
         {"perturbation": "word_drop", "correct": None, "confidence": 0.8},
     ]
     out = perturbation_report(rows)
-    assert "typo_swap" in out
     assert "word_drop" not in out
+    # Assert the arithmetic, not just that the name appears. Checking only for
+    # the presence of one label and the absence of another would still pass if
+    # the report emitted a row with no counts in it at all.
+    assert "typo_swap" in out
+    assert "0.5000" in out, "1 correct of 2 should be reported as accuracy 0.5000"
+    assert "0.8000" in out, "confidences 0.9 and 0.7 should mean 0.8000"
+    typo_row = [ln for ln in out.splitlines() if "typo_swap" in ln]
+    assert len(typo_row) == 1
+    assert typo_row[0].split()[1] == "2", "the word_drop row must not be counted in n"
 
 
 def test_perturbation_report_returns_none_when_nothing_is_labelled():
