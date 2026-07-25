@@ -236,15 +236,15 @@ def gate_8_docker():
         return {'pass': False, 'detail': f'Docker error: {e}'}
 
 
-def gate_9_calibration():
-    """100-mapping calibration test results published."""
+def gate_9_action_routing():
+    """Action routing test results published (scripts/action_routing_test.py)."""
     benchmark = ROOT / 'BENCHMARK.md'
-    calib_results = ROOT / 'results' / 'calibration_latest.json'
+    calib_results = ROOT / 'results' / 'action_routing_latest.json'
     
     if not benchmark.exists():
         return {'pass': False, 'detail': 'BENCHMARK.md missing'}
     if not calib_results.exists():
-        return {'pass': False, 'detail': 'calibration results missing'}
+        return {'pass': False, 'detail': 'action routing results missing'}
     
     with open(calib_results) as f:
         cal = json.load(f)
@@ -253,12 +253,12 @@ def gate_9_calibration():
     passed = cal.get('total_pass', 0)
     pct = cal.get('overall_pct', 0)
     
-    # Check BENCHMARK.md references calibration
+    # Check BENCHMARK.md references the action routing test
     bm = benchmark.read_text()
-    has_calib = 'calibration' in bm.lower() or 'calibration' in bm.lower()
+    has_calib = 'action routing' in bm.lower()
     
     print(f"  BENCHMARK.md exists: ✅")
-    print(f"  Calibration results: {passed}/{total} ({pct:.1f}%)")
+    print(f"  Action routing results: {passed}/{total} ({pct:.1f}%)")
     print(f"  Referenced in BENCHMARK.md: {'✅' if has_calib else '❌'}")
     
     return {'pass': total >= 50 and has_calib, 
@@ -294,7 +294,7 @@ def main():
         (6, "Audit log for every API call", gate_6_audit),
         (7, "RBAC enforcement", gate_7_rbac),
         (8, "Docker compose healthy <60s", gate_8_docker),
-        (9, "Calibration test published", gate_9_calibration),
+        (9, "Action routing test published", gate_9_action_routing),
         (10, "LICENSE present", gate_10_license),
     ]
     

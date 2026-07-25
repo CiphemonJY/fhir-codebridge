@@ -47,7 +47,7 @@ pip install -r requirements.txt
 uvicorn scripts.api.server:app --reload --port 8000
 
 # Run tests
-python3 scripts/calibration_test_100.py
+python3 scripts/action_routing_test.py
 ```
 
 ## Code Style
@@ -134,7 +134,7 @@ fhir-codebridge/
 │   │   ├── rag_lookup.py      # RAG lookup engine (100% on known terms)
 │   │   └── umls_api.py         # UMLS UTS API client
 │   ├── build_terminology_data.py
-│   ├── calibration_test_100.py
+│   ├── action_routing_test.py
 │   ├── download_cms_icd10.py
 │   ├── download_rxnorm.py
 │   └── test_go_nogo.py

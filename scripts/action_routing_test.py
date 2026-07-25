@@ -1,17 +1,25 @@
 #!/usr/bin/env python3
 """
-Calibration test for fhir-codebridge RAG lookup engine.
+Action routing test for the fhir-codebridge RAG lookup engine.
 
-Tests three categories:
+Measures how often the engine picks the expected routing action for three
+categories of query:
 1. Auto-accept: Exact code lookups (should be 100% with any data)
 2. Reject: Unknown codes (should correctly reject at < 70% confidence)
 3. Fuzzy text: Display text matching (depends on loaded terminology)
+
+This is category accuracy, not calibration. It checks that a query lands in the
+expected bucket; it does not check whether a confidence of 0.8 means the mapping
+is right 80% of the time. For that see scripts/calibration_report.py, which
+reports ECE, Brier and a reliability curve against a labelled set. The script
+used to be named calibration_test_100.py, which described neither what it
+measured nor how many cases it runs.
 
 Note: Fuzzy text matching results depend on loaded terminology.
 With shipped data (920 terms), fuzzy matching is limited.
 With UMLS loaded (600K+ terms), expect 95%+ on all categories.
 
-Run: python3 scripts/calibration_test_100.py
+Run: python3 scripts/action_routing_test.py
 """
 
 import json
@@ -27,7 +35,7 @@ def main():
     stats = rag.stats()
     
     print("=" * 70)
-    print("fhir-codebridge Calibration Test")
+    print("fhir-codebridge Action Routing Test")
     print("=" * 70)
     
     print(f"\nLoaded terminology:")
@@ -39,7 +47,7 @@ def main():
     
     if stats['total_terms'] < 5000:
         print("\n  ⚠️  Limited data loaded — fuzzy text matching will be limited.")
-        print("  For full calibration, load UMLS: see data/terminology_parsed/README.md")
+        print("  For fuller coverage, load UMLS: see data/terminology_parsed/README.md")
     
     # === Test Cases ===
     test_cases = []
@@ -155,7 +163,7 @@ def main():
     
     # === Summary ===
     print("\n" + "=" * 70)
-    print("CALIBRATION RESULTS")
+    print("ACTION ROUTING RESULTS")
     print("=" * 70)
     
     total_pass = sum(r['pass'] for r in results.values())
@@ -190,7 +198,7 @@ def main():
         }
     }
     
-    output_path = results_dir / "calibration_latest.json"
+    output_path = results_dir / "action_routing_latest.json"
     with open(output_path, 'w') as f:
         json.dump(output, f, indent=2)
     print(f"\nResults saved to: {output_path}")

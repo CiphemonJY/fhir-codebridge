@@ -95,11 +95,20 @@ class CodeBridge:
             system: Source coding system (e.g., "ICD-10-CM"). Auto-detected if omitted.
             display: Display text to search instead of code (fuzzy match).
             target_system: Map to this system (e.g., "SNOMED-CT").
-            threshold: Minimum confidence for fuzzy matches (0.0-1.0).
+            threshold: Sent as the minimum confidence for fuzzy matches
+                (0.0-1.0). Note: the service currently accepts this field but
+                does not apply it — map_with_confidence() uses a fixed internal
+                0.5 — so changing it does not change the result.
 
         Returns:
             Dict with: found (bool), source (dict), targets (list), action,
             effective_confidence, requires_human_review.
+
+        effective_confidence is a similarity reading, not a probability: it is
+        1.0 for an exact hit and otherwise a difflib string ratio, and no
+        calibrator is fitted against observed correctness. requires_human_review
+        is derived from it by threshold. See BENCHMARK.md#calibration for what
+        the score has been measured to mean.
         """
         body = {"code": code, "threshold": threshold}
         if system:

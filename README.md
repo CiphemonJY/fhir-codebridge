@@ -196,6 +196,14 @@ Every mapping includes a confidence score and routing action:
 | 70-95% | `review` | Likely match — human should confirm |
 | < 70% | `reject` | No reliable match — code manually |
 
+The score is a similarity reading, not a probability. It comes from exact-match
+rules and `difflib` string ratios, and no calibrator is fitted against observed
+correctness, so a 0.80 does not mean "right 80% of the time" — on a
+membership-labelled set of 800 queries, every mapping emitted at 0.60 and at
+0.80 was wrong (0/71 and 0/28). Treat the rows above as routing bands. Measured
+numbers, method and scope are in [BENCHMARK.md](BENCHMARK.md#calibration);
+`scripts/calibration_report.py` reproduces them.
+
 The RAG lookup engine (sourced database) returns 100% accuracy on known terms. The neural model (experimental, opt-in) handles unknown terms at ~65% accuracy — every result is flagged with a confidence score, so low-confidence mappings are never silently accepted.
 
 See [BENCHMARK.md](BENCHMARK.md) for detailed results.
