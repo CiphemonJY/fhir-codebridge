@@ -3,6 +3,52 @@
 All notable changes to fhir-codebridge are documented here.
 Versions follow [semantic versioning](https://semver.org/).
 
+## [0.6.0] — 2026-07-26
+
+Fixes a routing defect that auto-accepted clinically wrong cross-system
+mappings, and removes the crosswalk rows that fed it. Anyone relying on the
+previous cross-system behaviour will see fewer mappings returned and more
+rejections; that is the point.
+
+### Fixed
+- **A requested mapping was routed on the source lookup rather than on the
+  mapping.** `effective_confidence` was `max(source, target)`, so a source code
+  that resolved exactly at 1.0 carried a weak target through the auto-accept
+  gate. `C00.9` — malignant neoplasm of lip — returned `action: auto_accept`
+  with `requires_human_review: false` and a SNOMED target of *malignant
+  neoplasm of breast* at 0.577 similarity. That query is the cross-system
+  example in the README. 75 source codes behaved this way, every one of them
+  oncology (C00–C07, the oral and head-and-neck cancers), with targets including
+  colon neoplasm and `D7286`, a dental biopsy *procedure* code returned for a
+  cancer *diagnosis*.
+
+  The action now describes the claim the caller asked for: with a
+  `target_system` the mapping's own confidence decides, without one the source
+  lookup's does. A plain code lookup still auto-accepts.
+- **Targets below the review floor are no longer returned at all.** A mapping
+  the router refuses has no business appearing beside a more confident action.
+- Routing floors are named constants (`AUTO_ACCEPT_FLOOR`, `REVIEW_FLOOR`)
+  rather than literals repeated in three places.
+
+### Changed
+- **Crosswalk reduced from 1,898 rows to 279.** 1,316 were identity rows — a
+  code mapped to itself, `LOINC 10230-1 → LOINC 10230-1` at similarity 1.0 —
+  which are not mappings and inflated the published count by more than two
+  thirds. A further 303 sat below the 0.70 review floor, so the router refused
+  them anyway; those included `CVX 10`, a polio vaccine, mapped to LOINC
+  `56799-0` *"Address"* at 0.427. What remains is 279 rows, 208 of them
+  cross-system, 50 with a SNOMED-CT target.
+- Every published count updated to match: README, INSTALL, BENCHMARK,
+  SNOMED_LICENSE and the service's own `/stats` string.
+
+### Added
+- `scripts/filter_crosswalk.py` — applies the two rules above and prints the
+  accounting, so the shipped count and the published count cannot drift apart.
+- Tests pinning all of it: the mapping is not auto-accepted on the source alone,
+  the lip-to-breast target is gone by code, no returned target is below the
+  review floor across 400 crosswalk sources, a plain lookup still auto-accepts,
+  and two data invariants that fail if identity or sub-floor rows return.
+
 ## [0.5.0] — 2026-07-25
 
 A minor rather than a patch bump: the routing fixes below change what the

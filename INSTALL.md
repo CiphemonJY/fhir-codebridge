@@ -55,7 +55,7 @@ You should see:
 {
     "status": "ok",
     "service": "fhir-codebridge FHIR Terminology Service",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "terms_loaded": 123079,
     "umls_enabled": false,
     "auth_enabled": true
@@ -110,8 +110,8 @@ UMLS (Unified Medical Language System) is published by the National Library of M
 - RxNorm (47,780 terms) — ingredients, brand names, clinical drugs from NLM API
 - CDT (397 terms) — full dental procedure codes
 - LOINC (23 terms) — core vital signs only (full set needs UMLS/registration)
-- Crosswalk (1,898 computed mappings) — cross-system code mapping
-- Total: 123,079 sourced terms + 1,898 crosswalk mappings
+- Crosswalk (279 computed mappings, 208 of them cross-system) — cross-system code mapping
+- Total: 123,079 sourced terms + 279 crosswalk mappings
 
 **Tip:** The service ships with 123K+ terms covering ICD-10-CM, RxNorm, and CDT. Load UMLS to add SNOMED-CT (~350K) and full LOINC (~90K).
 

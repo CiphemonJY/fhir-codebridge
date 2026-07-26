@@ -1,6 +1,6 @@
 [project]
 name = "fhir-codebridge"
-version = "0.5.0"
+version = "0.6.0"
 description = "Open-source on-prem FHIR terminology mapping service"
 readme = "README.md"
 license = {text = "MIT"}

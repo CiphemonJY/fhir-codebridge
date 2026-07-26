@@ -27,7 +27,13 @@ UMLS_DIR = _SCRIPT_DIR.parent.parent / "data" / "terminology_raw" / "umls"
 
 class RAGLookup:
     """Terminology lookup engine. Load once, query forever."""
-    
+
+    # Routing floors. Named because three separate places used to spell them as
+    # bare literals, and a floor that appears in more than one place drifts.
+    AUTO_ACCEPT_FLOOR = 0.95   # at or above this, no human sees the mapping
+    REVIEW_FLOOR = 0.70        # below this, nothing is asserted at all
+
+
     def __init__(self, data_dir=DATA_DIR):
         self.data_dir = Path(data_dir)
         self.by_code = {}        # "SYSTEM|CODE" → {code, system, display}
@@ -605,7 +611,8 @@ class RAGLookup:
                         'method': 'verified_crosswalk'
                     })
                 provenance['mapping_method'] = 'verified_crosswalk'
-                provenance['confidence_level'] = 'verified' if result['confidence'] >= 0.95 else 'crosswalk_derived'
+                provenance['confidence_level'] = ('verified' if result['confidence'] >= self.AUTO_ACCEPT_FLOOR
+                                                  else 'crosswalk_derived')
                 provenance['source_authority'] = 'Internal verified crosswalk v3'
         
         # Step 3: Fuzzy display match (fallback for unknowns)
@@ -666,7 +673,7 @@ class RAGLookup:
             'umls_loaded': self.umls_loaded,
             'terminology_versions': self.terminology_versions,
             'data_sources': {
-                'shipped': 'CDT (397), LOINC core (23), RxNorm (500), db_523 ontology (523), crosswalk (1,898)',
+                'shipped': 'CDT (397), LOINC core (23), RxNorm (500), db_523 ontology (523), crosswalk (279)',
                 'hospital_provided': 'UMLS MRCONSO.RRF — adds 600K+ terms when loaded',
             },
             'gaps': {
@@ -758,10 +765,15 @@ class RAGLookup:
         Full mapping pipeline with confidence-based routing.
         Returns: result + action (auto_accept | review | reject)
 
-        Thresholds (from LLM Council recommendation):
+        Thresholds:
           ≥ 0.95 → auto_accept (verified lookup or exact match)
           0.70-0.95 → review (coder confirms before billing)
           < 0.70 → reject (human must code from scratch)
+
+        The action describes the claim the caller asked for. With a
+        target_system it is the mapping, and the mapping's own confidence
+        decides; without one it is the source lookup. Targets below REVIEW_FLOOR
+        are dropped rather than returned beside a more confident action.
 
         threshold is the minimum similarity a fuzzy display match must reach to
         be returned at all. It defaults to 0.5, the value this method used to
@@ -783,18 +795,33 @@ class RAGLookup:
                 target_system=target_system, threshold=threshold
             )
 
-        # Determine action based on best confidence
+        # A target the router would reject must not be returned at all. It used
+        # to ride along in the response while the action described only the
+        # source lookup, so C00.9 (malignant neoplasm of lip) came back
+        # auto_accept with a SNOMED target of malignant neoplasm of BREAST at
+        # 0.577 similarity and requires_human_review false. 75 codes did this,
+        # all of them oncology.
+        result['targets'] = [t for t in result['targets']
+                             if t['confidence'] >= self.REVIEW_FLOOR]
+
+        # Route on the claim actually being made. Asking for a target_system is
+        # asking for a mapping, so the mapping's confidence decides — not the
+        # maximum, which let a perfectly resolved source code launder a weak
+        # target through the gate.
         best_conf = result['confidence']
-        best_target_conf = max([t['confidence'] for t in result['targets']], default=0)
-        effective_conf = max(best_conf, best_target_conf)
-        
-        if effective_conf >= 0.95:
+        best_target_conf = max([t['confidence'] for t in result['targets']], default=0.0)
+        if target_system:
+            effective_conf = best_target_conf
+        else:
+            effective_conf = best_conf
+
+        if effective_conf >= self.AUTO_ACCEPT_FLOOR:
             action = 'auto_accept'
-        elif effective_conf >= 0.70:
+        elif effective_conf >= self.REVIEW_FLOOR:
             action = 'review'
         else:
             action = 'reject'
-        
+
         result['action'] = action
         result['effective_confidence'] = effective_conf
         result['requires_human_review'] = action != 'auto_accept'

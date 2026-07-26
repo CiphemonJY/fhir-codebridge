@@ -105,7 +105,7 @@ import signal as _signal
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Graceful startup and shutdown."""
-    logger.info("fhir-codebridge starting", extra={"event": "startup", "version": "0.5.0"})
+    logger.info("fhir-codebridge starting", extra={"event": "startup", "version": "0.6.0"})
     yield
     # Graceful shutdown: flush audit log, log shutdown
     logger.info("fhir-codebridge shutting down", extra={"event": "shutdown"})
@@ -115,7 +115,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="fhir-codebridge FHIR Terminology Service",
     description="Open source on-prem terminology mapper. Bring your UMLS API key for full coverage.",
-    version="0.5.0",
+    version="0.6.0",
     lifespan=lifespan,
 )
 
@@ -324,7 +324,7 @@ async def health():
     return {
         "status": "ok" if not missing else "degraded",
         "service": "fhir-codebridge FHIR Terminology Service",
-        "version": "0.5.0",
+        "version": "0.6.0",
         "terms_loaded": len(rag.by_code),
         "umls_enabled": rag.umls_loaded,
         "auth_enabled": AUTH_ENABLED,
@@ -346,7 +346,7 @@ async def terminology_version(role: str = Depends(get_api_key)):
     versions = rag.terminology_versions
     return {
         "snapshot_date": _date.today().isoformat(),
-        "service_version": "0.5.0",
+        "service_version": "0.6.0",
         "terminology_sets": versions,
         "total_terms": len(rag.by_code),
         "umls_loaded": rag.umls_loaded,
@@ -928,7 +928,7 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top:
 
 </div>
 <footer>
-  <p>fhir-codebridge v0.5.0 — <a href="https://github.com/CiphemonJY/fhir-codebridge">GitHub</a> — MIT License</p>
+  <p>fhir-codebridge v0.6.0 — <a href="https://github.com/CiphemonJY/fhir-codebridge">GitHub</a> — MIT License</p>
 </footer>
 
 <script>

@@ -11,7 +11,7 @@
 | CDT | 397 | Project source TSV | 397 | 100% |
 | LOINC (core) | 23 | Project source TSV | ~90,000 | 0.03% |
 | SNOMED-CT | 0 | — (requires UMLS license) | ~350,000 | 0% |
-| Crosswalk | 1,898 | Synthea-derived similarity mappings | — | — |
+| Crosswalk | 279 | Synthea-derived similarity mappings | — | — |
 | **Total** | **123,079** | | | |
 
 **No hallucinated data.** Every entry is from an official source:
@@ -50,7 +50,7 @@ Method: exact_code_lookup
 
 ### Crosswalk mappings
 
-The 1,898 crosswalk mappings were generated through Synthea patient data analysis
+The 279 crosswalk mappings were generated through Synthea patient data analysis
 with cosine similarity scoring against the db_523 ontology. These are computed (not manually reviewed)
 mappings, not hallucinated.
 
@@ -206,7 +206,7 @@ for a set drawn from real queries, or for the 154 rows above once adjudicated.
 
 NLM provides an official SNOMED CT to ICD-10-CM mapping with **126,000+ NLM-verified
 concepts** as part of the SNOMED CT US Edition release. This is the gold standard
-crosswalk — far more comprehensive than our 1,898 Synthea-derived mappings.
+crosswalk — far more comprehensive than our 279 Synthea-derived mappings.
 
 To load:
 1. Download SNOMED CT US Edition from [NLM](https://www.nlm.nih.gov/healthit/snomedct/us_edition.html)

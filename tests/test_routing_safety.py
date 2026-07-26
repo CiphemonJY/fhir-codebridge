@@ -323,3 +323,100 @@ def test_build_perturbation_set_can_omit_the_unadjudicable_rows(tmp_path, rag):
     assert rows
     assert all(r["correct"] in (0, 1) for r in rows)
     assert all(r["perturbation"] in MEANING_PRESERVING for r in rows)
+
+
+# --------------------------------------------------------------------------
+# a requested mapping is routed on the mapping's own confidence
+#
+# The defect this pins: effective_confidence was max(source, target), so a
+# source code that resolved exactly at 1.0 carried a weak target through the
+# auto-accept gate. C00.9 "Malignant neoplasm of lip" came back auto_accept,
+# requires_human_review false, with a SNOMED target of "Malignant neoplasm of
+# breast" at 0.577 — and that query is the README's documented example. 75
+# codes behaved this way, every one of them oncology.
+# --------------------------------------------------------------------------
+
+def test_a_requested_mapping_never_auto_accepts_on_the_source_alone(rag):
+    """
+    Ask for a target system and the action must describe the mapping. A source
+    that resolves perfectly must not, by itself, produce auto_accept.
+    """
+    result = rag.map_with_confidence(code="C00.9", system="ICD-10-CM", target_system="SNOMED-CT")
+    assert result["action"] != "auto_accept", (
+        "a cross-system mapping was auto-accepted; targets=%r" % (result["targets"],))
+    assert result["requires_human_review"] is True
+
+
+def test_the_lip_to_breast_mapping_is_gone(rag):
+    """The specific clinical error, by code. Lip cancer is not breast cancer."""
+    result = rag.map_with_confidence(code="C00.9", system="ICD-10-CM", target_system="SNOMED-CT")
+    for t in result["targets"]:
+        assert t["code"] != "254837009", "the breast-neoplasm target is back"
+
+
+def test_no_returned_target_is_below_the_review_floor(rag):
+    """
+    A target the router would refuse must not appear in the response at all.
+    Checked across every crosswalk source that resolves, not just the known bad
+    ones, so a new low-similarity row cannot slip through.
+    """
+    offenders = []
+    for source in list(rag.crosswalk)[:400]:
+        uri, code = source.rsplit("|", 1)
+        system = rag.URI_TO_SYSTEM.get(uri, uri)
+        result = rag.map_with_confidence(code=code, system=system)
+        for t in result["targets"]:
+            if t["confidence"] < rag.REVIEW_FLOOR:
+                offenders.append((system, code, t["system"], t["code"], t["confidence"]))
+    assert offenders == [], "targets below the review floor were returned: %r" % (offenders[:5],)
+
+
+def test_a_plain_source_lookup_still_auto_accepts(rag):
+    """The fix must not demote an exact code lookup that asked for no mapping."""
+    for system, code in [("ICD-10-CM", "C00.9"), ("ICD-10-CM", "E11.9"), ("CDT", "D0360")]:
+        result = rag.map_with_confidence(code=code, system=system)
+        assert result["found"] is True
+        assert result["action"] == "auto_accept", "%s %s regressed to %s" % (system, code, result["action"])
+
+
+def test_routing_floors_are_named_not_scattered(rag):
+    assert rag.AUTO_ACCEPT_FLOOR == 0.95
+    assert rag.REVIEW_FLOOR == 0.70
+
+
+# --------------------------------------------------------------------------
+# shipped crosswalk data invariants
+# --------------------------------------------------------------------------
+
+def _crosswalk_rows():
+    import json
+    import pathlib
+    p = pathlib.Path(__file__).resolve().parent.parent / "data" / "terminology_parsed" / "crosswalk_v3.json"
+    return json.loads(p.read_text(encoding="utf-8"))
+
+
+def test_crosswalk_ships_no_identity_rows():
+    """
+    A code mapped to itself is not a mapping. 1,316 of them were shipped and
+    counted as coverage, inflating the published total by more than two thirds.
+    """
+    rows = _crosswalk_rows()
+    identity = [m for m in rows
+                if m.get("same_system") and m["source"].rsplit("|", 1)[1] == m["target_code"]]
+    assert identity == [], "%d identity rows are back" % len(identity)
+
+
+def test_crosswalk_ships_nothing_below_the_review_floor():
+    """Shipping rows the router always refuses is shipping dead weight as coverage."""
+    rows = _crosswalk_rows()
+    low = [(m["source"], m["target_code"], m["similarity"])
+           for m in rows if float(m.get("similarity", 0)) < 0.70]
+    assert low == [], "%d sub-floor rows are back, e.g. %r" % (len(low), low[:3])
+
+
+def test_crosswalk_count_matches_what_the_docs_claim():
+    """
+    If this number moves, the README and BENCHMARK numbers move with it. The
+    previous count outlived its data by a wide margin.
+    """
+    assert len(_crosswalk_rows()) == 279

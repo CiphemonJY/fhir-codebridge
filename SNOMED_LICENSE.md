@@ -11,7 +11,7 @@ pre-loaded data includes:
 - 47,780 RxNorm entries from NLM (public domain)
 - 397 CDT codes from project sources
 - 23 LOINC core terms from project sources
-- 1,898 crosswalk mappings (including 1,073 entries with SNOMED-CT as target system)
+- 279 crosswalk mappings (including 50 entries with SNOMED-CT as target system)
 
 The crosswalk mappings reference SNOMED CT concept IDs as target codes,
 but the full SNOMED CT concept definitions (descriptions, hierarchies,

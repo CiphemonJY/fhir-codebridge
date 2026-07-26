@@ -78,7 +78,7 @@ fhir-codebridge is a lightweight, open-source terminology mapping service. It ma
 - Not an enterprise CAC platform (see 3M 360 Encompass / Solventum)
 - Not a replacement for clinical coder judgment — always review low-confidence mappings
 
-**Project status:** v0.5.0, single-maintainer, seeking pilot deployments for validation feedback. No production deployments yet.
+**Project status:** v0.6.0, single-maintainer, seeking pilot deployments for validation feedback. No production deployments yet.
 
 ## What Works Today
 
@@ -89,8 +89,8 @@ fhir-codebridge is a lightweight, open-source terminology mapping service. It ma
 | CDT | 397 terms | 397 |
 | LOINC (core) | 23 terms | ~90,000 |
 | SNOMED-CT | — (requires UMLS) | ~350,000 |
-| Crosswalk | 1,898 computed mappings | +126,000 (NLM official) |
-| **Total** | **123,079 terms + 1,898 mappings** | **~600,000+** |
+| Crosswalk | 279 computed mappings | +126,000 (NLM official) |
+| **Total** | **123,079 terms + 279 mappings** | **~600,000+** |
 
 ### How to Load Full Terminology
 
@@ -243,7 +243,7 @@ The National Library of Medicine provides free access to terminology data for US
    - Register: https://uts.nlm.nih.gov/uts/signup
    - Add `CODEBRIDGE_UMLS_API_KEY=your-key` to `.env`
 
-Without UMLS: 123K+ sourced terms (74K ICD-10-CM from CMS, 47K RxNorm from NLM API, 397 CDT, 23 LOINC core) + 1,898 crosswalk mappings. SNOMED-CT and full LOINC require UMLS.
+Without UMLS: 123K+ sourced terms (74K ICD-10-CM from CMS, 47K RxNorm from NLM API, 397 CDT, 23 LOINC core) + 279 crosswalk mappings. SNOMED-CT and full LOINC require UMLS.
 With UMLS: full coverage (600K+ terms, cross-system mappings, NLM official SNOMED→ICD-10-CM).
 
 Your API key is never stored or logged. See [SNOMED_LICENSE.md](SNOMED_LICENSE.md) for licensing details.
@@ -313,14 +313,14 @@ See [INSTALL.md](INSTALL.md) for production hardening checklist and [SECURITY.md
 
 ## Project Status
 
-**v0.5.0** — actively maintained. Seeking pilot deployments for validation feedback.
+**v0.6.0** — actively maintained. Seeking pilot deployments for validation feedback.
 
 Roadmap:
 - Done — RAG lookup engine (exact retrieval measured in BENCHMARK.md)
 - Done — 16 API endpoints including FHIR $translate, bulk CSV, streaming
 - Done — Web UI (Dashboard, Lookup, Bulk Upload, Analytics)
 - Done — RBAC + audit logging + Docker secrets
-- Done — Pre-loaded terminology (123K+ sourced terms + 1,898 crosswalk mappings)
+- Done — Pre-loaded terminology (123K+ sourced terms + 279 crosswalk mappings)
 - Done — Mapping provenance + terminology version metadata (Tier 0)
 - Done — Structured JSON logging + rate limiting + training materials (Tier 1)
 - Done — Pre-submission validation + denial analytics + streaming bulk + scheduled updates (Tier 2)
