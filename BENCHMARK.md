@@ -6,9 +6,9 @@
 
 | System | Count | Source | Full Set Size | Coverage |
 |--------|-------|--------|---------------|----------|
-| ICD-10-CM | 74,879 | CMS 2027 (public domain) | ~74,879 | **100%** ✅ |
+| ICD-10-CM | 74,879 | CMS 2027 (public domain) | ~74,879 | 100% |
 | RxNorm | 47,780 | NLM RxNorm REST API (public domain) | ~80,000 (est.) | ~59% (est.) |
-| CDT | 397 | Project source TSV | 397 | **100%** ✅ |
+| CDT | 397 | Project source TSV | 397 | 100% |
 | LOINC (core) | 23 | Project source TSV | ~90,000 | 0.03% |
 | SNOMED-CT | 0 | — (requires UMLS license) | ~350,000 | 0% |
 | Crosswalk | 1,898 | Synthea-derived similarity mappings | — | — |
@@ -36,10 +36,11 @@ When a hospital provides their UMLS Metathesaurus (`MRCONSO.RRF`):
 
 ## RAG Lookup Accuracy
 
-### Exact Code Lookup: 100% ✅
+### Exact code lookup
 
-When a code exists in the loaded terminology, the RAG engine returns it with 100% confidence.
-This is the core value proposition — deterministic, verifiable, no ML uncertainty.
+When a code exists in the loaded terminology it is returned at confidence 1.0 by
+direct index lookup, with no model in the path. Measured 600/600 on the
+membership-labelled set described under Calibration.
 
 ```
 Input:  ICD-10-CM|E11.9
@@ -47,16 +48,17 @@ Output: auto_accept @ 100.0% — "Type 2 diabetes mellitus without complications
 Method: exact_code_lookup
 ```
 
-### Crosswalk Mappings: Computed (Not Hallucinated) ✅
+### Crosswalk mappings
 
 The 1,898 crosswalk mappings were generated through Synthea patient data analysis
 with cosine similarity scoring against the db_523 ontology. These are computed (not manually reviewed)
 mappings, not hallucinated.
 
-### Fuzzy Text Matching: 90% ✅
+### Fuzzy text matching — coverage
 
-With 123K+ terms loaded (including 74K ICD-10-CM descriptions), fuzzy text matching
-now works for most common clinical terms:
+Which systems can be searched by display text, and over how many terms. This is
+coverage, not accuracy: for what a fuzzy match is worth once returned, see
+Calibration below, which measures it.
 
 - **ICD-10-CM**: Search by diagnosis description → find code (works for 74K+ terms)
 - **RxNorm**: Search by drug name → find RxNorm code (works for 47K+ terms)
@@ -69,7 +71,7 @@ The DP-LoRA fine-tuned model (experimental neural cross-system mapping) provides
 mapping for codes NOT in the RAG layer. This is the experimental layer — 64.8%
 accuracy on unseen code pairs.
 
-**Architecture**: RAG (100% on known codes) → Neural model (fallback for unknown codes) → Human review
+**Architecture**: exact index lookup → neural model for codes it does not hold → human review
 
 ## Action Routing Test Results
 

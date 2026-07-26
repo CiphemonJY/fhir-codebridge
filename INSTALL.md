@@ -106,9 +106,9 @@ UMLS (Unified Medical Language System) is published by the National Library of M
 - Cross-system mappings maintained by NLM
 
 **What works without it:**
-- ICD-10-CM (74,879 terms) — full CMS 2027 code set, all diagnoses ✅
-- RxNorm (47,780 terms) — ingredients, brand names, clinical drugs from NLM API ✅
-- CDT (397 terms) — full dental procedure codes ✅
+- ICD-10-CM (74,879 terms) — full CMS 2027 code set, all diagnoses
+- RxNorm (47,780 terms) — ingredients, brand names, clinical drugs from NLM API
+- CDT (397 terms) — full dental procedure codes
 - LOINC (23 terms) — core vital signs only (full set needs UMLS/registration)
 - Crosswalk (1,898 computed mappings) — cross-system code mapping
 - Total: 123,079 sourced terms + 1,898 crosswalk mappings
@@ -210,10 +210,10 @@ UMLS UTS API calls are rate-limited (max 5 requests/second) and cached (1 hour T
 
 | Data | Location | Persists? |
 |------|----------|-----------|
-| Audit logs | `data/audit.log` (Docker volume) | ✅ |
-| UMLS cache | In-memory | ❌ (rebuilt on startup) |
-| API keys | Docker secrets / env vars | ✅ (in your config) |
-| Terminology data | `data/terminology_parsed/` | ✅ (in the image) |
+| Audit logs | `data/audit.log` (Docker volume) | yes |
+| UMLS cache | In-memory | no (rebuilt on startup) |
+| API keys | Docker secrets / env vars | yes (in your config) |
+| Terminology data | `data/terminology_parsed/` | yes (in the image) |
 
 ### Backup commands
 
