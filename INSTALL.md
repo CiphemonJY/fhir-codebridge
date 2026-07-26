@@ -55,7 +55,7 @@ You should see:
 {
     "status": "ok",
     "service": "fhir-codebridge FHIR Terminology Service",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "terms_loaded": 123079,
     "umls_enabled": false,
     "auth_enabled": true

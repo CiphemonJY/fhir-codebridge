@@ -78,7 +78,7 @@ fhir-codebridge is a lightweight, open-source terminology mapping service. It ma
 - Not an enterprise CAC platform (see 3M 360 Encompass / Solventum)
 - Not a replacement for clinical coder judgment — always review low-confidence mappings
 
-**Project status:** v0.4.1, single-maintainer, seeking pilot deployments for validation feedback. No production deployments yet.
+**Project status:** v0.5.0, single-maintainer, seeking pilot deployments for validation feedback. No production deployments yet.
 
 ## What Works Today
 
@@ -313,7 +313,7 @@ See [INSTALL.md](INSTALL.md) for production hardening checklist and [SECURITY.md
 
 ## Project Status
 
-**v0.4.1** — actively maintained. Seeking pilot deployments for validation feedback.
+**v0.5.0** — actively maintained. Seeking pilot deployments for validation feedback.
 
 Roadmap:
 - Done — RAG lookup engine (exact retrieval measured in BENCHMARK.md)

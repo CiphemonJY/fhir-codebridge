@@ -3,7 +3,12 @@
 All notable changes to fhir-codebridge are documented here.
 Versions follow [semantic versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.5.0] — 2026-07-25
+
+A minor rather than a patch bump: the routing fixes below change what the
+service returns for an absent code, and `threshold` now does something it
+previously did not. Anyone depending on the old behaviour will see a difference,
+even though the old behaviour was wrong.
 
 ### Fixed
 - A code absent from every loaded system could be answered with a different, real
@@ -38,12 +43,32 @@ Versions follow [semantic versioning](https://semver.org/).
   concept, so those rows carry `correct: null` and await adjudication.
 - Per-perturbation accuracy table in the report, so a pooled figure cannot hide a
   weak stratum.
-- `tests/test_routing_safety.py` — 50 tests covering the two routing fixes
-  against the shipped terminology data, and the perturbation builder.
+- `tests/test_routing_safety.py` — 53 tests covering the two routing fixes
+  against the shipped terminology data, the perturbation builder, and the
+  threshold's round trip through the HTTP layer. That last one matters: the
+  threshold defect was declared in the request model and dropped at the
+  endpoint, which no engine-level test can catch.
+- `scripts/screenshots.py` — regenerates `docs/screenshots/` against a running
+  instance, so the images do not drift from the shipped version by hand. Needs
+  playwright, a development dependency the service does not import.
 
 ### Changed
 - `BENCHMARK.md` calibration section reports both labelled sets and states what
   each one cannot measure.
+- `README.md` confidence section described a defect that the same release fixes.
+  It told readers every mapping emitted at 0.60 and at 0.80 was wrong; the engine
+  no longer emits those at all. It also claimed 100% accuracy on known terms,
+  which covers exact retrieval only and reads as a claim about real queries. Both
+  now state what the two labelled sets measured, including that accuracy inside
+  the review band is 0.672 [0.547, 0.777] and AUC on varied display text is 0.981
+  rather than perfect. Checkmark badges dropped from the roadmap and coverage
+  table.
+- The web UI's API-key input was preceded by a stray `</div>` that closed
+  `div.container` early, so the browser closed `<nav>` to match and the field
+  rendered outside the centred container on every page. It now sits inside the
+  nav where its `margin-left:auto` was written to work.
+- `docs/screenshots/` recaptured against this version; the previous images were
+  taken against v0.2.0 and v0.3.1 and still showed those versions.
 
 ## [0.4.1] — 2026-06-19
 
