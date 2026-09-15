@@ -334,7 +334,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute and [CHANGELOG.md](
 
 ## License
 
-MIT — see [LICENSE](LICENSE)
+MIT — see [LICENSE](LICENSE).
+
+Terminology data carries separate licensing requirements — see [NOTICE.md](NOTICE.md).
 
 ## Disclaimer
 

@@ -19,21 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-NOTE ON TERMINOLOGY DATA:
-
-This software is designed to work with clinical terminology data from various
-sources. The MIT license above applies to the software code only.
-
-Terminology data has separate licensing requirements:
-
-- SNOMED-CT: Requires a UMLS license. See SNOMED_LICENSE.md for details.
-- LOINC: Free registration required at loinc.org.
-- ICD-10-CM: Public domain (CDC/CMS).
-- CDT: Copyright ADA, used under fair use for interoperability.
-- RxNorm: Public domain (NLM/NIH).
-
-Users are responsible for ensuring they have appropriate licenses for any
-terminology data they load into the system.
