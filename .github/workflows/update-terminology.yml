@@ -8,6 +8,11 @@ on:
     - cron: '0 9 2 * *'
   workflow_dispatch:  # Manual trigger
 
+# create-pull-request needs to push a branch and open a PR with GITHUB_TOKEN.
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-cms:
     name: Update CMS ICD-10-CM
